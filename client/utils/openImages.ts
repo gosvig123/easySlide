@@ -13,21 +13,28 @@ const getImageFromOpenAi = async (
   sizeOfImage: string,
   apiKey: string
 ) => {
-  const response = await fetch("https://api.openai.com/v1/images/generations", {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-      organization: "Qf25exKC4RF5oBGT5JyaHIw2",
-    },
-    body: JSON.stringify({
-      prompt: searchQuery,
-      n: numberOfImages,
-      size: sizeOfImage,
-    }),
-  }).then((response) => response.json());
-  return response.data[0].url as string;
+  try {
+    const response = await fetch(
+      "https://api.openai.com/v1/images/generations",
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+          organization: "Qf25exKC4RF5oBGT5JyaHIw2",
+        },
+        body: JSON.stringify({
+          prompt: searchQuery,
+          n: numberOfImages,
+          size: sizeOfImage,
+        }),
+      }
+    ).then((response) => response.json());
+    return response.data[0].url as string;
+  } catch (error) {
+    error.log(error);
+  }
 };
 
 export default getImageFromOpenAi;
