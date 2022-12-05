@@ -1,46 +1,25 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model Presentation {
+  id     Int     @id @default(autoincrement())
+  name   String?
+  slides Slide[]
 }
 
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  role    Role     @default(USER)
-  posts   Post[]
-  profile Profile?
-}
-
-model Profile {
-  id     Int    @id @default(autoincrement())
-  bio    String
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int    @unique
-}
-
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  title     String
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-}
-
-model Category {
-  id   Int    @id @default(autoincrement())
-  name String
-}
-
-enum Role {
-  USER
-  ADMIN
+model Slide {
+  slideid        Int          @id @default(autoincrement())
+  slideText      String
+  slideimage     String
+  presentationid Int
+  presentation   Presentation @relation(fields: [presentationid], references: [id])
 }
