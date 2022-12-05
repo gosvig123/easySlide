@@ -8,10 +8,10 @@
 // 4: the API key (only the key value)
 
 const getImageFromOpenAi = async (
-  searchQuery,
-  numberOfImages,
-  sizeOfImage,
-  apiKey
+  searchQuery: string,
+  numberOfImages: number,
+  sizeOfImage: string,
+  apiKey: string
 ) => {
   const response = await fetch("https://api.openai.com/v1/images/generations", {
     method: "POST",
@@ -27,7 +27,7 @@ const getImageFromOpenAi = async (
       size: sizeOfImage,
     }),
   }).then((response) => response.json());
-  return response.data[0].url;
+  return response.data[0].url as string;
 };
 
 export default getImageFromOpenAi;
