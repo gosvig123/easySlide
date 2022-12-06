@@ -6,7 +6,7 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".client/dist/**"]
+      "outputs": ["build/**"]
     },
     "test": {
       "dependsOn": ["build"],
