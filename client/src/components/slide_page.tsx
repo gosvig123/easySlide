@@ -15,5 +15,5 @@ return(
         <Text>This is where the ai generate text goes. There will be close to a paragraf of test I'm guessing but different slides will have different text lengths, The box size here shouldn't be tto dependant on text length </Text>
     </Center>
 </Container>
-)
+);
 }
