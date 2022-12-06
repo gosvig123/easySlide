@@ -10,7 +10,9 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { Center, Square, Circle } from '@chakra-ui/react'
 import { Text } from '@chakra-ui/react'
 import { PhoneIcon, AddIcon, WarningIcon } from '@chakra-ui/icons'
-
+import Header from './components/Header'
+import Page from './components/slide_page'
+import SlidesList from './components/slides_list'
 // Simple login page that directs to this one, redirects to itself if not logged in
 // Clicking on a Slidepage takes you to Presantation Mode of that page, SlidePage but with keyboard arrow navigation
 // 
@@ -19,44 +21,14 @@ function App() {
     <ChakraProvider>
     <HStack>
       
-      <VStack>
-        <Center w='40px' h='40px' bg='tomato' color='white'>
-          <PhoneIcon />
-        </Center>
-        <Center w='40px' h='40px' bg='tomato' color='white'>
-          <PhoneIcon />
-        </Center>
-        <Center w='40px' h='40px' bg='tomato' color='white'>
-          <PhoneIcon />
-        </Center>
-        <Center w='40px' h='40px' bg='tomato' color='white'>
-          <PhoneIcon />
-        </Center>
-        <Center w='40px' h='40px' bg='tomato' color='white'>
-          <Box as='span' fontWeight='bold' fontSize='lg'>
-            +
-          </Box>
-        </Center>
-      </VStack>
-      <Container maxW='1050' bg='blue.600' centerContent>
+      <SlidesList/>
       
-        <Flex color='white'>
-          <Center w='100px' bg='green.500'>
-            <Text>Presentation Name</Text>
-          </Center>
-          <Input htmlSize={4} width='auto' />
-          <Input htmlSize={4} width='auto' />
-          <Button colorScheme='blue'>Present</Button>
-        </Flex>
-        <Container maxW='2xl' bg='red.600' centerContent> 
-          <Center w='100px' bg='green.500'>
-             <Text>Slide Title</Text>
-          </Center>
-          <Center w='300px' bg='yellow.500'>
-              <Text>This is where the ai generate text goes. There will be close to a paragraf of test I'm guessing but different slides will have different text lengths, The box size here shouldn't be tto dependant on text length </Text>
-          </Center>
-        </Container>
-      </Container>
+      <Container maxW='1050' bg='blue.600' centerContent>
+        <Header/>
+        <Page/>
+      </Container>  
+      
+      
     </HStack>
     </ChakraProvider>
 
