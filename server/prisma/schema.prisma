@@ -17,9 +17,9 @@ model Presentation {
 }
 
 model Slide {
-  slideid        Int          @id @default(autoincrement())
-  slideText      String
-  slideimage     String
+  id             String       @id @default(uuid())
+  text           String
+  image          String
   presentationid Int
   presentation   Presentation @relation(fields: [presentationid], references: [id])
 }
