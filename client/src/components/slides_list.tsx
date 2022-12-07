@@ -21,8 +21,7 @@ export default function SlidesList() {
   // create use state for slides
   const [slides, setSlides] = useState<any[]>([]);
 
-  // define type of an empty array use state example
-
+  // add slides into the array
   const addSlide = () => {
     setSlides([...slides, 1]);
     console.log(slides);
