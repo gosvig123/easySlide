@@ -30,8 +30,8 @@ app.post("/openimage", async (req: Request, res: Response) => {
   res.json(image);
 });
 
-app.listen(8080, () => {
-  console.log(`Example app listening on port 8080`);
+app.listen(8080 || process.env.PORT, () => {
+  console.log(`Example app listening on port ${process.env.PORT}`);
 });
 
 export default app;
