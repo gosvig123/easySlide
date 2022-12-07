@@ -12,7 +12,7 @@ function App() {
   return (
     <ChakraProvider>
       <SlidesList />
-      <Container maxW="1050" bg="blue.600" centerContent>
+      <Container display='flex' h="100vh" minW="100vw" w="100vw" bg="blue.600" centerContent>
         <Header />
         <Page />
       </Container>

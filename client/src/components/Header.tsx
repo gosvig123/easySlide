@@ -9,26 +9,26 @@ import { Text } from '@chakra-ui/react';
 
 
 export default function Header() {
-  const onEnterHandler = (e :any) => {
+  const onEnterHandler = (e: any) => {
     if (e.key === 'Enter') {
       console.log(e.target.value);
       //instead of console.log, send to openai 
-      }
     }
+  }
 
 
-  return(      
-    <Flex color='white'>
+  return (
+    <Flex color='white' mt={5} gap="25"   >
       <Center w='100px' bg='green.500'>
         <Text>Presentation Name</Text>
       </Center>
-      
-      <Input htmlSize={4} width='auto' placeholder='text prompt' onKeyDown={(e)=>onEnterHandler(e)} />
+
+      <Input htmlSize={4} width='auto' placeholder='text prompt' onKeyDown={(e) => onEnterHandler(e)} />
       {/* This one is for generating Text. */}
-      
-      <Input htmlSize={4} width='auto' placeholder='image prompt' onKeyDown={(e)=>onEnterHandler(e)} />
+
+      <Input htmlSize={4} width='auto' placeholder='image prompt' onKeyDown={(e) => onEnterHandler(e)} />
       {/* This one is for generating an Image. */}
-      
+
       <Button colorScheme='blue'>Present</Button>
       {/* Click this to enter presentation mode. */}
     </Flex>
