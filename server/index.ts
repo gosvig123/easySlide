@@ -20,12 +20,7 @@ app.get("/", (req: Request, res: Response) => {
 app.post("/openimage", async (req: Request, res: Response) => {
   console.log(req.body);
   const { prompt, n, size } = req.body;
-  const image = await getImageFromOpenAi(
-    prompt,
-    n,
-    size,
-    "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"
-  );
+  const image = await getImageFromOpenAi(prompt, n, size, process.env.API_KEY);
   console.log(image);
   res.json(image);
 });
