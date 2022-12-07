@@ -1,6 +1,11 @@
 /** @format */
-
+import fetch from "node-fetch";
+// Do this if using TYPESCRIPT
+// import { RequestInfo, RequestInit } from "node-fetch";
+// const fetch = (url: RequestInfo, init?: RequestInit) =>
+//   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 // this function calls the Text API from Open and returns the queried text
+
 // it takes 3 arguments
 // 1: the search query for text
 // 2: the number of characters to return
@@ -16,7 +21,6 @@ export const openAiText = async (
       "https://api.openai.com/v1/engines/davinci/completions",
       {
         method: "POST",
-        mode: "cors",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${apiKey}`,
@@ -31,7 +35,7 @@ export const openAiText = async (
           presence_penalty: 0.6,
         }),
       }
-    ).then((response) => response.json());
+    ).then((response: any) => response.json());
 
     return response.choices[0].text;
   } catch (error) {
@@ -51,13 +55,12 @@ export const getImageFromOpenAi = async (
   numberOfImages: number,
   sizeOfImage: string,
   apiKey: string
-) => {
+): Promise<any> => {
   try {
-    const response = await fetch(
+    const response: any = await fetch(
       "https://api.openai.com/v1/images/generations",
       {
         method: "POST",
-        mode: "cors",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${apiKey}`,
@@ -69,9 +72,9 @@ export const getImageFromOpenAi = async (
           size: sizeOfImage,
         }),
       }
-    ).then((response) => response.json());
-    return response.data[0].url as string;
+    ).then((response: any) => response.json());
+    return response.data[0].url;
   } catch (error) {
-    error.log(error);
+    console.error(error);
   }
 };
