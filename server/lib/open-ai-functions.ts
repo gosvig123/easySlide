@@ -1,10 +1,5 @@
 /** @format */
 import fetch from "node-fetch";
-// Do this if using TYPESCRIPT
-// import { RequestInfo, RequestInit } from "node-fetch";
-// const fetch = (url: RequestInfo, init?: RequestInit) =>
-//   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
-// this function calls the Text API from Open and returns the queried text
 
 // it takes 3 arguments
 // 1: the search query for text
