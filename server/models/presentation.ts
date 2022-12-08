@@ -23,6 +23,20 @@ class Presentation {
 
     return new Presentation(id, name, [])
   }
+
+  //GET ALL PRESENTATIONS
+  static async getAllPresentations(): Promise<Presentation[]> {
+
+    const presentations = await prisma.presentation.findMany()
+
+    //return array of presentations
+
+    return presentations.map(presentation => {
+      return new Presentation(presentation.id, presentation.name, [])
+    })
+  }
+
+
 }
 
 export default Presentation

@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.post('/presentations', PresentationController.createPresentation);
 
+router.get('/presentations', PresentationController.getAllPresentations);
+
 export default router;

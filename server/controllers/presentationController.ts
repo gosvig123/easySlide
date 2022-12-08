@@ -16,8 +16,23 @@ const PresentationController = {
     } else {
       return res.status(400).send("error no body")
     }
+  },
+
+
+  async getAllPresentations(req: Request, res: Response) {
+
+    // if presentation exists, return it
+    // else return error
+
+    if (req.body) {
+      const presentations = await Presentation.getAllPresentations()
+      return res.status(200).json(presentations)
+    } else {
+      return res.status(400).send("error no body")
+    }
   }
 }
+
 
 
 export default PresentationController
