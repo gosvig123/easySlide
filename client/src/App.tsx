@@ -11,30 +11,38 @@ import { type } from "@testing-library/user-event/dist/type";
 // Clicking on a Slidepage takes you to Presantation Mode of that page, SlidePage but with keyboard arrow navigation
 function App() {
 
+
+
   const dummyData: presentation = {
     id: 1234,
     name: "How to lose a world cup with the best player in history",
     slides: [
       {
-        id: "a3bcef codb9-95a9-456b-a3d6-5508273adf32",
+        id: "1",
         image: "https://oaidalleapiprodscus.blob.core.windows.net/…",
         text: "Wednesday… the best day"
       },
       {
-        id: "a3bcefb9-95a9-456b-a3d6-5508273adf32",
+        id: "2",
         image: "https://oaidalleapiprodscus.blob.core.windows.net/…",
         text: "Friday is also a good day"
       }
     ]
   }
 
-  const [testpresentation, setTestpresentation] = useState<presentation>(dummyData)
-  //rerender when testpresentation changes
-  React.useEffect(() => {
-    setTestpresentation(dummyData)
-  }, [testpresentation]);
-
-
+  const slides = [
+    {
+      id: '1',
+      image: "https://oaidalleapiprodscus.blob.core.windows.net/…",
+      text: "Wednesday… the best day"
+    },
+    {
+      id: "2",
+      image: "https://oaidalleapiprodscus.blob.core.windows.net/…",
+      text: "Friday is also a good day"
+    }
+  ];
+  const [slide, setSlide] = useState(slides[0]);
 
 
   interface presentation {
@@ -47,22 +55,30 @@ function App() {
     }[];
   }
 
+  interface propsInterface {
+    slide: any;
+    slides: any[];
+    onSelect: (selectedSlide: any) => void;
+  }
 
 
-  console.log("from app ts", testpresentation)
-
+  const props: propsInterface = {
+    slide: slide,
+    slides: slides,
+    onSelect: (selectedSlide: any) => setSlide(selectedSlide)
+  }
 
   return (
+
     <ChakraProvider>
-      <SlidesList {...testpresentation} />
+      <SlidesList {...props} />
       <Container display='flex' h="100vh" minW="100vw" w="100vw" bg="blue.600" centerContent>
         <Header />
-        <Page />
+        <Page {...props} />
       </Container>
     </ChakraProvider >
   );
 }
 
 export default App;
-
 
