@@ -8,11 +8,30 @@ import { Text } from '@chakra-ui/react';
 
 
 
-export default function Header() {
+export default function Header(props: any) {
+
+  const { slides, slide, onSelect, changeSlide } = props;
   const onEnterHandler = (e: any) => {
     if (e.key === 'Enter') {
-      console.log(e.target.value);
-      //instead of console.log, send to openai 
+
+      const input = e.target.value;
+      console.log('slide', slide)
+      console.log("slides", slides)
+
+
+
+
+
+      const updatedSlide = {
+        id: slide['id'],
+        text: slide['text'].concat(input),
+        image: slide['image']
+      }
+
+
+      onSelect(updatedSlide)
+
+      // console.log("2nd", slide);
     }
   }
 

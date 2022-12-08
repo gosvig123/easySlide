@@ -42,6 +42,9 @@ function App() {
       text: "Friday is also a good day"
     }
   ];
+
+  const [stateslides, setStateSlides] = useState([...slides]);
+
   const [slide, setSlide] = useState(slides[0]);
 
 
@@ -59,13 +62,17 @@ function App() {
     slide: any;
     slides: any[];
     onSelect: (selectedSlide: any) => void;
+    changeSlide: (slide: any) => void;
+
   }
+
 
 
   const props: propsInterface = {
     slide: slide,
-    slides: slides,
-    onSelect: (selectedSlide: any) => setSlide(selectedSlide)
+    slides: stateslides,
+    onSelect: (selectedSlide: any) => setSlide(selectedSlide),
+    changeSlide: (slide: any) => setStateSlides(slide)
   }
 
   return (
@@ -73,7 +80,7 @@ function App() {
     <ChakraProvider>
       <SlidesList {...props} />
       <Container display='flex' h="100vh" minW="100vw" w="100vw" bg="blue.600" centerContent>
-        <Header />
+        <Header {...props} />
         <Page {...props} />
       </Container>
     </ChakraProvider >
