@@ -49,6 +49,41 @@ class Presentation {
 
   }
 
+  //CREATE SLIDE
+  static async createSlide(id: number, body: any): Promise<Presentation> {
+
+    const presentation = await prisma.presentation.findUniqueOrThrow({
+      where: {
+        id: id
+      }
+    })
+
+    const { id: slideId, } = await prisma.slide.create({
+      data: {
+        id: body.id,
+        image: body.image,
+        text: body.text,
+        presentation: {
+          connect: {
+            id: presentation.id
+          }
+        }
+      }
+    })
+
+    const slides = await prisma.presentation.findUniqueOrThrow({
+      where: {
+        id: presentation.id
+      },
+      include: {
+        slides: true
+      }
+    })
+
+    return new Presentation(presentation.id, presentation.name, slides.slides)
+  }
+
+
 
 }
 

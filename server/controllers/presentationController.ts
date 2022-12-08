@@ -40,11 +40,6 @@ const PresentationController = {
   async getPresentationById(req: Request, res: Response) {
     const id = parseInt(req.params.id)
 
-    //parse id from string to number
-
-
-    console.log(id, "id")
-
     if (id) {
 
       const presentation: presentation | null = await Presentation.getPresentationById(id)
@@ -52,11 +47,21 @@ const PresentationController = {
     } else {
       return res.status(400).send("error no body")
     }
+  },
+
+  async createSlide(req: Request, res: Response) {
+    const id = parseInt(req.params.id)
+    const body = req.body
+
+    if (id && body) {
+      const slide = await Presentation.createSlide(id, body)
+      return res.status(201).json(slide)
+    } else {
+      return res.status(400).send("error no body")
+    }
+
   }
-
 }
-
-
 
 export default PresentationController
 
