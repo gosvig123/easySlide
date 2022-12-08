@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "dotenv-cli": "^6.0.0"
+    "dotenv-cli": "^6.0.0",
+    "node-fetch": "^3.3.0"
   }
 }

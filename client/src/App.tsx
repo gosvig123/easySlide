@@ -1,5 +1,5 @@
 /** @format */
-
+import { useState } from "react";
 import * as React from "react";
 import { Container } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -11,7 +11,7 @@ import { type } from "@testing-library/user-event/dist/type";
 // Clicking on a Slidepage takes you to Presantation Mode of that page, SlidePage but with keyboard arrow navigation
 function App() {
 
-  const testpresentation: presentation = {
+  const dummyData: presentation = {
     id: 1234,
     name: "How to lose a world cup with the best player in history",
     slides: [
@@ -28,6 +28,14 @@ function App() {
     ]
   }
 
+  const [testpresentation, setTestpresentation] = useState<presentation>(dummyData)
+  //rerender when testpresentation changes
+  React.useEffect(() => {
+    setTestpresentation(dummyData)
+  }, [testpresentation]);
+
+
+
 
   interface presentation {
     id: number;
@@ -39,7 +47,10 @@ function App() {
     }[];
   }
 
+
+
   console.log("from app ts", testpresentation)
+
 
   return (
     <ChakraProvider>

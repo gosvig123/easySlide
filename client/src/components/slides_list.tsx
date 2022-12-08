@@ -17,7 +17,7 @@ export default function SlidesList(testpresentation: any) {
 
   // function useeffect to get slides from props after render
   React.useEffect(() => {
-
+    testpresentation = "whatever you want it to be :)"
     console.log(testpresentation)
   }, [testpresentation]);
 
