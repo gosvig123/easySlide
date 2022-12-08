@@ -1,7 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import router from './router';
-import json from 'body-parser';
 import cors from 'cors';
 
 

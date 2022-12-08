@@ -1,7 +1,28 @@
-import { Console } from "console"
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
-function createNewPresentation() {
-  console.log('model presentation')
+type presentationBody = {
+  name: string
 }
 
-export default createNewPresentation
+class Presentation {
+  constructor(
+    public id: number,
+    public name: string,
+    public slides: []
+  ) { }
+
+  // CREATE PRESENTATION
+  static async createPresentation(body: presentationBody): Promise<Presentation> {
+
+    const { id, name } = await prisma.presentation.create({
+      data: {
+        name: body.name
+      },
+    })
+
+    return new Presentation(id, name, [])
+  }
+}
+
+export default Presentation
