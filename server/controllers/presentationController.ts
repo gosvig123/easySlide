@@ -3,6 +3,11 @@ import Presentation from '../models/presentation';
 
 
 //create a controller that returns a presentation
+type presentation = {
+  id: number,
+  name: string,
+  slides: []
+}
 
 const PresentationController = {
 
@@ -30,7 +35,25 @@ const PresentationController = {
     } else {
       return res.status(400).send("error no body")
     }
+  },
+
+  async getPresentationById(req: Request, res: Response) {
+    const id = parseInt(req.params.id)
+
+    //parse id from string to number
+
+
+    console.log(id, "id")
+
+    if (id) {
+
+      const presentation: presentation | null = await Presentation.getPresentationById(id)
+      return res.status(200).json(presentation)
+    } else {
+      return res.status(400).send("error no body")
+    }
   }
+
 }
 
 

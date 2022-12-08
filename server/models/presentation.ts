@@ -36,6 +36,19 @@ class Presentation {
     })
   }
 
+  //GET PRESENTATION BY ID
+  static async getPresentationById(id: number): Promise<Presentation> {
+
+    const presentation = await prisma.presentation.findUniqueOrThrow({
+      where: {
+        id: id
+      }
+    })
+    return new Presentation(presentation.id, presentation.name, [])
+
+
+  }
+
 
 }
 

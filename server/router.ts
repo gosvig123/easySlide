@@ -8,4 +8,6 @@ router.post('/presentations', PresentationController.createPresentation);
 
 router.get('/presentations', PresentationController.getAllPresentations);
 
+router.get('/presentations/:id', PresentationController.getPresentationById);
+
 export default router;
