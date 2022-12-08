@@ -2,7 +2,7 @@
 
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import { getImageFromOpenAi } from "./lib/open-ai-functions";
+import { getImageFromOpenAi, openAiText } from "./lib/open-ai-functions";
 const router = express.Router();
 const PORT = process.env.PORT;
 
@@ -23,6 +23,19 @@ app.post("/openimage", async (req: Request, res: Response) => {
   const image = await getImageFromOpenAi(prompt, n, size, process.env.API_KEY);
   console.log(image);
   res.json(image);
+});
+
+
+app.post("/opentext", async (req: Request, res: Response) => {
+  console.log(req.body);
+  const { searchQuery, textLength } = req.body;
+  const text = await openAiText(
+    searchQuery,
+    textLength,
+    process.env.API_KEY
+  );
+  console.log(text);
+  res.json(text);
 });
 
 app.listen(8080 || process.env.PORT, () => {
