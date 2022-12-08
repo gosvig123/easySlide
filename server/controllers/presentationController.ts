@@ -8,7 +8,7 @@ import Presentation from '../models/presentation';
 const PresentationController = {
 
   async createPresentation(req: Request, res: Response) {
-
+    console.log(req.body, "req.body")
     const body = req.body
 
     if (body) {
