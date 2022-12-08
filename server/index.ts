@@ -42,15 +42,8 @@ app.post("/opentext", async (req: Request, res: Response) => {
   res.json(text);
 });
 
-app.listen(8080 || process.env.PORT, () => {
-  console.log(`Example app listening on port ${process.env.PORT}`);
+app.listen(8080 || PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
+});
 
-
-
-
-
-  app.listen(8080 || PORT, () => {
-    console.log(`Example app listening on port ${PORT}`);
-  });
-
-  export default app;
+export default app;
