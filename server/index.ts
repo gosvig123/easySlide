@@ -4,7 +4,7 @@ import router from './router';
 import cors from 'cors';
 
 
-import { getImageFromOpenAi } from "./lib/open-ai-functions";
+import { getImageFromOpenAi, openAiText } from "./lib/open-ai-functions";
 
 
 dotenv.config();
@@ -30,8 +30,27 @@ app.post("/openimage", async (req: Request, res: Response) => {
   res.json(image);
 });
 
-app.listen(8080 || PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+app.post("/opentext", async (req: Request, res: Response) => {
+  console.log(req.body);
+  const { searchQuery, textLength } = req.body;
+  const text = await openAiText(
+    searchQuery,
+    textLength,
+    process.env.API_KEY
+  );
+  console.log(text);
+  res.json(text);
 });
 
-export default app;
+app.listen(8080 || process.env.PORT, () => {
+  console.log(`Example app listening on port ${process.env.PORT}`);
+
+
+
+
+
+  app.listen(8080 || PORT, () => {
+    console.log(`Example app listening on port ${PORT}`);
+  });
+
+  export default app;
