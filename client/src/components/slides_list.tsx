@@ -6,13 +6,20 @@ import { Center } from "@chakra-ui/react";
 import { PhoneIcon } from "@chakra-ui/icons";
 
 
-export default function SlidesList() {
+export default function SlidesList(testpresentation: any) {
   // create a slides class
 
   // create a slide object containing id, title, description, image, and link
 
   // create use state for slides
   const [slides, setSlides] = useState<any[]>([]);
+
+
+  // function useeffect to get slides from props after render
+  React.useEffect(() => {
+
+    console.log(testpresentation)
+  }, [testpresentation]);
 
   // define type of an empty array use state example
 
