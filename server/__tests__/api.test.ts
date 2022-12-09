@@ -9,9 +9,7 @@ import {
 import { Server } from "http";
 import axios, { AxiosInstance } from "axios";
 import startServer from "../app";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../lib/prisma";
 
 let server: Server;
 let api: AxiosInstance;

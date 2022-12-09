@@ -1,5 +1,5 @@
-import { PrismaClient, Slide, Presentation } from "@prisma/client";
-const prisma = new PrismaClient();
+import { Presentation } from "@prisma/client";
+import prisma from "../lib/prisma";
 
 type presentationBody = {
   name: string;
