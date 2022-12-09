@@ -13,6 +13,11 @@
       "outputs": [],
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", "test/**/*.tsx"]
     },
+    "test:setup": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": []
+    },
     "deploy": {
       "dependsOn": ["build", "test"],
       "outputs": []

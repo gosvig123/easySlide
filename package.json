@@ -9,6 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
+    "test:setup": "turbo run test:setup",
     "dev": "dotenv -- turbo run dev"
   },
   "private": true,

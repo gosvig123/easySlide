@@ -1,0 +1,33 @@
+name: 'Test & Build'
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build-and-test:
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/smartslides_test
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: smartslides_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '18'
+      - run: yarn
+      - run: yarn build
+      - run: yarn test:setup
+      - run: yarn test
