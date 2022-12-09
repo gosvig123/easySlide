@@ -1,17 +1,18 @@
-import express, { Express, Request, Response } from 'express';
-import dotenv from 'dotenv';
-import router from './router';
-import cors from 'cors';
+/** @format */
+
+import express, { Express, Request, Response } from "express";
+import dotenv from "dotenv";
+import router from "./router";
+import cors from "cors";
 import { Server } from "http";
 import { getImageFromOpenAi, openAiText } from "./lib/open-ai-functions";
 
 dotenv.config();
 
-
 function startServer(): Promise<Server> {
   const PORT = process.env.server_port;
 
-  const openAIkey: string | undefined = process.env.API_KEY
+  const openAIkey: string | undefined = process.env.API_KEY;
 
   if (!openAIkey) {
     throw new Error("No API key found");
