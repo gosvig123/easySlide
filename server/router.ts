@@ -9,4 +9,11 @@ router.get("/presentations", PresentationController.getAllPresentations);
 
 router.get("/presentations/:id", PresentationController.getPresentationById);
 
+router.post("/presentations/:id/slides", PresentationController.createSlide);
+
+router.post(
+  "/presentations/:id/slides/:slideId/images",
+  PresentationController.createImage
+);
+
 export default router;

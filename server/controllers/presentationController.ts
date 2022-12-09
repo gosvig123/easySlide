@@ -5,7 +5,7 @@ import {
   getAllPresentations,
   getPresentationById,
 } from "../models/presentationModel";
-import { createSlide } from "../models/slidesModel";
+import { createImage, createSlide } from "../models/slidesModel";
 
 const PresentationController = {
   async createPresentation(req: Request, res: Response) {
@@ -49,6 +49,18 @@ const PresentationController = {
     if (id) {
       const slide = await createSlide(id, req.body);
       return res.status(201).json(slide);
+    } else {
+      return res.status(400).send("error no id");
+    }
+  },
+
+  async createImage(req: Request, res: Response) {
+    const id = parseInt(req.params.id);
+    const slideId = req.params.slideId;
+
+    if (id && slideId) {
+      const image = await createImage(id, slideId, req.body);
+      return res.status(201).json(image);
     } else {
       return res.status(400).send("error no id");
     }

@@ -22,5 +22,8 @@ export async function getAllPresentations(): Promise<Presentation[]> {
 export async function getPresentationById(id: number): Promise<Presentation> {
   return await prisma.presentation.findUniqueOrThrow({
     where: { id },
+    include: {
+      slides: true,
+    },
   });
 }

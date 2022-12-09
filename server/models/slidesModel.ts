@@ -35,3 +35,26 @@ export async function createSlide(
 
   return presentation;
 }
+
+export async function createImage(
+  id: number,
+  slideId: string,
+  body: { image: string }
+): Promise<Slide> {
+  const slide = await prisma.slide.findUniqueOrThrow({
+    where: { id: slideId },
+  });
+
+  // await prisma.image.create({
+  //   data: {
+  //     image: body.image,
+  //     slide: {
+  //       connect: {
+  //         id: slide.id,
+  //       },
+  // },
+  // },
+  // });
+
+  return slide;
+}
