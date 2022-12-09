@@ -14,8 +14,6 @@ import prisma from "../lib/prisma";
 let server: Server;
 let api: AxiosInstance;
 
-jest.setTimeout(60000);
-
 beforeAll(async () => {
   server = await startServer();
   const addressInfo = server.address();
