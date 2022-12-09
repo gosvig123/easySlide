@@ -1,6 +1,6 @@
 node_modules/
 .env
-
+coverage/
 yarn-debug.log*
 yarn-error.log*
 /dist
