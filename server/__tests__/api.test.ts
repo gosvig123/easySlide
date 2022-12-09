@@ -1,4 +1,4 @@
-import { describe, expect, test, beforeAll, afterAll } from '@jest/globals';
+import { jest, describe, expect, test, beforeAll, afterAll } from '@jest/globals';
 import { Server } from 'http';
 import axios, { AxiosInstance } from "axios";
 import startServer from '../app'
@@ -18,11 +18,20 @@ beforeAll(async () => {
   api = axios.create({
     baseURL: `http://localhost:${addressInfo.port}`,
   });
+  console.log(api)
 })
 
+afterAll(() => {
+  server.close()
+})
 
-describe('first test', () => {
-  test('first test', () => {
-    expect("1").toBe("1")
+describe('API/create presentation', () => {
+  test('create presentation', async () => {
+    const res = await api.post('/presentations', {
+      name: 'test presentation',
+    })
+    expect(res.status).toBe(201)
+    expect(res.data.name).toBe('test presentation')
+    expect(res.data.slides).toEqual([])
   })
 })
