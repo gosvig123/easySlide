@@ -6,14 +6,20 @@ import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
+import { create } from "domain";
 
 export default function Header(props: any) {
-  const { slides, slide, onSelect, changeSlide, createPresentation } = props;
+  const {
+    slides,
+    slide,
+    onSelect,
+    changeSlide,
+    createPresentation,
+    presentationDetails,
+  } = props;
   const onEnterHandler = (e: any) => {
     if (e.key === "Enter") {
       const input = e.target.value;
-      console.log("slide", slide);
-      console.log("slides", slides);
 
       const updatedSlide = {
         id: slide["id"],
