@@ -45,16 +45,5 @@ export async function createImage(
     where: { id: slideId },
   });
 
-  // await prisma.image.create({
-  //   data: {
-  //     image: body.image,
-  //     slide: {
-  //       connect: {
-  //         id: slide.id,
-  //       },
-  // },
-  // },
-  // });
-
   return slide;
 }
