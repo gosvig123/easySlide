@@ -9,7 +9,6 @@ import { PhoneIcon } from "@chakra-ui/icons";
 export default function SlidesList(props: any) {
   const { slides, slide, onSelect } = props;
 
-  console.log(slide)
 
   // create use state for slides
   // const [slides, setSlides] = useState<any[]>([]);
@@ -27,7 +26,6 @@ export default function SlidesList(props: any) {
   //   setSlides([...slides, 1]);
   //   console.log(slides);
   // };
-  console.log(slides[0]['id'])
   return (
     <Flex
       display="flex"
