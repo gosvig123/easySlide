@@ -18,7 +18,6 @@ beforeAll(async () => {
   api = axios.create({
     baseURL: `http://localhost:${addressInfo.port}`,
   });
-  console.log(api)
 })
 
 afterAll(() => {
