@@ -1,14 +1,24 @@
-import { jest, describe, expect, test, beforeAll, afterAll } from '@jest/globals';
-import { Server } from 'http';
+import {
+  jest,
+  describe,
+  expect,
+  test,
+  beforeAll,
+  afterAll,
+} from "@jest/globals";
+import { Server } from "http";
 import axios, { AxiosInstance } from "axios";
-import startServer from '../app'
+import startServer from "../app";
+import { PrismaClient } from "@prisma/client";
 
-let server: Server
-let api: AxiosInstance
+const prisma = new PrismaClient();
+
+let server: Server;
+let api: AxiosInstance;
 
 beforeAll(async () => {
-  server = await startServer()
-  const addressInfo = server.address()
+  server = await startServer();
+  const addressInfo = server.address();
   if (typeof addressInfo === "string" || addressInfo === null) {
     console.error(
       "Port is null. This is possibly because the server is not running."
@@ -18,19 +28,63 @@ beforeAll(async () => {
   api = axios.create({
     baseURL: `http://localhost:${addressInfo.port}`,
   });
-})
+});
 
 afterAll(() => {
-  server.close()
-})
+  const deletePresentations = prisma.presentation.deleteMany();
 
-describe('API/create presentation', () => {
-  test('create presentation', async () => {
-    const res = await api.post('/presentations', {
-      name: 'test presentation',
+  Promise.all([deletePresentations])
+    .then(() => {
+      prisma.$disconnect();
     })
-    expect(res.status).toBe(201)
-    expect(res.data.name).toBe('test presentation')
-    expect(res.data.slides).toEqual([])
-  })
-})
+    .then(() => {
+      server.close();
+    });
+});
+
+describe("API", () => {
+  describe("/presentation", () => {
+    test("create presentation", async () => {
+      const res = await api.post("/presentations", {
+        name: "test presentation",
+      });
+
+      expect(res.status).toBe(201);
+      expect(res.data.name).toBe("test presentation");
+      expect(res.data.slides).toEqual([]);
+    });
+
+    test("get all presentations", async () => {
+      const res = await api.get("/presentations");
+      const result = res.data[0];
+
+      expect(res.status).toBe(200);
+      expect(result.id).toEqual(expect.any(Number));
+      expect(result).toEqual(
+        expect.objectContaining({
+          name: "test presentation",
+          slides: [],
+        })
+      );
+    });
+
+    test("get presentation by id", async () => {
+      const presentation = await api.post("/presentations", {
+        name: "test presentation",
+      });
+
+      const id = presentation.data.id;
+      const res = await api.get(`/presentations/${id}`);
+
+      expect(res.status).toBe(200);
+      expect(res.data.id).toEqual(id);
+      expect(res.data).toEqual(
+        expect.objectContaining({
+          id: id,
+          name: "test presentation",
+          slides: [],
+        })
+      );
+    });
+  });
+});
