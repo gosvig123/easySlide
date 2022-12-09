@@ -18,8 +18,8 @@ model Presentation {
 
 model Slide {
   id             String       @id @default(uuid())
-  text           String
-  image          String
+  text           String?
+  image          String?
   presentationid Int
   presentation   Presentation @relation(fields: [presentationid], references: [id])
 }

@@ -1,13 +1,9 @@
+import { Presentation } from '@prisma/client';
 import { Request, Response } from 'express';
-import Presentation from '../models/presentation';
+import { createPresentation, getAllPresentations, getPresentationById } from '../models/presentationModel';
+import { createSlide } from '../models/slidesModel';
 
 
-//create a controller that returns a presentation
-type presentation = {
-  id: number,
-  name: string,
-  slides: []
-}
 
 const PresentationController = {
 
@@ -16,7 +12,7 @@ const PresentationController = {
     const body = req.body
 
     if (body) {
-      const presentation = await Presentation.createPresentation(body)
+      const presentation = await createPresentation(body)
       return res.status(201).json(presentation)
     } else {
       return res.status(400).send("error no body")
@@ -30,7 +26,7 @@ const PresentationController = {
     // else return error
 
     if (req.body) {
-      const presentations = await Presentation.getAllPresentations()
+      const presentations = await getAllPresentations()
       return res.status(200).json(presentations)
     } else {
       return res.status(400).send("error no body")
@@ -42,7 +38,7 @@ const PresentationController = {
 
     if (id) {
 
-      const presentation: presentation | null = await Presentation.getPresentationById(id)
+      const presentation: Presentation | null = await getPresentationById(id)
       return res.status(200).json(presentation)
     } else {
       return res.status(400).send("error no body")
@@ -51,13 +47,12 @@ const PresentationController = {
 
   async createSlide(req: Request, res: Response) {
     const id = parseInt(req.params.id)
-    const body = req.body
 
-    if (id && body) {
-      const slide = await Presentation.createSlide(id, body)
+    if (id) {
+      const slide = await createSlide(id, req.body)
       return res.status(201).json(slide)
     } else {
-      return res.status(400).send("error no body")
+      return res.status(400).send("error no id")
     }
 
   }
