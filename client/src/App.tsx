@@ -6,7 +6,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Header from "./components/Header";
 import Page from "./components/slide_page";
 import SlidesList from "./components/slides_list";
-import { type } from "@testing-library/user-event/dist/type";
 // Simple login page that directs to this one, redirects to itself if not logged in
 // Clicking on a Slidepage takes you to Presantation Mode of that page, SlidePage but with keyboard arrow navigation
 function App() {
@@ -27,7 +26,8 @@ function App() {
 
   const [slide, setSlide] = useState(slides[0]);
 
-  const [presentationDetails, setPresentationDetails] = useState({});
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setPresentationDetails] = useState({});
 
   interface propsInterface {
     slide: any;

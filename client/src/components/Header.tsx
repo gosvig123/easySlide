@@ -1,21 +1,15 @@
-/** @format */
-
 import React, { useState } from "react";
 import { Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-import { create } from "domain";
 
 export default function Header(props: any) {
   const {
-    slides,
     slide,
     onSelect,
-    changeSlide,
     createPresentation,
-    presentationDetails,
   } = props;
   const onEnterHandler = (e: any) => {
     if (e.key === "Enter") {
