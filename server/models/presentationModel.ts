@@ -5,7 +5,6 @@ type presentationBody = {
   name: string;
 };
 
-
 export async function createPresentation(
   body: presentationBody
 ): Promise<Presentation> {
@@ -24,8 +23,4 @@ export async function getPresentationById(id: number): Promise<Presentation> {
   return await prisma.presentation.findUniqueOrThrow({
     where: { id },
   });
-
 }
-
-
-

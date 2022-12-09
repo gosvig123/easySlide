@@ -51,7 +51,6 @@ describe("API", () => {
 
       expect(res.status).toBe(201);
       expect(res.data.name).toBe("test presentation");
-      expect(res.data.slides).toEqual([]);
     });
 
     test("get all presentations", async () => {
@@ -63,7 +62,6 @@ describe("API", () => {
       expect(result).toEqual(
         expect.objectContaining({
           name: "test presentation",
-          slides: [],
         })
       );
     });
@@ -82,7 +80,6 @@ describe("API", () => {
         expect.objectContaining({
           id: id,
           name: "test presentation",
-          slides: [],
         })
       );
     });
