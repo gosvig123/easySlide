@@ -1,4 +1,4 @@
-import { Presentation } from "@prisma/client";
+import { Presentation, Slide } from "@prisma/client";
 import prisma from "../lib/prisma";
 
 export async function createSlide(
