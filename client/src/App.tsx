@@ -58,6 +58,8 @@ function App() {
     }[];
   }
 
+
+
   interface propsInterface {
     slide: any;
     slides: any[];

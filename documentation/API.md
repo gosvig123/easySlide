@@ -170,3 +170,22 @@ Status 400 if already exists.
 
 }
 ```
+
+## `POST /openimage` - sending back the generated image as per requested
+
+
+```json
+{
+  "prompt": "A cute baby sea otter",
+  "n": 1,
+  "size": "1024x1024"
+}
+
+## `POST /opentext` - sending back the generated text as per requested
+
+```json
+{
+  "searchQuery": "A cute baby sea otter",
+  "textLength": 5,
+}
+
