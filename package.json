@@ -8,10 +8,14 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "test": "turbo run test",
-    "test:setup": "turbo run test:setup",
-    "dev": "docker-compose up -d && dotenv -- turbo run dev",
-    "dev:setup": "docker-compose up -d && turbo run dev:setup && docker-compose down"
+    "test": "yarn test:docker && turbo run test",
+    "test:setup": "yarn test:docker && turbo run test:setup",
+    "test:docker": "docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d",
+    "ci": "turbo run test",
+    "ci:setup": "turbo run test:setup",
+    "dev": "yarn dev:docker && dotenv -- turbo run dev",
+    "dev:setup": "yarn dev:docker && turbo run dev:setup && docker-compose down",
+    "dev:docker": "docker-compose up -d"
   },
   "private": true,
   "dependencies": {

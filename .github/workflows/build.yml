@@ -1,4 +1,4 @@
-name: 'Test & Build'
+name: "Test & Build"
 on:
   pull_request:
     branches:
@@ -26,8 +26,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '18'
+          node-version: "18"
       - run: yarn
       - run: yarn build
-      - run: yarn test:setup
-      - run: yarn test
+      - run: yarn ci:setup
+      - run: yarn ci
