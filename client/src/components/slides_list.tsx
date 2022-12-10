@@ -16,12 +16,6 @@ export default function SlidesList(props: any) {
   //   console.log(testpresentation)
   // }, [testpresentation]);
 
-  // define type of an empty array use state example
-
-  // const addSlide = () => {
-  //   setSlides([...slides, 1]);
-  //   console.log(slides);
-  // };
   return (
     <Flex
       display="flex"

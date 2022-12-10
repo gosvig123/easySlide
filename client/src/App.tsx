@@ -27,14 +27,15 @@ function App() {
   const [slide, setSlide] = useState(slides[0]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setPresentationDetails] = useState({});
+  const [presentationDetails, setPresentationDetails] = useState({ a: 1 });
 
   interface propsInterface {
     slide: any;
     slides: any[];
     onSelect: (selectedSlide: any) => void;
     changeSlide: (slide: any) => void;
-    createPresentation: (slide: any) => void;
+    presentationState: any;
+    updatePresentationState: (newPresentationdetails: any) => void;
   }
 
   const props: propsInterface = {
@@ -42,7 +43,10 @@ function App() {
     slides: stateslides,
     onSelect: (selectedSlide: any) => setSlide(selectedSlide),
     changeSlide: (slide: any) => setStateSlides(slide),
-    createPresentation: (slide: any) => setPresentationDetails(slide),
+    presentationState: presentationDetails,
+    updatePresentationState: (newPresentationdetails: any) => {
+      setPresentationDetails(newPresentationdetails);
+    },
   };
 
   return (

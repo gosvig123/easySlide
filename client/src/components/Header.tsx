@@ -1,16 +1,21 @@
+/** @format */
+
 import React, { useState } from "react";
 import { Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
+import {
+  createPresentation,
+  getPresentation,
+  createSlide,
+  // createImage,
+  // createText,
+} from "./requests";
 
 export default function Header(props: any) {
-  const {
-    slide,
-    onSelect,
-    createPresentation,
-  } = props;
+  const { slide, onSelect, updatePresentationState, presentationState } = props;
   const onEnterHandler = (e: any) => {
     if (e.key === "Enter") {
       const input = e.target.value;
@@ -37,22 +42,19 @@ export default function Header(props: any) {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    createPresentation(presentationName);
-
-    const newPresentationData: any = await fetch(
-      "http://localhost:8080/presentations",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: presentationName,
-        }),
-      }
-    ).then((data) =>
-      console.log("newPresentationData", newPresentationData.json())
+    const requestToCreatePresentation = await createPresentation(
+      presentationName
     );
+    const { id } = requestToCreatePresentation;
+
+    createSlide(id);
+    const getNewPresentation = await getPresentation(id);
+    updatePresentationState(getNewPresentation);
+    console.log(getNewPresentation);
+    console.log(presentationState);
+
+    console.log(presentationState);
+
     return;
   };
   return (
