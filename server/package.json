@@ -8,9 +8,10 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon index.ts",
     "test:setup": "dotenv -e .env.test prisma migrate deploy",
-    "test": "dotenv -e .env.test jest"
+    "test": "dotenv -e .env.test jest",
+    "dev": "nodemon index.ts",
+    "dev:setup": "prisma migrate reset --force"
   },
   "keywords": [],
   "author": "",

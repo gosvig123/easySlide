@@ -10,7 +10,8 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "test:setup": "turbo run test:setup",
-    "dev": "dotenv -- turbo run dev"
+    "dev": "docker-compose up -d && dotenv -- turbo run dev",
+    "dev:setup": "docker-compose up -d && turbo run dev:setup && docker-compose down"
   },
   "private": true,
   "dependencies": {
