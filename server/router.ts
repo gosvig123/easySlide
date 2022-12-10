@@ -16,4 +16,9 @@ router.post(
   PresentationController.createImage
 );
 
+router.post(
+  "presentations/:id/slides/:slideId/text",
+  PresentationController.createText
+);
+
 export default router;
