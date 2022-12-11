@@ -1,6 +1,6 @@
 /** @format */
 
-export const getPresentation = async (id: string) => {
+export const getPresentation: any = async (id: string) => {
   const updatedPresentation = await fetch(
     `http://localhost:8080/presentations/${id}`
   ).then((res) => res.json());
@@ -22,7 +22,7 @@ export const createPresentation: any = async (presentationName: string) => {
   return newPresentation;
 };
 
-export const createSlide = async (presentationId: string) => {
+export const createSlide: any = async (presentationId: string) => {
   const newSlide = await fetch(
     `http://localhost:8080/presentations/${presentationId}/slides`,
     {
@@ -36,12 +36,12 @@ export const createSlide = async (presentationId: string) => {
   return newSlide;
 };
 
-export const createImage = async (
+export const createImage: any = async (
   presentationId: string,
   slideId: string,
   image: string
 ) => {
-  const newImage = await fetch(
+  const newImage: any = await fetch(
     `http://localhost:8080/presentations/${presentationId}/slides/${slideId}/images`,
     {
       method: "POST",
@@ -55,7 +55,7 @@ export const createImage = async (
   return newImage;
 };
 
-export const createText = async (
+export const createText: any = async (
   presentationId: string,
   slideId: string,
   text: string

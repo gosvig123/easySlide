@@ -28,7 +28,7 @@ export default function Header(props: any) {
 
       onSelect(updatedSlide);
 
-      // console.log("2nd", slide);
+      return;
     }
   };
 
@@ -47,13 +47,13 @@ export default function Header(props: any) {
     );
     const { id } = requestToCreatePresentation;
 
-    createSlide(id);
+    await createSlide(id);
     const getNewPresentation = await getPresentation(id);
-    updatePresentationState(getNewPresentation);
-    console.log(getNewPresentation);
-    console.log(presentationState);
+    updatePresentationState(await getNewPresentation);
+    console.log(await getNewPresentation);
+    console.log(await presentationState);
 
-    console.log(presentationState);
+    console.log(await presentationState);
 
     return;
   };

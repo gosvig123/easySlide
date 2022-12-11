@@ -1,3 +1,5 @@
+/** @format */
+
 import { Center, Container, Text } from "@chakra-ui/react";
 import React from "react";
 import dummyImage from "./dummyimage";
@@ -5,7 +7,6 @@ import dummyImage from "./dummyimage";
 export default function Page(props: any) {
   const { slide } = props;
   const { text } = slide;
-  console.log(slide);
   return (
     <Container
       flex={1}

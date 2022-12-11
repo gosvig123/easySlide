@@ -3,9 +3,12 @@ import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import { PhoneIcon } from "@chakra-ui/icons";
+import { createSlide, getPresentation } from "./requests";
 
 export default function SlidesList(props: any) {
-  const { slides, onSelect } = props;
+  const { onSelect, updatePresentationState, presentationState } = props;
+
+  const { slides } = presentationState;
 
   // create use state for slides
   // const [slides, setSlides] = useState<any[]>([]);
@@ -15,6 +18,18 @@ export default function SlidesList(props: any) {
   //   testpresentation = "whatever you want it to be :)"
   //   console.log(testpresentation)
   // }, [testpresentation]);
+
+  const addSlide = async () => {
+    console.log("presentationState.id", presentationState.id);
+
+    createSlide(presentationState.id);
+    const updatedPresentation = await getPresentation(presentationState.id);
+    console.log("updated data from db", updatedPresentation);
+    updatePresentationState(await updatedPresentation);
+    console.log("updated presentationstate:", await presentationState);
+    console.log(slides);
+    return;
+  };
 
   return (
     <Flex
@@ -76,12 +91,7 @@ export default function SlidesList(props: any) {
         bg="tomato"
         color="white"
       >
-        <Box
-          as="span"
-          fontWeight="bold"
-          fontSize="lg"
-          // onClick={addSlide}
-        >
+        <Box as="span" fontWeight="bold" fontSize="lg" onClick={addSlide}>
           +
         </Box>
       </Center>
