@@ -11,7 +11,7 @@ import {
   getPresentation,
   createSlide,
   // generateImage,
-  // createImage,
+  // createImage,/
   createText,
 } from "./requests";
 
