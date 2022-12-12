@@ -6,7 +6,7 @@ import { PhoneIcon } from "@chakra-ui/icons";
 import { createSlide, getPresentation } from "./requests";
 
 export default function SlidesList(props: any) {
-  const { onSelect, updatePresentationState, presentationState } = props;
+  const { onSelect, updatePresentationState, presentationState, slide } = props;
 
   const { slides } = presentationState;
 
