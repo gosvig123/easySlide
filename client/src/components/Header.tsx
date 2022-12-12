@@ -10,7 +10,7 @@ import {
   createPresentation,
   getPresentation,
   createSlide,
-  generateImage,
+  // generateImage,
   // createImage,
   createText,
 } from "./requests";
