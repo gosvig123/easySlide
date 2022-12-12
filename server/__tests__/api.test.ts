@@ -28,8 +28,8 @@ beforeAll(async () => {
   });
 });
 
-afterAll(() => {
-  const deleteSlides = prisma.slide.deleteMany();
+afterAll(async () => {
+  const deleteSlides = await prisma.slide.deleteMany();
   const deletePresentations = prisma.presentation.deleteMany();
 
   Promise.all([deleteSlides, deletePresentations])
