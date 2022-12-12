@@ -22,7 +22,6 @@ export default function Header(props: any) {
   const onEnterHandler = async (e: any) => {
     if (e.key === "Enter") {
       const input = e.target.value;
-      const aiPic = await generateImage(input, 1, "1024x1024");
 
       await createText(presentationState.id, slide.id, input);
       const updatedPresentation = await getPresentation(presentationState.id);
