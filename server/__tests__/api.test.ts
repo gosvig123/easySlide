@@ -30,8 +30,8 @@ beforeAll(async () => {
 
 afterAll(() => {
   const deletePresentations = prisma.presentation.deleteMany();
-
-  Promise.all([deletePresentations])
+  const deleteSlides = prisma.slide.deleteMany();
+  Promise.all([deletePresentations, deleteSlides])
     .then(() => {
       prisma.$disconnect();
     })
@@ -80,6 +80,80 @@ describe("API", () => {
           name: "test presentation",
         })
       );
+    });
+  });
+
+  describe("/slides", () => {
+    test("create slide", async () => {
+      const presentation = await api.post("/presentations", {
+        name: "test presentation",
+      });
+
+      const id = presentation.data.id;
+      const res = await api.post(`/presentations/${id}/slides`, {
+        title: "test slide",
+      });
+
+      expect(res.status).toBe(201);
+      expect(res.data.name).toBe("test presentation");
+      expect(res.data.slides).toEqual(
+        expect.arrayContaining([expect.anything()])
+      );
+      expect(res.data.slides[0]).toEqual(
+        expect.objectContaining({
+          id: expect.any(String),
+          text: "",
+          image: "",
+          presentationid: expect.any(Number),
+        })
+      );
+    });
+
+    test("create image", async () => {
+      const presentation = await api.post("/presentations", {
+        name: "test presentation",
+      });
+
+      const id = presentation.data.id;
+
+      const slide = await api.post(`/presentations/${id}/slides`, {
+        title: "test slide",
+      });
+
+      const slideId = slide.data.slides[0].id;
+
+      const res = await api.post(
+        `/presentations/${id}/slides/${slideId}/images`,
+        {
+          image: "test url",
+        }
+      );
+
+      expect(res.status).toBe(201);
+      expect(res.data.image).toBe("test url");
+    });
+
+    test("create text", async () => {
+      const presentation = await api.post("/presentations", {
+        name: "test presentation",
+      });
+
+      const id = presentation.data.id;
+
+      const slide = await api.post(`/presentations/${id}/slides`, {
+        title: "test slide",
+      });
+
+      const slideId = slide.data.slides[0].id;
+      const res = await api.post(
+        `/presentations/${id}/slides/${slideId}/text`,
+        {
+          text: "test text",
+        }
+      );
+
+      expect(res.status).toBe(201);
+      expect(res.data.text).toBe("test text");
     });
   });
 });
