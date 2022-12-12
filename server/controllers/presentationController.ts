@@ -9,69 +9,74 @@ import { createImage, createSlide, createText } from "../models/slidesModel";
 
 const PresentationController = {
   async createPresentation(req: Request, res: Response) {
-    console.log(req.body, "req.body");
-    const body = req.body;
+    try {
+      const body = req.body;
 
-    if (body) {
       const presentation = await createPresentation(body);
       return res.status(201).json(presentation);
-    } else {
-      return res.status(400).send("error no body");
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send("error");
     }
   },
 
   async getAllPresentations(req: Request, res: Response) {
-    if (req.body) {
+    try {
       const presentations = await getAllPresentations();
       return res.status(200).json(presentations);
-    } else {
-      return res.status(400).send("error no body");
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send("error");
     }
   },
 
   async getPresentationById(req: Request, res: Response) {
-    const id = parseInt(req.params.id);
+    try {
+      const id = parseInt(req.params.id);
 
-    if (id) {
       const presentation: Presentation | null = await getPresentationById(id);
       return res.status(200).json(presentation);
-    } else {
-      return res.status(400).send("error no body");
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send("error");
     }
   },
 
   async createSlide(req: Request, res: Response) {
-    const id = parseInt(req.params.id);
+    try {
+      const id = parseInt(req.params.id);
 
-    if (id) {
       const slide = await createSlide(id, req.body);
       return res.status(201).json(slide);
-    } else {
-      return res.status(400).send("error no id");
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send("error");
     }
   },
 
   async createImage(req: Request, res: Response) {
-    const id = parseInt(req.params.id);
-    const slideId = req.params.slideId;
+    try {
+      const id = parseInt(req.params.id);
+      const slideId = req.params.slideId;
 
-    if (id && slideId) {
       const image = await createImage(id, slideId, req.body);
       return res.status(201).json(image);
-    } else {
-      return res.status(400).send("error no id");
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send("error");
     }
   },
 
   async createText(req: Request, res: Response) {
-    const id = parseInt(req.params.id);
-    const slideId = req.params.slideId;
+    try {
+      const id = parseInt(req.params.id);
+      const slideId = req.params.slideId;
 
-    if (id && slideId) {
       const text = await createText(id, slideId, req.body);
       return res.status(201).json(text);
-    } else {
-      return res.status(400).send("error no id");
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send("error");
     }
   },
 };
