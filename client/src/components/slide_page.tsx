@@ -2,7 +2,6 @@
 
 import { Center, Container, Text } from "@chakra-ui/react";
 import React from "react";
-import dummyImage from "./dummyimage";
 
 export default function Page(props: any) {
   const { slide } = props;

@@ -26,7 +26,12 @@ function startServer(): Promise<Server> {
   app.post("/openimage", async (req: Request, res: Response) => {
     console.log(req.body);
     const { prompt, n, size } = req.body;
-    const image = await getImageFromOpenAi(prompt, n, size, openAIkey);
+    const image = await getImageFromOpenAi(
+      prompt,
+      n,
+      size,
+      process.env.API_KEY as string
+    );
     console.log(image);
     res.json(image);
   });
@@ -37,18 +42,18 @@ function startServer(): Promise<Server> {
     const text = await openAiText(
       searchQuery,
       textLength,
-      openAIkey
+      process.env.API_KEY as string
     );
     console.log(text);
     res.json(text);
   });
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const server = app.listen(PORT, () => {
       console.log(`App listening on port ${PORT}`);
-      resolve(server)
-    })
-  })
+      resolve(server);
+    });
+  });
 }
 
-export default startServer
+export default startServer;
