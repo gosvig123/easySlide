@@ -73,3 +73,17 @@ export const createText: any = async (
 
   return newText;
 };
+
+export const generateImage: any = async (
+  prompt: string,
+  n: number,
+  size: string
+) => {
+  const newImage = await fetch(`http://localhost:8080/openimage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt, n, size }),
+  }).then((res) => res.json());
+
+  return newImage;
+};

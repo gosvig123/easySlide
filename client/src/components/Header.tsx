@@ -10,20 +10,22 @@ import {
   createPresentation,
   getPresentation,
   createSlide,
+  generateImage,
   // createImage,
   // createText,
 } from "./requests";
 
 export default function Header(props: any) {
   const { slide, onSelect, updatePresentationState, presentationState } = props;
-  const onEnterHandler = (e: any) => {
+  const onEnterHandler = async (e: any) => {
     if (e.key === "Enter") {
       const input = e.target.value;
+      const aiPic = await generateImage(input, 1, "1024x1024");
 
       const updatedSlide = {
         id: slide["id"],
         text: slide["text"].concat(input),
-        image: slide["image"],
+        image: aiPic,
       };
 
       onSelect(updatedSlide);
