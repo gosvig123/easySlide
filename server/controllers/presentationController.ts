@@ -1,4 +1,4 @@
-import { Presentation, prisma } from "@prisma/client";
+import { Presentation } from "@prisma/client";
 import { Request, Response } from "express";
 import {
   createPresentation,
