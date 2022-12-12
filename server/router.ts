@@ -17,8 +17,7 @@ router.post(
 );
 
 router.post(
-  "presentations/:id/slides/:slideId/text",
+  "/presentations/:id/slides/:slideId/text",
   PresentationController.createText
 );
-
 export default router;
