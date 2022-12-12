@@ -29,9 +29,10 @@ beforeAll(async () => {
 });
 
 afterAll(() => {
+  const deleteSlides = prisma.slide.deleteMany();
   const deletePresentations = prisma.presentation.deleteMany();
 
-  Promise.all([deletePresentations])
+  Promise.all([deleteSlides, deletePresentations])
     .then(() => {
       prisma.$disconnect();
     })
