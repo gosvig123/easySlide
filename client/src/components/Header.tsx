@@ -12,23 +12,23 @@ import {
   createSlide,
   generateImage,
   // createImage,
-  // createText,
+  createText,
 } from "./requests";
 
 export default function Header(props: any) {
   const { slide, onSelect, updatePresentationState, presentationState } = props;
+
+  const { slides } = presentationState;
   const onEnterHandler = async (e: any) => {
     if (e.key === "Enter") {
       const input = e.target.value;
       const aiPic = await generateImage(input, 1, "1024x1024");
 
-      const updatedSlide = {
-        id: slide["id"],
-        text: slide["text"].concat(input),
-        image: aiPic,
-      };
+      await createText(presentationState.id, slide.id, input);
+      const updatedPresentation = await getPresentation(presentationState.id);
+      updatePresentationState(await updatedPresentation);
 
-      onSelect(updatedSlide);
+      console.log(presentationState);
 
       return;
     }
@@ -51,11 +51,8 @@ export default function Header(props: any) {
 
     await createSlide(id);
     const getNewPresentation = await getPresentation(id);
+    onSelect(slides[slides.length - 1]);
     updatePresentationState(await getNewPresentation);
-    console.log(await getNewPresentation);
-    console.log(await presentationState);
-
-    console.log(await presentationState);
 
     return;
   };

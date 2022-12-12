@@ -6,7 +6,7 @@ import { PhoneIcon } from "@chakra-ui/icons";
 import { createSlide, getPresentation } from "./requests";
 
 export default function SlidesList(props: any) {
-  const { onSelect, updatePresentationState, presentationState } = props;
+  const { onSelect, updatePresentationState, presentationState, slide } = props;
 
   const { slides } = presentationState;
 
@@ -20,14 +20,11 @@ export default function SlidesList(props: any) {
   // }, [testpresentation]);
 
   const addSlide = async () => {
-    console.log("presentationState.id", presentationState.id);
-
-    createSlide(presentationState.id);
+    await createSlide(presentationState.id);
     const updatedPresentation = await getPresentation(presentationState.id);
-    console.log("updated data from db", updatedPresentation);
     updatePresentationState(await updatedPresentation);
-    console.log("updated presentationstate:", await presentationState);
-    console.log(slides);
+    onSelect(slides[slides.length - 1]);
+
     return;
   };
 

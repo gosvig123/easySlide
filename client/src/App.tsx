@@ -23,24 +23,19 @@ function App() {
   });
 
   const { slides } = presentationDetails;
-  const [stateslides, setStateSlides] = useState([...slides]);
 
   const [slide, setSlide] = useState(slides[0]);
 
   interface propsInterface {
     slide: any;
-    slides: any[];
     onSelect: (selectedSlide: any) => void;
-    changeSlide: (slide: any) => void;
     presentationState: any;
     updatePresentationState: (newPresentationdetails: any) => void;
   }
 
   const props: propsInterface = {
     slide: slide,
-    slides: stateslides,
     onSelect: (selectedSlide: any) => setSlide(selectedSlide),
-    changeSlide: (slide: any) => setStateSlides(slide),
     presentationState: presentationDetails,
     updatePresentationState: (newPresentationdetails: any) => {
       setPresentationDetails(newPresentationdetails);

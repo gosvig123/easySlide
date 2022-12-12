@@ -61,13 +61,15 @@ export const createText: any = async (
   text: string
 ) => {
   const newText = await fetch(
-    `http://localhost:8080/presentations/${presentationId}/slides/${slideId}/texts`,
+    `http://localhost:8080/presentations/${presentationId}/slides/${slideId}/text`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(text),
+      body: JSON.stringify({
+        text: text,
+      }),
     }
   ).then((res) => res.json());
 
