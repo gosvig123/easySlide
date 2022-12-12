@@ -6,18 +6,9 @@ import { PhoneIcon } from "@chakra-ui/icons";
 import { createSlide, getPresentation } from "./requests";
 
 export default function SlidesList(props: any) {
-  const { onSelect, updatePresentationState, presentationState, slide } = props;
+  const { onSelect, updatePresentationState, presentationState } = props;
 
   const { slides } = presentationState;
-
-  // create use state for slides
-  // const [slides, setSlides] = useState<any[]>([]);
-
-  // function useeffect to get slides from props after render
-  // React.useEffect(() => {
-  //   testpresentation = "whatever you want it to be :)"
-  //   console.log(testpresentation)
-  // }, [testpresentation]);
 
   const addSlide = async () => {
     await createSlide(presentationState.id);
