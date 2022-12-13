@@ -14,18 +14,26 @@ import {
   completeText,
   createImage,
   createText,
-} from "./requests";
+} from "../lib/api";
 
 export default function Header(props: any) {
-  const { slide, onSelect, updatePresentationState, presentationState } = props;
+  const { slide, onSelect, updatePresentationState, presentation } = props;
 
-  const { slides } = presentationState;
+  const { slides } = presentation;
+
+  const [presentationName, setPresentationName] = useState("");
+
   const onTextSubmit = async (e: any) => {
+    // 1. Read from the form
+    // 2. Tell the app we want to add that text 
+    // 3. Wait for re-render
+
     if (e.key === "Enter") {
-      const updatedPresentation = await getPresentation(presentationState.id);
+      const updatedPresentation = await getPresentation(presentation.id);
       const input = e.target.value;
       const paragraph = await completeText(input, 40);
-      await createText(presentationState.id, slide.id, paragraph);
+      await createText(presentation.id, slide.id, paragraph);
+
       const updatedSlide = {
         id: slide["id"],
         text: paragraph,
@@ -34,16 +42,16 @@ export default function Header(props: any) {
       onSelect(updatedSlide);
       updatePresentationState(await updatedPresentation);
 
-      return presentationState;
+      return presentation;
     }
   };
 
   const onImageSubmit = async (e: any) => {
     if (e.key === "Enter") {
-      const updatedPresentation = getPresentation(presentationState.id);
+      const updatedPresentation = getPresentation(presentation.id);
       const input = e.target.value;
       const aiPic = await generateImage(input, 1, "1024x1024");
-      await createImage(presentationState.id, slide.id, aiPic);
+      await createImage(presentation.id, slide.id, aiPic);
       const updatedSlide = {
         id: slide["id"],
         text: slide["text"],
@@ -52,11 +60,10 @@ export default function Header(props: any) {
       onSelect(updatedSlide);
       updatePresentationState(await updatedPresentation);
 
-      return presentationState;
+      return presentation;
     }
   };
 
-  const [presentationName, setPresentationName] = useState("");
 
   const handChange = (e: any) => {
     e.preventDefault();
@@ -73,7 +80,7 @@ export default function Header(props: any) {
 
     await createSlide(id);
     const getNewPresentation = await getPresentation(id);
-    onSelect(slides[slides.length - 1]);
+    onSelect(slides.length - 1);
 
     //await createText(presentationState.id, slide.id, input);
     //  const updatedPresentation = await getPresentation(presentationState.id);

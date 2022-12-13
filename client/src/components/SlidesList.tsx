@@ -3,20 +3,14 @@ import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import { PhoneIcon } from "@chakra-ui/icons";
-import { createSlide, getPresentation } from "./requests";
 
 export default function SlidesList(props: any) {
-  const { onSelect, updatePresentationState, presentationState } = props;
+  const { onSelect, presentation, onCreateSlide } = props;
 
-  const { slides } = presentationState;
+  const { slides } = presentation;
 
   const addSlide = async () => {
-    await createSlide(presentationState.id);
-    const updatedPresentation = await getPresentation(presentationState.id);
-    updatePresentationState(await updatedPresentation);
-    onSelect(slides[slides.length - 1]);
-
-    return;
+    onCreateSlide()
   };
 
   return (
@@ -68,7 +62,7 @@ export default function SlidesList(props: any) {
               backgroundSize: "cover",
             }}
             key={index}
-            onClick={() => onSelect(slide)}
+            onClick={() => onSelect(index)}
           >
             {slide["text"]}
           </Box>

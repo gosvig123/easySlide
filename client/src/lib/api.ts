@@ -1,15 +1,17 @@
 /** @format */
 
+const BASE_URL = 'http://localhost:8080'
+
 export const getPresentation: any = async (id: string) => {
   const updatedPresentation = await fetch(
-    `http://localhost:8080/presentations/${id}`
+    `${BASE_URL}/presentations/${id}`
   ).then((res) => res.json());
 
   return updatedPresentation;
 };
 
 export const createPresentation: any = async (presentationName: string) => {
-  const newPresentation = await fetch("http://localhost:8080/presentations", {
+  const newPresentation = await fetch(`${BASE_URL}/presentations`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,7 +26,7 @@ export const createPresentation: any = async (presentationName: string) => {
 
 export const createSlide: any = async (presentationId: string) => {
   const newSlide = await fetch(
-    `http://localhost:8080/presentations/${presentationId}/slides`,
+    `${BASE_URL}/presentations/${presentationId}/slides`,
     {
       method: "POST",
       headers: {
@@ -42,7 +44,7 @@ export const createImage: any = async (
   image: string
 ) => {
   const newImage: any = await fetch(
-    `http://localhost:8080/presentations/${presentationId}/slides/${slideId}/images`,
+    `${BASE_URL}/presentations/${presentationId}/slides/${slideId}/images`,
     {
       method: "POST",
       headers: {
@@ -61,7 +63,7 @@ export const createText: any = async (
   text: string
 ) => {
   const newText = await fetch(
-    `http://localhost:8080/presentations/${presentationId}/slides/${slideId}/text`,
+    `${BASE_URL}/presentations/${presentationId}/slides/${slideId}/text`,
     {
       method: "POST",
       headers: {
@@ -81,7 +83,7 @@ export const generateImage: any = async (
   n: number,
   size: string
 ) => {
-  const newImage = await fetch(`http://localhost:8080/openimage`, {
+  const newImage = await fetch(`${BASE_URL}/openimage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -98,7 +100,7 @@ export const completeText: any = async (
   searchQuery: string,
   textLength: number
 ) => {
-  const newText = await fetch(`http://localhost:8080/opentext`, {
+  const newText = await fetch(`${BASE_URL}/opentext`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

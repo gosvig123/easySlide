@@ -4,13 +4,16 @@ import * as React from "react";
 import { Container } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import Header from "./components/Header";
-import Page from "./components/slide_page";
-import SlidesList from "./components/slides_list";
+import Page from "./components/SlidePage";
+import SlidesList from "./components/SlidesList";
 // Simple login page that directs to this one, redirects to itself if not logged in
 // Clicking on a Slidepage takes you to Presantation Mode of that page, SlidePage but with keyboard arrow navigation
+
+import * as api from "./lib/api";
+
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [presentationDetails, setPresentationDetails] = useState({
+  const [presentation, setPresentation] = useState({
     id: 0,
     name: "",
     slides: [
@@ -22,29 +25,42 @@ function App() {
     ],
   });
 
-  const { slides } = presentationDetails;
+  const { slides } = presentation;
 
-  const [slide, setSlide] = useState(slides[0]);
+  // const [slide, setSlide] = useState(slides[0]);
+  const [selectedSlide, setSelectedSlide] = useState(0);
 
   interface propsInterface {
     slide: any;
     onSelect: (selectedSlide: any) => void;
-    presentationState: any;
+    presentation: any;
     updatePresentationState: (newPresentationdetails: any) => void;
   }
 
+  function selectSlide(index: number) {
+    setSelectedSlide(index)
+  }
+  async function createSlide() {
+    const updatedPresentation = await api.createSlide(presentation.id)
+    setPresentation(updatedPresentation)
+    setSelectedSlide(updatedPresentation.slides.length - 1)
+  }
+
+  const slide = slides[selectedSlide]
   const props: propsInterface = {
     slide: slide,
-    onSelect: (selectedSlide: any) => setSlide(selectedSlide),
-    presentationState: presentationDetails,
+    onSelect: selectSlide,
+    presentation,
     updatePresentationState: (newPresentationdetails: any) => {
-      setPresentationDetails(newPresentationdetails);
+      setPresentation(newPresentationdetails);
     },
   };
 
+  // const slide = presentation.slides[slide]
+
   return (
     <ChakraProvider>
-      <SlidesList {...props} />
+      <SlidesList presentation={presentation} onCreateSlide={createSlide} onSelect={selectSlide} />
       <Container
         display="flex"
         h="100vh"
