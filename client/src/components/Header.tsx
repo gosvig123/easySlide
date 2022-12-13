@@ -11,6 +11,7 @@ import {
   getPresentation,
   createSlide,
   generateImage,
+  completeText,
   //createImage,
   //createText,
 } from "./requests";
@@ -24,9 +25,10 @@ export default function Header(props: any) {
       const input = e.target.value;
       console.log(slide);
       const aiPic = await generateImage(input, 1, "1024x1024");
+      const paragraph = await completeText(input, 40);
       const updatedSlide = {
         id: slide["id"],
-        text: slide["text"].concat(input),
+        text: paragraph,
         image: aiPic,
       };
 
