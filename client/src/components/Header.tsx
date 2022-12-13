@@ -12,8 +12,8 @@ import {
   createSlide,
   generateImage,
   completeText,
-  //createImage,
-  //createText,
+  createImage,
+  createText,
 } from "./requests";
 
 export default function Header(props: any) {
@@ -22,15 +22,19 @@ export default function Header(props: any) {
   const { slides } = presentationState;
   const onEnterHandler = async (e: any) => {
     if (e.key === "Enter") {
+      const updatedPresentation = getPresentation(presentationState.id);
       const input = e.target.value;
       console.log(slide);
       const aiPic = await generateImage(input, 1, "1024x1024");
       const paragraph = await completeText(input, 40);
+      await createText(presentationState.id, slide.id, input);
+      await createImage(presentationState.id, slide.id, aiPic);
       const updatedSlide = {
         id: slide["id"],
         text: paragraph,
         image: aiPic,
       };
+      updatePresentationState(await updatedPresentation);
 
       onSelect(updatedSlide);
 

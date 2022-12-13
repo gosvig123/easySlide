@@ -48,7 +48,7 @@ export const createImage: any = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(image),
+      body: JSON.stringify({ image }),
     }
   ).then((res) => res.json());
 

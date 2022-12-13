@@ -62,6 +62,8 @@ export default function SlidesList(props: any) {
               width: 130,
               height: 100,
               color: "white",
+              backgroundImage: slide.image,
+              backgroundSize: "cover",
             }}
             key={index}
             onClick={() => onSelect(slide)}
