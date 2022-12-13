@@ -27,7 +27,7 @@ export default function Header(props: any) {
       console.log(slide);
       const aiPic = await generateImage(input, 1, "1024x1024");
       const paragraph = await completeText(input, 40);
-      await createText(presentationState.id, slide.id, input);
+      await createText(presentationState.id, slide.id, paragraph);
       await createImage(presentationState.id, slide.id, aiPic);
       const updatedSlide = {
         id: slide["id"],

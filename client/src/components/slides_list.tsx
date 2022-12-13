@@ -50,6 +50,7 @@ export default function SlidesList(props: any) {
         slides.map((slide, index) => (
           <Box
             textAlign="center"
+            backgroundImage={slide.image}
             style={{
               flexShrink: "0",
               marginBottom: "15px",
@@ -62,7 +63,8 @@ export default function SlidesList(props: any) {
               width: 130,
               height: 100,
               color: "white",
-              backgroundImage: slide.image,
+              overflow: "scroll",
+
               backgroundSize: "cover",
             }}
             key={index}
