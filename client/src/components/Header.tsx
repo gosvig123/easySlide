@@ -11,8 +11,8 @@ import {
   getPresentation,
   createSlide,
   generateImage,
-  createImage,
-  createText,
+  //createImage,
+  //createText,
 } from "./requests";
 
 export default function Header(props: any) {
@@ -54,7 +54,13 @@ export default function Header(props: any) {
     await createSlide(id);
     const getNewPresentation = await getPresentation(id);
     onSelect(slides[slides.length - 1]);
+
+    //await createText(presentationState.id, slide.id, input);
+    //  const updatedPresentation = await getPresentation(presentationState.id);
+    //  updatePresentationState(await updatedPresentation);
+
     updatePresentationState(await getNewPresentation);
+    //console.log(presentationState);
 
     return;
   };
