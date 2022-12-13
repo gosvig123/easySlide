@@ -85,9 +85,9 @@ export const generateImage: any = async (
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      prompt: prompt,
-      n: n,
-      size: size,
+      prompt,
+      n,
+      size,
     }),
   }).then((res) => res.json());
 
@@ -102,8 +102,8 @@ export const completeText: any = async (
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      searchQuery: searchQuery,
-      textLength: textLength,
+      searchQuery,
+      textLength,
     }),
   }).then((res) => res.json());
 
