@@ -20,25 +20,39 @@ export default function Header(props: any) {
   const { slide, onSelect, updatePresentationState, presentationState } = props;
 
   const { slides } = presentationState;
-  const onEnterHandler = async (e: any) => {
+  const onTextSubmit = async (e: any) => {
     if (e.key === "Enter") {
-      const updatedPresentation = getPresentation(presentationState.id);
+      const updatedPresentation = await getPresentation(presentationState.id);
       const input = e.target.value;
-      console.log(slide);
-      const aiPic = await generateImage(input, 1, "1024x1024");
       const paragraph = await completeText(input, 40);
       await createText(presentationState.id, slide.id, paragraph);
-      await createImage(presentationState.id, slide.id, aiPic);
       const updatedSlide = {
         id: slide["id"],
         text: paragraph,
-        image: aiPic,
+        image: slide["image"],
       };
+      onSelect(updatedSlide);
       updatePresentationState(await updatedPresentation);
 
-      onSelect(updatedSlide);
+      return presentationState;
+    }
+  };
 
-      return;
+  const onImageSubmit = async (e: any) => {
+    if (e.key === "Enter") {
+      const updatedPresentation = getPresentation(presentationState.id);
+      const input = e.target.value;
+      const aiPic = await generateImage(input, 1, "1024x1024");
+      await createImage(presentationState.id, slide.id, aiPic);
+      const updatedSlide = {
+        id: slide["id"],
+        text: slide["text"],
+        image: aiPic,
+      };
+      onSelect(updatedSlide);
+      updatePresentationState(await updatedPresentation);
+
+      return presentationState;
     }
   };
 
@@ -84,7 +98,7 @@ export default function Header(props: any) {
         htmlSize={4}
         width="auto"
         placeholder="text prompt"
-        onKeyDown={(e) => onEnterHandler(e)}
+        onKeyDown={(e) => onTextSubmit(e)}
       />
       {/* This one is for generating Text. */}
 
@@ -92,7 +106,7 @@ export default function Header(props: any) {
         htmlSize={4}
         width="auto"
         placeholder="image prompt"
-        onKeyDown={(e) => onEnterHandler(e)}
+        onKeyDown={(e) => onImageSubmit(e)}
       />
       {/* This one is for generating an Image. */}
 
