@@ -10,8 +10,8 @@ import {
   createPresentation,
   getPresentation,
   createSlide,
-  // generateImage,
-  // createImage,/
+  generateImage,
+  createImage,
   createText,
 } from "./requests";
 
@@ -22,12 +22,15 @@ export default function Header(props: any) {
   const onEnterHandler = async (e: any) => {
     if (e.key === "Enter") {
       const input = e.target.value;
+      console.log(slide);
+      const aiPic = await generateImage(input, 1, "1024x1024");
+      const updatedSlide = {
+        id: slide["id"],
+        text: slide["text"].concat(input),
+        image: aiPic,
+      };
 
-      await createText(presentationState.id, slide.id, input);
-      const updatedPresentation = await getPresentation(presentationState.id);
-      updatePresentationState(await updatedPresentation);
-
-      console.log(presentationState);
+      onSelect(updatedSlide);
 
       return;
     }
