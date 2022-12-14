@@ -17,19 +17,27 @@ export default function Page(props: any) {
       minH="70vh"
       maxH="91vh"
       border="1px"
-      backgroundImage={slide.image}
       backgroundSize="cover"
       bgRepeat="no-repeat"
       backgroundPosition="center"
       centerContent
     >
       {/* This works for the dummy image but I'm not sure about the dimensions of future generated images*/}
-      <Center w="100px" bg="green.500">
+      <Center w="400px" h="40px" bg="#F5F5F5" border="1px">
         <Text> {text} </Text>
       </Center>
-      <Center w="300px" bg="yellow.500">
+      <Container
+        w="1024px"
+        h="1024"
+        bg="#F5F5F5"
+        backgroundImage={slide.image}
+        backgroundSize="cover"
+        bgRepeat="no-repeat"
+        backgroundPosition="center"
+        centerContent
+      >
         <Text> {text} </Text>
-      </Center>
+      </Container>
     </Container>
   );
 }

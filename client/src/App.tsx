@@ -38,15 +38,15 @@ function App() {
   }
 
   function selectSlide(index: number) {
-    setSelectedSlide(index)
+    setSelectedSlide(index);
   }
   async function createSlide() {
-    const updatedPresentation = await api.createSlide(presentation.id)
-    setPresentation(updatedPresentation)
-    setSelectedSlide(updatedPresentation.slides.length - 1)
+    const updatedPresentation = await api.createSlide(presentation.id);
+    setPresentation(updatedPresentation);
+    setSelectedSlide(updatedPresentation.slides.length - 1);
   }
 
-  const slide = slides[selectedSlide]
+  const slide = slides[selectedSlide];
   const props: propsInterface = {
     slide: slide,
     onSelect: selectSlide,
@@ -60,13 +60,17 @@ function App() {
 
   return (
     <ChakraProvider>
-      <SlidesList presentation={presentation} onCreateSlide={createSlide} onSelect={selectSlide} />
+      <SlidesList
+        presentation={presentation}
+        onCreateSlide={createSlide}
+        onSelect={selectSlide}
+      />
       <Container
         display="flex"
         h="100vh"
         minW="100vw"
         w="100vw"
-        bg="blue.600"
+        bg="#F4F7FF"
         centerContent
       >
         <Header {...props} />
