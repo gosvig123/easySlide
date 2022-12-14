@@ -64,7 +64,6 @@ export default function Header(props: any) {
     }
   };
 
-
   const handChange = (e: any) => {
     e.preventDefault();
     setPresentationName(e.target.value);
