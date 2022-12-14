@@ -41,44 +41,6 @@ const PresentationController = {
       return res.status(500).send("error");
     }
   },
-
-  async createSlide(req: Request, res: Response) {
-    try {
-      const id = parseInt(req.params.id);
-
-      const slide = await createSlide(id, req.body);
-      return res.status(201).json(slide);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send("error");
-    }
-  },
-
-  async createImage(req: Request, res: Response) {
-    try {
-      const id = parseInt(req.params.id);
-      const slideId = req.params.slideId;
-
-      const image = await createImage(id, slideId, req.body);
-      return res.status(201).json(image);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send("error");
-    }
-  },
-
-  async createText(req: Request, res: Response) {
-    try {
-      const id = parseInt(req.params.id);
-      const slideId = req.params.slideId;
-
-      const text = await createText(id, slideId, req.body);
-      return res.status(201).json(text);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send("error");
-    }
-  },
 };
 
 export default PresentationController;

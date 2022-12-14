@@ -10,20 +10,30 @@ router.get("/presentations", PresentationController.getAllPresentations);
 
 router.get("/presentations/:id", PresentationController.getPresentationById);
 
-router.post("/presentations/:id/slides", PresentationController.createSlide);
+router.post("/presentations/:id/slides", SlideController.createSlide);
 
 router.post(
   "/presentations/:id/slides/:slideId/images",
-  PresentationController.createImage
+  SlideController.createImage
 );
 
 router.post(
   "/presentations/:id/slides/:slideId/text",
-  PresentationController.createText
+  SlideController.createText
 );
 
 router.post("/openimage", SlideController.getOpenAiImage);
 
 router.post("/opentext", SlideController.getOpenAiText);
+
+router.post(
+  "/openimage/:id/slides/:slideId/images",
+  SlideController.getOpenAiImageAndSave
+);
+
+router.post(
+  "/opentext/:id/slides/:slideId/text",
+  SlideController.getOpenAiTextAndSave
+);
 
 export default router;

@@ -48,19 +48,21 @@ export async function createSlide(
 export async function createImage(
   id: number,
   slideId: string,
-  body: { image: string }
+  image: string
 ): Promise<Slide> {
   const slide = await prisma.slide.findUniqueOrThrow({
-    where: { id: slideId },
+    where: {
+      id: slideId,
+    },
   });
-  const image = body.image ? body.image : "";
+  // const image = body.image ? body.image : "";
 
   await prisma.slide.update({
     where: {
-      id: slide.id,
+      id: slideId,
     },
     data: {
-      image,
+      image: image,
     },
   });
   const newSlide = await prisma.slide.findUniqueOrThrow({
@@ -73,16 +75,16 @@ export async function createImage(
 export async function createText(
   id: number,
   slideId: string,
-  body: { text: string }
+  text: string
 ): Promise<Slide> {
   const slide = await prisma.slide.findUniqueOrThrow({
     where: { id: slideId },
   });
-  const text = body.text ? body.text : "";
+  // const text = body.text ? body.text : "";
 
   await prisma.slide.update({
     where: {
-      id: slide.id,
+      id: slideId,
     },
     data: {
       text,
