@@ -4,11 +4,8 @@ import React, { useState } from "react";
 import { Flex, Spacer } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
-import { Center } from "@chakra-ui/react";
 import {
-  createPresentation,
   getPresentation,
-  createSlide,
   generateImage,
   completeText,
   createImage,
@@ -65,25 +62,24 @@ export default function Header(props: any) {
 
   return (
     <Flex color="black" mt={5} gap="25">
-      <Center>
-        <Input
-          htmlSize={4}
-          width="auto"
-          placeholder="text prompt"
-          onKeyDown={(e) => onTextSubmit(e)}
-        />
-        {/* This one is for generating Text. */}
-        <Spacer />
-        <Spacer />
-        <Spacer />
-        <Input
-          htmlSize={4}
-          width="auto"
-          placeholder="image prompt"
-          onKeyDown={(e) => onImageSubmit(e)}
-        />
-        {/* This one is for generating an Image. */}
-      </Center>
+      <Input
+        htmlSize={4}
+        width="auto"
+        placeholder="text prompt"
+        onKeyDown={(e) => onTextSubmit(e)}
+      />
+      {/* This one is for generating Text. */}
+      <Spacer />
+      <Spacer />
+      <Spacer />
+      <Input
+        htmlSize={4}
+        width="auto"
+        placeholder="image prompt"
+        onKeyDown={(e) => onImageSubmit(e)}
+      />
+      {/* This one is for generating an Image. */}
+
       <Button colorScheme="blue">Present</Button>
       {/* Click this to enter presentation mode. */}
     </Flex>
