@@ -57,8 +57,8 @@ export default function Header(props: any) {
         text: slide["text"],
         image: aiPic,
       };
-      onSelect(updatedSlide);
-      updatePresentationState(await updatedPresentation);
+      setSelectedSlide(updatedSlide);
+      setPresentation(await updatedPresentation);
 
       return presentation;
     }

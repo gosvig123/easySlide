@@ -3,9 +3,9 @@ import { useState } from "react";
 import * as React from "react";
 import { Container } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
-import Header from "./components/Header";
 import Page from "./components/SlidePage";
 import SlidesList from "./components/SlidesList";
+import Header from "./components/Header";
 // Simple login page that directs to this one, redirects to itself if not logged in
 // Clicking on a Slidepage takes you to Presantation Mode of that page, SlidePage but with keyboard arrow navigation
 
@@ -31,23 +31,42 @@ function App() {
   const [selectedSlide, setSelectedSlide] = useState(0);
 
   async function createPresentation(e: any) {
-    e.preventDefault();
-    const presentationName = e.target[0].value;
+    const presentationName = e;
 
+    console.log(presentationName);
     const newPresentation = await api.createPresentation(presentationName);
     console.log(newPresentation);
     await api.createSlide(newPresentation.id);
     const presentaitonFromDb = await api.getPresentation(newPresentation.id);
     console.log(presentaitonFromDb);
-    setPresentation(presentaitonFromDb);
 
-    return;
+    return presentaitonFromDb;
   }
-  interface propsInterface {
-    // slide: any;
-    onSelect: (selectedSlide: any) => void;
-    presentation: any;
-    updatePresentationState: (newPresentationdetails: any) => void;
+
+  async function addTextToSlide(e: any) {
+    e.preventDefault();
+
+    // const textFromOpenAi = await api.completeText(text, 40);
+    // const updatedSlide = api.createText(presentation.id, slide.id, text);
+    const updatedText = e.target[0].value;
+    console.log("updatedText", updatedText);
+
+    const updatedSlide = await api.createText(
+      presentation.id,
+      slides[selectedSlide].id,
+      updatedText
+    );
+
+    const updatedSlides = slides.map((slide: any) => {
+      if (slide.id === updatedSlide.id) {
+        return updatedSlide;
+      }
+      return slide;
+    });
+    setPresentation({
+      ...presentation,
+      ...updatedSlides,
+    });
   }
 
   function selectSlide(index: number) {
@@ -60,28 +79,35 @@ function App() {
   }
 
   const slide = slides[selectedSlide];
-  const props: propsInterface = {
-    // slide: slide
-    onSelect: selectSlide,
-    presentation,
-    updatePresentationState: (newPresentationdetails: any) => {
-      setPresentation(newPresentationdetails);
-    },
-  };
 
   // const slide = presentation.slides[slide]
 
+  interface propsInterface {
+    createSlide: (e: any) => void;
+    createPresentation: (e: any) => void;
+    addTextToSlide: (e: any) => void;
+    selectedSlide: number;
+    setSelectedSlide: (selectedSlide: any) => void;
+    slides: any;
+    slide: any;
+    presentation: any;
+    setPresentation: (newPresentationdetails: any) => void;
+  }
+
+  const props: propsInterface = {
+    createSlide: createSlide,
+    createPresentation: createPresentation,
+    addTextToSlide: addTextToSlide,
+    selectedSlide: selectedSlide,
+    setSelectedSlide: setSelectedSlide,
+    slide: slides[selectedSlide],
+    slides: slides,
+    presentation: presentation,
+    setPresentation: setPresentation,
+  };
   return (
     <ChakraProvider>
-      <SlidesList
-        presentation={presentation}
-        setPresentation={setPresentation}
-        onCreateSlide={createSlide}
-        onSelect={selectSlide}
-        createPresentation={createPresentation}
-        slides={slides}
-        slide={slide}
-      />
+      <SlidesList {...props} />
       <Container
         display="flex"
         h="100vh"
@@ -90,12 +116,7 @@ function App() {
         bg="blue.600"
         centerContent
       >
-        <Header
-          {...props}
-          slide={slide}
-          slides={slides}
-          presentation={presentation}
-        />
+        <Header {...props} />
       </Container>
       <Container
         display="flex"
@@ -105,7 +126,7 @@ function App() {
         bg="#F4F7FF"
         centerContent
       >
-        <Page {...props} slide={slide} slides={slides} />
+        <Page {...props} />
       </Container>
     </ChakraProvider>
   );

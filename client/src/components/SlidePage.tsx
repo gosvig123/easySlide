@@ -4,7 +4,14 @@ import { Center, Container, Text } from "@chakra-ui/react";
 import React from "react";
 
 export default function Page(props: any) {
-  const { slide } = props;
+  const {
+    slide,
+    slides,
+    selectedSlide,
+    setSelectedSlide,
+    presentation,
+    setPresentation,
+  } = props;
   const { text } = slide;
   return (
     <Container

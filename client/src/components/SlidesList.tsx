@@ -9,8 +9,20 @@ export default function SlidesList(props: any) {
 
   const { slides } = presentation;
 
-  const addSlide = async () => {
-    onCreateSlide();
+  // const handleCreatePresentation = async (e: any) => {
+  //   e.preventDefault();
+  //   const finalName = presentationName || "Untitled Presentation";
+  //   const newPresentation = await api.createPresentation(finalName);
+  //   setPresentation(newPresentation);
+  // };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const finalName = presentationName || "Untitled Presentation";
+    const newPresentation = await createPresentation(finalName);
+    setPresentation({
+      newPresentation,
+    });
   };
 
   return (
@@ -62,7 +74,7 @@ export default function SlidesList(props: any) {
               backgroundSize: "cover",
             }}
             key={index}
-            onClick={() => onSelect(index)}
+            onClick={setSelectedSlide(index)}
           >
             {slide["text"]}
           </Box>
