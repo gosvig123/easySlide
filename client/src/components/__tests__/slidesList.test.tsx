@@ -1,9 +1,9 @@
-import SlidesList from "../slides_list";
-
-import { fireEvent, render, screen } from "@testing-library/react";
+import SlidesList from "../SlidesList";
+import userEvent from "@testing-library/user-event";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
-describe("SlidesList", () => {
+describe("<SlidesList/>", () => {
   test("renders SlidesList component", () => {
     const presentation = {
       id: 0,
@@ -17,24 +17,19 @@ describe("SlidesList", () => {
       ],
     };
 
-    const slide = presentation.slides[0];
     const onSelect = jest.fn();
-    const changeSlide = jest.fn();
-    const presentationState = presentation;
     const updatePresentationState = jest.fn();
 
     render(
       <SlidesList
-        slide={slide}
         onSelect={onSelect}
-        changeSlide={changeSlide}
-        presentationState={presentationState}
+        presentation={presentation}
         updatePresentationState={updatePresentationState}
       />
     );
     expect(screen.getByText("test")).toBeInTheDocument();
   });
-  test("add slide", () => {
+  test("add slide with +", () => {
     const presentation = {
       id: 0,
       name: "",
@@ -47,22 +42,46 @@ describe("SlidesList", () => {
       ],
     };
 
-    const slide = presentation.slides[0];
     const onSelect = jest.fn();
-    const changeSlide = jest.fn();
-    const presentationState = presentation;
-    const updatePresentationState = jest.fn();
+    const onCreateSlide = jest.fn();
 
     render(
       <SlidesList
-        slide={slide}
         onSelect={onSelect}
-        changeSlide={changeSlide}
-        presentationState={presentationState}
-        updatePresentationState={updatePresentationState}
+        presentation={presentation}
+        onCreateSlide={onCreateSlide}
       />
     );
-    fireEvent.click(screen.getByText("+"));
-    expect(presentation.slides.length).toBe(2);
+    userEvent.click(screen.getByText("+"));
+    expect(onCreateSlide).toHaveBeenCalled();
+    expect(onCreateSlide).toHaveBeenCalledTimes(1);
+  });
+
+  test("select slide", () => {
+    const presentation = {
+      id: 0,
+      name: "",
+      slides: [
+        {
+          id: "1",
+          image: "",
+          text: "test",
+        },
+      ],
+    };
+
+    const onSelect = jest.fn();
+    const onCreateSlide = jest.fn();
+
+    render(
+      <SlidesList
+        onSelect={onSelect}
+        presentation={presentation}
+        onCreateSlide={onCreateSlide}
+      />
+    );
+    userEvent.click(screen.getByText("test"));
+    expect(onSelect).toHaveBeenCalled();
+    expect(onSelect).toHaveBeenCalledTimes(1);
   });
 });
