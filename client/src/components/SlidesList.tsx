@@ -123,7 +123,7 @@ export default function SlidesList(props: any) {
           fontSize="lg"
           onClick={addSlide}
         >
-          +
+          + Add Slide
         </Box>
       </Center>
     </Flex>
