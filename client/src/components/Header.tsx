@@ -25,7 +25,7 @@ export default function Header(props: any) {
 
   const onTextSubmit = async (e: any) => {
     // 1. Read from the form
-    // 2. Tell the app we want to add that text 
+    // 2. Tell the app we want to add that text
     // 3. Wait for re-render
 
     if (e.key === "Enter") {
