@@ -137,7 +137,8 @@ Status 400 if already exists:
 
 ```json
 {
-  "text": "Wednesday… the best day"
+  "searchQuery": "A cute baby sea otter",
+  "textLength": 5
 }
 ```
 
