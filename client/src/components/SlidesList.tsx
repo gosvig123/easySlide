@@ -10,7 +10,7 @@ export default function SlidesList(props: any) {
   const { slides } = presentation;
 
   const addSlide = async () => {
-    onCreateSlide()
+    onCreateSlide();
   };
 
   return (

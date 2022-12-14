@@ -30,25 +30,38 @@ function App() {
   // const [slide, setSlide] = useState(slides[0]);
   const [selectedSlide, setSelectedSlide] = useState(0);
 
+  async function createPresentation(e: any) {
+    e.preventDefault();
+    const presentationName = e.target[0].value;
+
+    const newPresentation = await api.createPresentation(presentationName);
+    console.log(newPresentation);
+    await api.createSlide(newPresentation.id);
+    const presentaitonFromDb = await api.getPresentation(newPresentation.id);
+    console.log(presentaitonFromDb);
+    setPresentation(presentaitonFromDb);
+
+    return;
+  }
   interface propsInterface {
-    slide: any;
+    // slide: any;
     onSelect: (selectedSlide: any) => void;
     presentation: any;
     updatePresentationState: (newPresentationdetails: any) => void;
   }
 
   function selectSlide(index: number) {
-    setSelectedSlide(index)
+    setSelectedSlide(index);
   }
   async function createSlide() {
-    const updatedPresentation = await api.createSlide(presentation.id)
-    setPresentation(updatedPresentation)
-    setSelectedSlide(updatedPresentation.slides.length - 1)
+    const updatedPresentation = await api.createSlide(presentation.id);
+    setPresentation(updatedPresentation);
+    setSelectedSlide(updatedPresentation.slides.length - 1);
   }
 
-  const slide = slides[selectedSlide]
+  const slide = slides[selectedSlide];
   const props: propsInterface = {
-    slide: slide,
+    // slide: slide
     onSelect: selectSlide,
     presentation,
     updatePresentationState: (newPresentationdetails: any) => {
@@ -60,7 +73,15 @@ function App() {
 
   return (
     <ChakraProvider>
-      <SlidesList presentation={presentation} onCreateSlide={createSlide} onSelect={selectSlide} />
+      <SlidesList
+        presentation={presentation}
+        setPresentation={setPresentation}
+        onCreateSlide={createSlide}
+        onSelect={selectSlide}
+        createPresentation={createPresentation}
+        slides={slides}
+        slide={slide}
+      />
       <Container
         display="flex"
         h="100vh"
@@ -69,8 +90,22 @@ function App() {
         bg="blue.600"
         centerContent
       >
-        <Header {...props} />
-        <Page {...props} />
+        <Header
+          {...props}
+          slide={slide}
+          slides={slides}
+          presentation={presentation}
+        />
+      </Container>
+      <Container
+        display="flex"
+        h="100vh"
+        minW="100vw"
+        w="100vw"
+        bg="#F4F7FF"
+        centerContent
+      >
+        <Page {...props} slide={slide} slides={slides} />
       </Container>
     </ChakraProvider>
   );
