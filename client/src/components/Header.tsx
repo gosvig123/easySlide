@@ -1,10 +1,11 @@
 /** @format */
 
 import React, { useState } from "react";
-import { Flex, Spacer } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import {
   createPresentation,
   getPresentation,
@@ -24,7 +25,7 @@ export default function Header(props: any) {
 
   const onTextSubmit = async (e: any) => {
     // 1. Read from the form
-    // 2. Tell the app we want to add that text
+    // 2. Tell the app we want to add that text 
     // 3. Wait for re-render
 
     if (e.key === "Enter") {
@@ -63,27 +64,59 @@ export default function Header(props: any) {
     }
   };
 
+
+  const handChange = (e: any) => {
+    e.preventDefault();
+    setPresentationName(e.target.value);
+    return;
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const requestToCreatePresentation = await createPresentation(
+      presentationName
+    );
+    const { id } = requestToCreatePresentation;
+
+    await createSlide(id);
+    const getNewPresentation = await getPresentation(id);
+    onSelect(slides.length - 1);
+
+    //await createText(presentationState.id, slide.id, input);
+    //  const updatedPresentation = await getPresentation(presentationState.id);
+    //  updatePresentationState(await updatedPresentation);
+
+    updatePresentationState(await getNewPresentation);
+    //console.log(presentationState);
+
+    return;
+  };
   return (
     <Flex color="black" mt={5} gap="25">
-      <Center>
-        <Input
-          htmlSize={4}
-          width="auto"
-          placeholder="text prompt"
-          onKeyDown={(e) => onTextSubmit(e)}
-        />
-        {/* This one is for generating Text. */}
-        <Spacer />
-        <Spacer />
-        <Spacer />
-        <Input
-          htmlSize={4}
-          width="auto"
-          placeholder="image prompt"
-          onKeyDown={(e) => onImageSubmit(e)}
-        />
-        {/* This one is for generating an Image. */}
+      <Center w="100px" bg="green.500">
+        <form onSubmit={handleSubmit}>
+          <input type="text" onChange={handChange} value={presentationName} />
+          <button type="submit">Submit</button>
+        </form>
+        <Text>Presentation Name</Text>
       </Center>
+
+      <Input
+        htmlSize={4}
+        width="auto"
+        placeholder="text prompt"
+        onKeyDown={(e) => onTextSubmit(e)}
+      />
+      {/* This one is for generating Text. */}
+
+      <Input
+        htmlSize={4}
+        width="auto"
+        placeholder="image prompt"
+        onKeyDown={(e) => onImageSubmit(e)}
+      />
+      {/* This one is for generating an Image. */}
+
       <Button colorScheme="blue">Present</Button>
       {/* Click this to enter presentation mode. */}
     </Flex>
