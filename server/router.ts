@@ -28,4 +28,11 @@ router.put(
   SlideController.updateOpenImage
 );
 
+//create a update text slide route
+
+router.put(
+  "/updateopentext/:id/slides/:slideId",
+  SlideController.updateOpenText
+);
+
 export default router;

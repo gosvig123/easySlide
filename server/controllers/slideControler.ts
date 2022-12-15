@@ -66,6 +66,20 @@ const SlideController = {
       res.status(500).send("error");
     }
   },
+
+  async updateOpenText(req: Request, res: Response) {
+    try {
+      const id = parseInt(req.params.id);
+      const slideId = req.params.slideId;
+      const { searchQuery, textLength } = req.body;
+      const text = await openAiText(searchQuery, textLength, openAIkey);
+      console.log(text);
+      const textToSave = await createText(id, slideId, text);
+      res.status(201).json(textToSave);
+    } catch {
+      res.status(500).send("error");
+    }
+  },
 };
 
 export default SlideController;
