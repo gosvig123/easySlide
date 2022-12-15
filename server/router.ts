@@ -22,4 +22,10 @@ router.post(
   SlideController.getOpenAiTextAndSave
 );
 
+// create a update image slide route
+router.put(
+  "/updateopenimage/:id/slides/:slideId",
+  SlideController.updateOpenImage
+);
+
 export default router;

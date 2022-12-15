@@ -50,21 +50,34 @@ export async function createImage(
   slideId: string,
   image: string
 ): Promise<Slide> {
-  const slide = await prisma.slide.findUniqueOrThrow({
-    where: {
-      id: slideId,
-    },
-  });
-  // const image = body.image ? body.image : "";
-
-  await prisma.slide.update({
+  const slide = await prisma.slide.update({
     where: {
       id: slideId,
     },
     data: {
-      image: image,
+      image,
     },
   });
+
+  //   id: number,
+  //   slideId: string,
+  //   image: string
+  // ): Promise<Slide> {
+  //   const slide = await prisma.slide.findUniqueOrThrow({
+  //     where: {
+  //       id: slideId,
+  //     },
+  //   });
+  // const image = body.image ? body.image : "";
+
+  // await prisma.slide.update({
+  //   where: {
+  //     id: slideId,
+  //   },
+  //   data: {
+  //     image: image,
+  //   },
+  // });
   const newSlide = await prisma.slide.findUniqueOrThrow({
     where: { id: slide.id },
   });

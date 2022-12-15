@@ -1,11 +1,8 @@
-import cors from "cors";
+import { prisma } from "@prisma/client";
 import dotenv from "dotenv";
-import express, { Express, Request, Response, text } from "express";
-import app from "../app";
+import express, { Request, Response } from "express";
 import { getImageFromOpenAi, openAiText } from "../lib/open-ai-functions";
 import { createSlide, createImage, createText } from "../models/slidesModel";
-import router from "../router";
-import PresentationController from "./presentationController";
 
 dotenv.config();
 
@@ -51,6 +48,20 @@ const SlideController = {
       console.log(text);
       const textToSave = await createText(id, slideId, text);
       res.status(201).json(textToSave);
+    } catch {
+      res.status(500).send("error");
+    }
+  },
+
+  async updateOpenImage(req: Request, res: Response) {
+    try {
+      const id = parseInt(req.params.id);
+      const slideId = req.params.slideId;
+      const { prompt, n, size } = req.body;
+      const image = await getImageFromOpenAi(prompt, n, size, openAIkey);
+
+      const imageToSave = await createImage(id, slideId, image);
+      res.status(201).json(imageToSave);
     } catch {
       res.status(500).send("error");
     }
