@@ -59,11 +59,7 @@ export async function createImage(
     },
   });
 
-  const newSlide = await prisma.slide.findUniqueOrThrow({
-    where: { id: slide.id },
-  });
-
-  return newSlide;
+  return slide;
 }
 
 export async function createText(
@@ -80,9 +76,5 @@ export async function createText(
     },
   });
 
-  const newSlide = await prisma.slide.findUniqueOrThrow({
-    where: { id: slide.id },
-  });
-
-  return newSlide;
+  return slide;
 }
