@@ -98,7 +98,7 @@ A JSON string representing a list of Slides.
 }
 ```
 
-## `POST /openimage/:id/slides/:slideId/images` – Create an image
+## `POST /openimage/:id/slides/:slideId` – Create an image
 
 **Request**
 
@@ -131,7 +131,7 @@ Status 400 if already exists:
 }
 ```
 
-## `POST /opentext/:id/slides/:slideId/text` - Create a text
+## `POST /opentext/:id/slides/:slideId` - Create a text
 
 **Request**
 

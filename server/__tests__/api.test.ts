@@ -10,14 +10,18 @@ import { Server } from "http";
 import axios, { AxiosInstance } from "axios";
 import startServer from "../app";
 import prisma from "../lib/prisma";
+import fetchMock from "jest-fetch-mock";
+import { enableFetchMocks } from "jest-fetch-mock";
 
-import fetch from "node-fetch";
+import * as fetch from "node-fetch";
 jest.mock("node-fetch");
 
 let server: Server;
 let api: AxiosInstance;
+enableFetchMocks();
 
 beforeAll(async () => {
+  console.log("before all");
   server = await startServer();
   const addressInfo = server.address();
   if (typeof addressInfo === "string" || addressInfo === null) {
@@ -45,7 +49,7 @@ afterAll(async () => {
 });
 
 describe("API", () => {
-  describe("/presentation", () => {
+  describe("/presentations", () => {
     test("create presentation", async () => {
       const res = await api.post("/presentations", {
         name: "test presentation",
@@ -113,79 +117,60 @@ describe("API", () => {
       );
     });
 
-    // test("create image", async () => {
-    //   const presentation = await api.post("/presentations", {
-    //     name: "test presentation",
-    //   });
+    test("create image", async () => {
+      // const presentation = await api.post("/presentations", {
+      //   name: "test presentation",
+      // });
+      // const id = presentation.data.id;
+      // const slide = await api.post(`/presentations/${id}/slides`, {
+      //   title: "test slide",
+      // });
+      // const slideId = slide.data.slides[0].id;
+      // const res = await api.post(`/openimage/${id}/slides/${slideId}`, {
+      //   prompt: "A cute baby sea otter",
+      //   n: 1,
+      //   size: "1024x1024",
+      // });
+      // console.log(fetch.default);
+      // // const spyFetch = jest.spyOn(global, "fetch").mockResolvedValueOnce({json: jest.fn()
+      // const spyFetch = jest.spyOn(fetch, "default").mockResolvedValueOnce({ json: jest.fn().mockResolvedValueOnce({}) } as any);
+      // console.log("res", res.data);
+      // const { data } = res;
+      // expect(res.status).toBe(201);
+      // expect(data.id).toEqual(slideId);
+      // expect(data.presentationid).toEqual(id);
+      // expect(data.text).toEqual("");
+      // expect(spyFetch).toHaveBeenCalledTimes(1);
+      // expect(data.image).toEqual(expect.any(String));
+    });
 
-    //   const id = presentation.data.id;
-
-    //   const slide = await api.post(`/presentations/${id}/slides`, {
-    //     title: "test slide",
-    //   });
-
-    //   const slideId = slide.data.slides[0].id;
-
-    //   const res = await api.post(`/openimage/${id}/slides/${slideId}/images`, {
-    //     prompt: "A cute baby sea otter",
-    //     n: 1,
-    //     size: "1024x1024",
-    //   });
-
-    //   const spyFetch = jest.spyOn(global, "fetch");
-
-    //   spyFetch.mockResolvedValueOnce({
-    //     status: 200,
-    //     json: async () => ({
-    //       text: "test text",
-    //     }),
-    //   } as Response);
-
-    //   const { data } = res;
-
-    //   expect(res.status).toBe(201);
-    //   expect(data.id).toEqual(slideId);
-    //   expect(data.presentationid).toEqual(id);
-    //   expect(data.text).toEqual("");
-    //   expect(spyFetch).toHaveBeenCalledTimes(1);
-    //   expect(data.image).toEqual(expect.any(String));
-    // });
-
-    // test("create text", async () => {
-    //   const presentation = await api.post("/presentations", {
-    //     name: "test presentation",
-    //   });
-
-    //   const id = presentation.data.id;
-
-    //   const slide = await api.post(`/presentations/${id}/slides`, {
-    //     title: "test slide",
-    //   });
-
-    //   const slideId = slide.data.slides[0].id;
-
-    //   const res = await api.post(`/opentext/${id}/slides/${slideId}/text`, {
-    //     searchQuery: "is monday a happy day?",
-    //     textLength: 5,
-    //   });
-
-    //   const spyFetch = jest.spyOn(global, "fetch");
-
-    //   spyFetch.mockResolvedValueOnce({
-    //     status: 200,
-    //     json: async () => ({
-    //       text: "test text",
-    //     }),
-    //   } as Response);
-
-    //   const { data } = res;
-
-    //   expect(res.status).toBe(201);
-    //   expect(data.id).toEqual(slideId);
-    //   expect(data.presentationid).toEqual(id);
-    //   expect(spyFetch).toHaveBeenCalledTimes(1);
-    //   expect(data.text).toEqual(expect.any(String));
-    //   expect(data.image).toEqual("");
-    // });
+    test("create text", async () => {
+      // const presentation = await api.post("/presentations", {
+      //   name: "test presentation",
+      // });
+      // const id = presentation.data.id;
+      // const slide = await api.post(`/presentations/${id}/slides`, {
+      //   title: "test slide",
+      // });
+      // const slideId = slide.data.slides[0].id;
+      // const res = await api.post(`/opentext/${id}/slides/${slideId}`, {
+      //   searchQuery: "is monday a happy day?",
+      //   textLength: 5,
+      // });
+      // const spyFetch = jest.spyOn(global, "fetch");
+      // spyFetch.mockResolvedValueOnce({
+      //   status: 200,
+      //   json: async () => ({
+      //     text: "test text",
+      //   }),
+      // } as Response);
+      // const { data } = res;
+      // expect(res.status).toBe(201);
+      // expect(data.id).toEqual(slideId);
+      // expect(data.presentationid).toEqual(id);
+      // expect(spyFetch).toHaveBeenCalledTimes(1);
+      // expect(data.text).toEqual(expect.any(String));
+      // expect(data.image).toEqual("");
+    });
   });
 });

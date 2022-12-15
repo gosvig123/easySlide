@@ -28,50 +28,6 @@ const SlideController = {
     }
   },
 
-  // old
-  async createImage(req: Request, res: Response) {
-    try {
-      const id = parseInt(req.params.id);
-      const slideId = req.params.slideId;
-      console.log(slideId, id);
-
-      const image = await createImage(id, slideId, req.body);
-      return res.status(201).json(image);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send("error");
-    }
-  },
-  // old
-  async createText(req: Request, res: Response) {
-    try {
-      const id = parseInt(req.params.id);
-      const slideId = req.params.slideId;
-
-      const text = await createText(id, slideId, req.body);
-      return res.status(201).json(text);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send("error");
-    }
-  },
-  // old
-  async getOpenAiImage(req: Request, res: Response) {
-    console.log(req.body);
-    const { prompt, n, size } = req.body;
-    const image = await getImageFromOpenAi(prompt, n, size, openAIkey);
-    console.log(image);
-    res.json(image);
-  },
-  // old
-  async getOpenAiText(req: Request, res: Response) {
-    console.log(req.body);
-    const { searchQuery, textLength } = req.body;
-    const text = await openAiText(searchQuery, textLength, openAIkey);
-    console.log(text);
-    res.json(text);
-  },
-
   async getOpenAiImageAndSave(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);

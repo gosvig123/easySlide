@@ -12,30 +12,13 @@ router.get("/presentations/:id", PresentationController.getPresentationById);
 
 router.post("/presentations/:id/slides", SlideController.createSlide);
 
-//old route
 router.post(
-  "/presentations/:id/slides/:slideId/images",
-  SlideController.createImage
-);
-
-//old route
-router.post(
-  "/presentations/:id/slides/:slideId/text",
-  SlideController.createText
-);
-
-//old route
-router.post("/openimage", SlideController.getOpenAiImage);
-//old route
-router.post("/opentext", SlideController.getOpenAiText);
-
-router.post(
-  "/openimage/:id/slides/:slideId/images",
+  "/openimage/:id/slides/:slideId",
   SlideController.getOpenAiImageAndSave
 );
 
 router.post(
-  "/opentext/:id/slides/:slideId/text",
+  "/opentext/:id/slides/:slideId",
   SlideController.getOpenAiTextAndSave
 );
 
