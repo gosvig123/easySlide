@@ -2,29 +2,40 @@
 import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
-import { PhoneIcon } from "@chakra-ui/icons";
+import { Text } from "@chakra-ui/react";
+import * as api from "../lib/api";
 
 export default function SlidesList(props: any) {
-  const { onSelect, presentation, onCreateSlide } = props;
+  const {
+    setSelectedSlide,
+    slides,
+    createPresentation,
+    presentation,
+    setPresentation,
+  } = props;
+  type Slide = {
+    id: number;
+    image: string;
+    text: string;
+  };
 
   const { slides } = presentation;
-
-  // const handleCreatePresentation = async (e: any) => {
-  //   e.preventDefault();
-  //   const finalName = presentationName || "Untitled Presentation";
-  //   const newPresentation = await api.createPresentation(finalName);
-  //   setPresentation(newPresentation);
-  // };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const finalName = presentationName || "Untitled Presentation";
-    const newPresentation = await createPresentation(finalName);
-    setPresentation({
-      newPresentation,
-    });
+    await createPresentation(finalName);
   };
 
+  const handleCreateSlide = async () => {
+    let result = await api.getPresentation(presentation.id);
+    await result.slides.push({
+      id: Math.max(slides.length, 0),
+      image: "",
+      text: "",
+    });
+    setPresentation(result);
+  };
   return (
     <Flex
       display="flex"
@@ -75,9 +86,7 @@ export default function SlidesList(props: any) {
             }}
             key={index}
             onClick={setSelectedSlide(index)}
-          >
-            {slide["text"]}
-          </Box>
+          />
         ))}
       <Center
         mt="20px"

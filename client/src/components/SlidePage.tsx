@@ -12,7 +12,7 @@ export default function Page(props: any) {
     presentation,
     setPresentation,
   } = props;
-  const { text } = slide;
+  // const { text } = slide;
   return (
     <Container
       flex={1}
@@ -31,12 +31,21 @@ export default function Page(props: any) {
       centerContent
     >
       {/* This works for the dummy image but I'm not sure about the dimensions of future generated images*/}
-      <Center w="100px" bg="green.500">
-        <Text> {text} </Text>
+      <Center w="400px" h="40px" bg="#F5F5F5" border="1px">
+        <Text> placeholder </Text>
       </Center>
-      <Center w="300px" bg="yellow.500">
-        <Text> {text} </Text>
-      </Center>
+      <Container
+        w="1024px"
+        h="1024"
+        bg="#F5F5F5"
+        //backgroundImage={slide.image}
+        backgroundSize="cover"
+        bgRepeat="no-repeat"
+        backgroundPosition="center"
+        centerContent
+      >
+        <Text> placeholder </Text>
+      </Container>
     </Container>
   );
 }

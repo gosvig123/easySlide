@@ -1,5 +1,5 @@
 /** @format */
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import * as React from "react";
 import { Container } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -11,36 +11,33 @@ import Header from "./components/Header";
 
 import * as api from "./lib/api";
 
+type Slide = {
+  id: number;
+  image: string;
+  text: string;
+};
+
+type Presentation = {
+  id: number;
+  name: string;
+  slides: Array<Slide>;
+};
+
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [presentation, setPresentation] = useState({
-    id: 0,
-    name: "",
-    slides: [
-      {
-        id: "1",
-        image: "",
-        text: "test",
-      },
-    ],
-  });
+  const [presentation, setPresentation] = useState<Presentation>();
 
-  const { slides } = presentation;
-
-  // const [slide, setSlide] = useState(slides[0]);
   const [selectedSlide, setSelectedSlide] = useState(0);
 
   async function createPresentation(e: any) {
     const presentationName = e;
 
-    console.log(presentationName);
     const newPresentation = await api.createPresentation(presentationName);
-    console.log(newPresentation);
     await api.createSlide(newPresentation.id);
-    const presentaitonFromDb = await api.getPresentation(newPresentation.id);
-    console.log(presentaitonFromDb);
+    const result = await api.getPresentation(newPresentation.id);
+    setPresentation(result);
 
-    return presentaitonFromDb;
+    return newPresentation;
   }
 
   async function addTextToSlide(e: any) {
@@ -48,38 +45,35 @@ function App() {
 
     // const textFromOpenAi = await api.completeText(text, 40);
     // const updatedSlide = api.createText(presentation.id, slide.id, text);
-    const updatedText = e.target[0].value;
-    console.log("updatedText", updatedText);
+    const textInput = e.target.value;
 
+    // connects with OpenAI
+    const generatedText = await api.completeText(textInput, 40);
+
+    // storage the text in the slide
     const updatedSlide = await api.createText(
-      presentation.id,
-      slides[selectedSlide].id,
-      updatedText
+      presentation?.id,
+      presentation?.slides[selectedSlide].id,
+      generatedText
     );
 
-    const updatedSlides = slides.map((slide: any) => {
-      if (slide.id === updatedSlide.id) {
-        return updatedSlide;
-      }
-      return slide;
-    });
-    setPresentation({
-      ...presentation,
-      ...updatedSlides,
-    });
+    const presentationUpdated = await api.getPresentation(presentation?.id);
+    setPresentation(presentationUpdated);
   }
 
-  function selectSlide(index: number) {
-    setSelectedSlide(index);
-  }
+  // be able to select slide by clicking WIP
+  // function selectSlide(index: number) {
+  //   setSelectedSlide(index);
+  // }
+
   async function createSlide() {
-    const updatedPresentation = await api.createSlide(presentation.id);
+    const updatedPresentation = await api.createSlide(presentation?.id);
+    setSelectedSlide(updatedPresentation.slides.length - 1);
     setPresentation(updatedPresentation);
     setSelectedSlide(updatedPresentation.slides.length - 1);
   }
 
-  const slide = slides[selectedSlide];
-
+  //const slide = slides[selectedSlide];
   // const slide = presentation.slides[slide]
 
   interface propsInterface {
@@ -88,22 +82,18 @@ function App() {
     addTextToSlide: (e: any) => void;
     selectedSlide: number;
     setSelectedSlide: (selectedSlide: any) => void;
-    slides: any;
-    slide: any;
     presentation: any;
     setPresentation: (newPresentationdetails: any) => void;
   }
 
   const props: propsInterface = {
-    createSlide: createSlide,
-    createPresentation: createPresentation,
-    addTextToSlide: addTextToSlide,
-    selectedSlide: selectedSlide,
-    setSelectedSlide: setSelectedSlide,
-    slide: slides[selectedSlide],
-    slides: slides,
-    presentation: presentation,
-    setPresentation: setPresentation,
+    createSlide,
+    createPresentation,
+    addTextToSlide,
+    selectedSlide,
+    setSelectedSlide,
+    presentation,
+    setPresentation,
   };
   return (
     <ChakraProvider>
