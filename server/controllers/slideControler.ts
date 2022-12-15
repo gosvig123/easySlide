@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { Request, Response } from "express";
-import { getImageFromOpenAi, openAiText } from "../lib/open-ai-functions";
-import { createSlide, createImage, createText } from "../models/slidesModel";
+import * as OpenAI from "../lib/open-ai-functions";
+import * as SlideModel from "../models/slidesModel";
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ const SlideController = {
     try {
       const id = parseInt(req.params.id);
 
-      const slide = await createSlide(id, req.body);
+      const slide = await SlideModel.createSlide(id, req.body);
       return res.status(201).json(slide);
     } catch (error) {
       console.log(error);
@@ -29,9 +29,9 @@ const SlideController = {
       const id = parseInt(req.params.id);
       const slideId = req.params.slideId;
       const { prompt, n, size } = req.body;
-      const image = await getImageFromOpenAi(prompt, n, size, openAIkey);
+      const image = await OpenAI.getImageFromOpenAi(prompt, n, size, openAIkey);
 
-      const imageToSave = await createImage(id, slideId, image);
+      const imageToSave = await SlideModel.createImage(id, slideId, image);
       res.status(201).json(imageToSave);
     } catch {
       res.status(500).send("error");
@@ -43,9 +43,9 @@ const SlideController = {
       const id = parseInt(req.params.id);
       const slideId = req.params.slideId;
       const { searchQuery, textLength } = req.body;
-      const text = await openAiText(searchQuery, textLength, openAIkey);
+      const text = await OpenAI.openAiText(searchQuery, textLength, openAIkey);
       console.log(text);
-      const textToSave = await createText(id, slideId, text);
+      const textToSave = await SlideModel.createText(id, slideId, text);
       res.status(201).json(textToSave);
     } catch {
       res.status(500).send("error");
@@ -57,9 +57,9 @@ const SlideController = {
       const id = parseInt(req.params.id);
       const slideId = req.params.slideId;
       const { prompt, n, size } = req.body;
-      const image = await getImageFromOpenAi(prompt, n, size, openAIkey);
+      const image = await OpenAI.getImageFromOpenAi(prompt, n, size, openAIkey);
 
-      const imageToSave = await createImage(id, slideId, image);
+      const imageToSave = await SlideModel.createImage(id, slideId, image);
       res.status(201).json(imageToSave);
     } catch {
       res.status(500).send("error");
@@ -71,9 +71,9 @@ const SlideController = {
       const id = parseInt(req.params.id);
       const slideId = req.params.slideId;
       const { searchQuery, textLength } = req.body;
-      const text = await openAiText(searchQuery, textLength, openAIkey);
+      const text = await OpenAI.openAiText(searchQuery, textLength, openAIkey);
       console.log(text);
-      const textToSave = await createText(id, slideId, text);
+      const textToSave = await SlideModel.createText(id, slideId, text);
       res.status(201).json(textToSave);
     } catch {
       res.status(500).send("error");
