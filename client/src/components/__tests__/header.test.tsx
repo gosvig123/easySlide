@@ -1,40 +1,71 @@
 import Header from "../Header";
 import userEvent from "@testing-library/user-event";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import React from "react";
 import * as api from "../../lib/api";
 
 jest.mock("../../lib/api");
 
 describe("<Header/>", () => {
-  test.todo("renders Header component");
-  //   , () => {
-  //   const presentation = {
-  //     id: 0,
-  //     name: "",
-  //     slides: [
-  //       {
-  //         id: "1",
-  //         image: "",
-  //         text: "test",
-  //       },
-  //     ],
-  //   };
+  test("renders Header component", () => {
+    const onSubmitTextPrompt = jest.fn();
+    const onSubmitImagePrompt = jest.fn();
 
-  //   const slide = presentation.slides[0];
-  //   const onSelect = jest.fn();
-  //   const updatePresentationState = jest.fn();
+    const component = render(
+      <Header
+        onSubmitTextPrompt={onSubmitTextPrompt}
+        onSubmitImagePrompt={onSubmitImagePrompt}
+      />
+    );
 
-  //   render(
-  //     <Header
-  //       slide={slide}
-  //       onSelect={onSelect}
-  //       presentation={presentation}
-  //       updatePresentationState={updatePresentationState}
-  //     />
-  //   );
+    expect(component).toMatchSnapshot();
+  });
 
-  //   expect(screen.getByText("Submit")).toBeInTheDocument();
-  //   expect(screen.getByText("Presentation Name")).toBeInTheDocument();
-  // });
+  test("updates the slide's text with a prompt", async () => {
+    const promise = Promise.resolve();
+    const onSubmitTextPrompt = jest.fn();
+    const onSubmitImagePrompt = jest.fn();
+
+    const component = render(
+      <Header
+        onSubmitTextPrompt={onSubmitTextPrompt}
+        onSubmitImagePrompt={onSubmitImagePrompt}
+      />
+    );
+
+    const prompt = "types of bees";
+
+    userEvent.type(
+      component.getByPlaceholderText("text prompt"),
+      `${prompt}{enter}`
+    );
+    expect(onSubmitTextPrompt).toHaveBeenCalledWith(prompt);
+    await act(async () => {
+      await promise;
+    });
+  });
+
+  test("updates the slide's image with a prompt", async () => {
+    const promise = Promise.resolve();
+    const onSubmitTextPrompt = jest.fn();
+    const onSubmitImagePrompt = jest.fn();
+
+    const component = render(
+      <Header
+        onSubmitTextPrompt={onSubmitTextPrompt}
+        onSubmitImagePrompt={onSubmitImagePrompt}
+      />
+    );
+
+    const prompt = "a bee exiting a slide";
+
+    userEvent.type(
+      component.getByPlaceholderText("image prompt"),
+      `${prompt}{enter}`
+    );
+    expect(onSubmitImagePrompt).toHaveBeenCalledWith(prompt);
+    await act(async () => {
+      await promise;
+    });
+  });
 });

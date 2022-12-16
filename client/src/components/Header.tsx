@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
 import { Flex, Spacer } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
@@ -23,37 +23,39 @@ interface HeaderProps {
 export default function Header(props: any) {
   const { onSubmitTextPrompt, onSubmitImagePrompt } = props;
 
+  const [textPrompt, setTextPrompt] = useState("");
+  const [imagePrompt, setImagePrompt] = useState("");
+
+  const handleTextPromptChange: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ) => {
+    setTextPrompt(e.target.value);
+  };
+  const handleImagePromptChange: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ) => {
+    setImagePrompt(e.target.value);
+  };
+
   const onTextSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     // 1. Read from the form
     // 2. Tell the app we want to add that text
     // 3. Wait for re-render
     // 4. Clear the input
     e.preventDefault();
-    const target = e.target as typeof e.target & {
-      textPrompt: HTMLInputElement;
-    };
-
-    const textPrompt = target.textPrompt.value;
 
     try {
       await onSubmitTextPrompt(textPrompt);
-      // @ts-ignore
-      e.target.reset();
+      setTextPrompt("");
     } catch (e) {}
   };
 
   const onImageSubmit: React.FormEventHandler = async (e) => {
     e.preventDefault();
-    const target = e.target as typeof e.target & {
-      imagePrompt: HTMLInputElement;
-    };
-
-    const imagePrompt = target.imagePrompt.value;
 
     try {
       await onSubmitImagePrompt(imagePrompt);
-      // @ts-ignore
-      e.target.reset();
+      setImagePrompt("");
     } catch (e) {}
   };
 
@@ -65,6 +67,8 @@ export default function Header(props: any) {
           htmlSize={4}
           width="auto"
           placeholder="text prompt"
+          value={textPrompt}
+          onChange={handleTextPromptChange}
         />
       </form>
       {/* This one is for generating Text. */}
@@ -78,6 +82,8 @@ export default function Header(props: any) {
           htmlSize={4}
           width="auto"
           placeholder="image prompt"
+          value={imagePrompt}
+          onChange={handleImagePromptChange}
         />
       </form>
       {/* This one is for generating an Image. */}
