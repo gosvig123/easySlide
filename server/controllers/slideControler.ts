@@ -24,7 +24,7 @@ const SlideController = {
     }
   },
 
-  async getOpenAiImageAndSave(req: Request, res: Response) {
+  async updateImage(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
       const slideId = req.params.slideId;
@@ -32,49 +32,21 @@ const SlideController = {
       const image = await OpenAI.getImageFromOpenAi(prompt, n, size, openAIkey);
 
       const imageToSave = await SlideModel.createImage(id, slideId, image);
-      res.status(201).json(imageToSave);
+      res.status(200).json(imageToSave);
     } catch {
       res.status(500).send("error");
     }
   },
 
-  async getOpenAiTextAndSave(req: Request, res: Response) {
+  async updateText(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
       const slideId = req.params.slideId;
       const { searchQuery, textLength } = req.body;
       const text = await OpenAI.openAiText(searchQuery, textLength, openAIkey);
-      console.log(text);
+
       const textToSave = await SlideModel.createText(id, slideId, text);
-      res.status(201).json(textToSave);
-    } catch {
-      res.status(500).send("error");
-    }
-  },
-
-  async updateOpenImage(req: Request, res: Response) {
-    try {
-      const id = parseInt(req.params.id);
-      const slideId = req.params.slideId;
-      const { prompt, n, size } = req.body;
-      const image = await OpenAI.getImageFromOpenAi(prompt, n, size, openAIkey);
-
-      const imageToSave = await SlideModel.createImage(id, slideId, image);
-      res.status(201).json(imageToSave);
-    } catch {
-      res.status(500).send("error");
-    }
-  },
-
-  async updateOpenText(req: Request, res: Response) {
-    try {
-      const id = parseInt(req.params.id);
-      const slideId = req.params.slideId;
-      const { searchQuery, textLength } = req.body;
-      const text = await OpenAI.openAiText(searchQuery, textLength, openAIkey);
-      console.log(text);
-      const textToSave = await SlideModel.createText(id, slideId, text);
-      res.status(201).json(textToSave);
+      res.status(200).json(textToSave);
     } catch {
       res.status(500).send("error");
     }
