@@ -1,5 +1,5 @@
 /** @format */
-import React, { useState } from "react";
+import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
