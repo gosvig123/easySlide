@@ -13,6 +13,7 @@ export default function SlidesList(props: any) {
     presentation,
     setPresentation,
   } = props;
+
   type Slide = {
     id: number;
     image: string;
