@@ -1,6 +1,6 @@
 /** @format */
 
-const BASE_URL = 'http://localhost:8080'
+const BASE_URL = "http://localhost:8080";
 
 export const getPresentation: any = async (id: string) => {
   const updatedPresentation = await fetch(
@@ -78,36 +78,46 @@ export const createText: any = async (
   return newText;
 };
 
-export const generateImage: any = async (
+export const generateImage = async (
   prompt: string,
   n: number,
-  size: string
+  size: string,
+  presentationId: number,
+  slideId: string
 ) => {
-  const newImage = await fetch(`${BASE_URL}/openimage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      prompt,
-      n,
-      size,
-    }),
-  }).then((res) => res.json());
+  const newImage = await fetch(
+    `${BASE_URL}/openimage/${presentationId}/slides/${slideId}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        prompt,
+        n,
+        size,
+      }),
+    }
+  ).then((res) => res.json());
 
   return newImage;
 };
 
 export const completeText: any = async (
   searchQuery: string,
-  textLength: number
+  textLength: number,
+  presentationId: number,
+  slideId: string
 ) => {
-  const newText = await fetch(`${BASE_URL}/opentext`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      searchQuery,
-      textLength,
-    }),
-  }).then((res) => res.json());
+  const newText = await fetch(
+    `${BASE_URL}/opentext/${presentationId}/slides/${slideId}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        searchQuery,
+        textLength,
+      }),
+    }
+  ).then((res) => res.json());
 
   return newText;
 };

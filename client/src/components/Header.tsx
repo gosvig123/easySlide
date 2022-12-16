@@ -15,61 +15,71 @@ import {
   createText,
 } from "../lib/api";
 
-export default function Header(props: any) {
-  const { slide, onSelect, updatePresentationState, presentation } = props;
+interface HeaderProps {
+  onSubmitTextPrompt: (textPrompt: string) => Promise<void>;
+  onSubmitImagePrompt: (imagePrompt: string) => Promise<void>;
+}
 
-  const onTextSubmit = async (e: any) => {
+export default function Header(props: any) {
+  const { onSubmitTextPrompt, onSubmitImagePrompt } = props;
+
+  const onTextSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     // 1. Read from the form
     // 2. Tell the app we want to add that text
     // 3. Wait for re-render
+    // 4. Clear the input
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      textPrompt: HTMLInputElement;
+    };
 
-    if (e.key === "Enter") {
-      const updatedPresentation = await getPresentation(presentation.id);
-      const input = e.target.value;
-      const paragraph = await completeText(input, 40);
-      await createText(presentation.id, slide.id, paragraph);
+    const textPrompt = target.textPrompt.value;
 
-      const updatedSlide = {
-        id: slide["id"],
-        text: paragraph,
-        image: slide["image"],
-      };
-      onSelect(updatedSlide);
-      updatePresentationState(await updatedPresentation);
-
-      return presentation;
-    }
+    try {
+      await onSubmitTextPrompt(textPrompt);
+      // @ts-ignore
+      e.target.reset();
+    } catch (e) {}
   };
 
-  const onImageSubmit = async (e: any) => {
-    if (e.key === "Enter") {
-      const input = e.target.value;
-      const aiPic = await generateImage(input, 1, "1024x1024");
-      await createImage(presentation.id, slide.id, aiPic);
+  const onImageSubmit: React.FormEventHandler = async (e) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      imagePrompt: HTMLInputElement;
+    };
 
-      return;
-    }
+    const imagePrompt = target.imagePrompt.value;
+
+    try {
+      await onSubmitImagePrompt(imagePrompt);
+      // @ts-ignore
+      e.target.reset();
+    } catch (e) {}
   };
 
   return (
     <Flex color="black" mt={5} gap="25">
-      <Input
-        htmlSize={4}
-        width="auto"
-        placeholder="text prompt"
-        onKeyDown={(e) => onTextSubmit(e)}
-      />
+      <form onSubmit={onTextSubmit}>
+        <Input
+          name="textPrompt"
+          htmlSize={4}
+          width="auto"
+          placeholder="text prompt"
+        />
+      </form>
       {/* This one is for generating Text. */}
       <Spacer />
       <Spacer />
       <Spacer />
 
-      <Input
-        htmlSize={4}
-        width="auto"
-        placeholder="image prompt"
-        onKeyDown={(e) => onImageSubmit(e)}
-      />
+      <form onSubmit={onImageSubmit}>
+        <Input
+          name="imagePrompt"
+          htmlSize={4}
+          width="auto"
+          placeholder="image prompt"
+        />
+      </form>
       {/* This one is for generating an Image. */}
 
       <Button colorScheme="blue">Present</Button>

@@ -37,16 +37,49 @@ function App() {
     setPresentation(result);
   }
 
-  async function addTextToSlide(e: any) {
-    // const textFromOpenAi = await api.completeText(text, 40);
-    // const updatedSlide = api.createText(presentation.id, slide.id, text);
-    //const textInput = e.target.value;
+  async function addTextToSlide(textPrompt: string): Promise<void> {
+    if (!presentation) {
+      throw new Error("There's no presentation opened");
+    }
 
-    // connects with OpenAI
-    //const generatedText = await api.completeText(textInput, 40);
+    const updatedSlide = await api.completeText(
+      textPrompt,
+      40,
+      presentation.id,
+      presentation.slides[selectedSlide].id
+    );
 
-    const presentationUpdated = await api.getPresentation(presentation?.id);
-    setPresentation(presentationUpdated);
+    setPresentation({
+      ...presentation,
+      slides: presentation.slides.map((slide, index) => {
+        if (index !== selectedSlide) return slide;
+
+        return updatedSlide;
+      }),
+    });
+  }
+
+  async function addImageToSlide(imagePrompt: string): Promise<void> {
+    if (!presentation) {
+      throw new Error("There's no presentation opened");
+    }
+
+    const updatedSlide = await api.generateImage(
+      imagePrompt,
+      1,
+      "1024x1024",
+      presentation.id,
+      presentation.slides[selectedSlide].id
+    );
+
+    setPresentation({
+      ...presentation,
+      slides: presentation.slides.map((slide, index) => {
+        if (index !== selectedSlide) return slide;
+
+        return updatedSlide;
+      }),
+    });
   }
 
   async function createSlide() {
@@ -91,7 +124,10 @@ function App() {
         bg="#F4F7FF"
         centerContent
       >
-        <Header {...props} />
+        <Header
+          onSubmitTextPrompt={addTextToSlide}
+          onSubmitImagePrompt={addImageToSlide}
+        />
       </Container>
       <Container
         display="flex"

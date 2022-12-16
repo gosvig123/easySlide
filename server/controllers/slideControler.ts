@@ -45,8 +45,8 @@ const SlideController = {
       const { searchQuery, textLength } = req.body;
       const text = await OpenAI.openAiText(searchQuery, textLength, openAIkey);
 
-      const textToSave = await SlideModel.createText(id, slideId, text);
-      res.status(200).json(textToSave);
+      const slide = await SlideModel.createText(id, slideId, text);
+      res.status(200).json(slide);
     } catch {
       res.status(500).send("error");
     }
