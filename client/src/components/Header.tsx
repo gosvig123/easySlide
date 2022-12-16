@@ -18,8 +18,6 @@ import {
 export default function Header(props: any) {
   const { slide, onSelect, updatePresentationState, presentation } = props;
 
-  const [presentationName, setPresentationName] = useState("");
-
   const onTextSubmit = async (e: any) => {
     // 1. Read from the form
     // 2. Tell the app we want to add that text
@@ -45,15 +43,9 @@ export default function Header(props: any) {
 
   const onImageSubmit = async (e: any) => {
     if (e.key === "Enter") {
-      const updatedPresentation = getPresentation(presentation.id);
       const input = e.target.value;
       const aiPic = await generateImage(input, 1, "1024x1024");
       await createImage(presentation.id, slide.id, aiPic);
-      const updatedSlide = {
-        id: slide["id"],
-        text: slide["text"],
-        image: aiPic,
-      };
 
       return;
     }

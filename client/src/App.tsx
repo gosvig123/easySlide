@@ -1,5 +1,5 @@
 /** @format */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as React from "react";
 import { Container } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -41,14 +41,6 @@ function App() {
     return;
   }
 
-  //useEffect(() => {
-  //  async function updatePresentation() {
-  //    const result = await api.getPresentation(presentation.id);
-  //    setPresentation(result);
-  //  }
-  //  updatePresentation();
-  //}, [presentation]);
-
   async function addTextToSlide(e: any) {
     // const textFromOpenAi = await api.completeText(text, 40);
     // const updatedSlide = api.createText(presentation.id, slide.id, text);
@@ -57,30 +49,15 @@ function App() {
     // connects with OpenAI
     const generatedText = await api.completeText(textInput, 40);
 
-    // storage the text in the slide
-    const updatedSlide = await api.createText(
-      presentation?.id,
-      presentation?.slides[selectedSlide].id,
-      generatedText
-    );
-
     const presentationUpdated = await api.getPresentation(presentation?.id);
     setPresentation(presentationUpdated);
   }
-
-  // be able to select slide by clicking WIP
-  // function selectSlide(index: number) {
-  //   setSelectedSlide(index);
-  // }
 
   async function createSlide() {
     const updatedPresentation = await api.createSlide(presentation?.id);
     setSelectedSlide(updatedPresentation.slides.length - 1);
     setPresentation(updatedPresentation);
   }
-
-  //const slide = slides[selectedSlide];
-  // const slide = presentation.slides[slide]
 
   interface propsInterface {
     createSlide: (e: any) => void;
