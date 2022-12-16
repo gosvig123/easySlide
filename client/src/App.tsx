@@ -76,7 +76,13 @@ function App() {
   };
   return (
     <ChakraProvider>
-      <SlidesList {...props} />
+      <SlidesList
+        presentation={presentation}
+        selectedSlide={selectedSlide}
+        onSelectSlide={setSelectedSlide}
+        onCreatePresentation={createPresentation}
+        onCreateSlide={createSlide}
+      />
       <Container
         display="flex"
         h="100vh"

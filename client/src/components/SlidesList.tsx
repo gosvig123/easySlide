@@ -5,13 +5,21 @@ import { Center } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import * as api from "../lib/api";
 
-export default function SlidesList(props: any) {
+interface SlidesListProps {
+  presentation: any;
+  selectedSlide: number;
+  onSelectSlide: (index: number) => void;
+  onCreatePresentation: (presentationName: string) => void;
+  onCreateSlide: () => void;
+}
+
+export default function SlidesList(props: SlidesListProps) {
   const {
-    setSelectedSlide,
-    createPresentation,
     presentation,
-    setPresentation,
-    createSlide,
+    selectedSlide,
+    onSelectSlide,
+    onCreatePresentation,
+    onCreateSlide,
   } = props;
 
   type Slide = {
@@ -32,11 +40,11 @@ export default function SlidesList(props: any) {
     HTMLFormElement
   > = async (e: any) => {
     e.preventDefault();
-    await createPresentation(presentationName);
+    await onCreatePresentation(presentationName);
   };
 
   const handleCreateSlide: React.MouseEventHandler<HTMLElement> = async () => {
-    await createSlide();
+    await onCreateSlide();
   };
 
   return (
@@ -83,12 +91,13 @@ export default function SlidesList(props: any) {
               height: 100,
               color: "white",
               overflow: "scroll",
-
               backgroundSize: "cover",
             }}
             key={index}
-            onClick={setSelectedSlide(index)}
-          />
+            onClick={() => onSelectSlide(index)}
+          >
+            {slide.text}
+          </Box>
         ))}
       <Center
         mt="20px"
