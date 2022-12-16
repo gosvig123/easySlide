@@ -24,7 +24,7 @@ export default function Page(props: any) {
       minH="70vh"
       maxH="91vh"
       border="1px"
-      backgroundImage={slide.image}
+      //backgroundImage={slide.image}
       backgroundSize="cover"
       bgRepeat="no-repeat"
       backgroundPosition="center"

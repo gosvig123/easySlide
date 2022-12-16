@@ -1,14 +1,14 @@
 /** @format */
-import React from "react";
+import React, { useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import * as api from "../lib/api";
+import { createPresentation, getPresentation, createSlide } from "../lib/api";
 
 export default function SlidesList(props: any) {
   const {
     setSelectedSlide,
-    slides,
     createPresentation,
     presentation,
     setPresentation,
@@ -19,12 +19,15 @@ export default function SlidesList(props: any) {
     text: string;
   };
 
-  const { slides } = presentation;
+  const [presentationName, setPresentationName] = React.useState("");
 
+  const handChange = (e: any) => {
+    setPresentationName(e.target.value);
+    return;
+  };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const finalName = presentationName || "Untitled Presentation";
-    await createPresentation(finalName);
+    await createPresentation(presentationName);
   };
 
   const handleCreateSlide = async () => {
@@ -39,28 +42,27 @@ export default function SlidesList(props: any) {
       position="absolute"
       flexBasis="start"
       overflow="scroll"
-      bg="red"
-      w="250"
+      bg="white"
+      w="280px"
       h="100vh"
       align={"center"}
     >
-      <Center
-        mt={10}
-        w="130px"
-        flexShrink="0"
-        h="100px"
-        bg="tomato"
-        color="white"
-        borderWidth="1px"
-        borderColor="white"
-        borderRadius="12px"
-        mb="10px"
-      >
-        <PhoneIcon />
-      </Center>
-      {slides.length > 0 &&
-        Array.isArray(slides) &&
-        slides.map((slide, index) => (
+      <Text fontSize="24" as="b">
+        Smart Slides
+      </Text>
+      <Flex bg="grey" flexFlow="column">
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <input
+            type="text"
+            onChange={handChange}
+            value={presentationName}
+            placeholder="Presentation Name"
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </Flex>
+      {Array.isArray(presentation?.slides) &&
+        presentation?.slides.map((slide: Slide, index: number) => (
           <Box
             textAlign="center"
             backgroundImage={slide.image}
@@ -91,10 +93,16 @@ export default function SlidesList(props: any) {
         ml="15px"
         w="150px"
         h="100"
-        bg="tomato"
+        bg="#F5F5F5"
         color="white"
       >
-        <Box as="span" fontWeight="bold" fontSize="lg" onClick={addSlide}>
+        <Box
+          as="span"
+          color="#2D3748"
+          fontWeight="bold"
+          fontSize="lg"
+          onClick={() => handleCreateSlide()}
+        >
           +
         </Box>
       </Center>

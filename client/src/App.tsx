@@ -26,24 +26,7 @@ type Presentation = {
 
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [presentation, setPresentation] = useState<Presentation>({
-    id: 261,
-    name: "vs",
-    slides: [
-      {
-        id: "3fca8ed5-5631-4543-ab6a-1c71601ac1ae",
-        text: "",
-        image: "",
-        presentationid: 261,
-      },
-      {
-        id: "39f1c908-b481-4287-8755-306767a34a1a",
-        text: "",
-        image: "",
-        presentationid: 261,
-      },
-    ],
-  });
+  const [presentation, setPresentation] = useState<Presentation>();
 
   const [selectedSlide, setSelectedSlide] = useState(0);
 
@@ -55,8 +38,16 @@ function App() {
     const result = await api.getPresentation(newPresentation.id);
     setPresentation(result);
 
-    return newPresentation;
+    return;
   }
+
+  //useEffect(() => {
+  //  async function updatePresentation() {
+  //    const result = await api.getPresentation(presentation.id);
+  //    setPresentation(result);
+  //  }
+  //  updatePresentation();
+  //}, [presentation]);
 
   async function addTextToSlide(e: any) {
     // const textFromOpenAi = await api.completeText(text, 40);
@@ -86,7 +77,6 @@ function App() {
     const updatedPresentation = await api.createSlide(presentation?.id);
     setSelectedSlide(updatedPresentation.slides.length - 1);
     setPresentation(updatedPresentation);
-    setSelectedSlide(updatedPresentation.slides.length - 1);
   }
 
   //const slide = slides[selectedSlide];
@@ -119,7 +109,7 @@ function App() {
         h="100vh"
         minW="100vw"
         w="100vw"
-        bg="blue.600"
+        bg="#F4F7FF"
         centerContent
       >
         <Header {...props} />
