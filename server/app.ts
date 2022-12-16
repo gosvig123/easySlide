@@ -10,7 +10,7 @@ function startServer(): Promise<Server> {
   const PORT = process.env.SERVER_PORT;
 
   if (!PORT) {
-    throw new Error("No API key found");
+    throw new Error("No port found for server");
   }
 
   const app: Express = express();

@@ -5,10 +5,6 @@ export async function createSlide(
   id: number,
   body: { text?: string; image?: string }
 ): Promise<Presentation> {
-  const presentation = await prisma.presentation.findUniqueOrThrow({
-    where: { id },
-  });
-
   const image = body.image ? body.image : "";
   const text = body.text ? body.text : "";
 
@@ -18,31 +14,20 @@ export async function createSlide(
       text,
       presentation: {
         connect: {
-          id: presentation.id,
+          id,
         },
       },
     },
   });
 
-  await prisma.presentation.findUniqueOrThrow({
+  return await prisma.presentation.findUniqueOrThrow({
     where: {
-      id: presentation.id,
+      id,
     },
     include: {
       slides: true,
     },
   });
-
-  const newPresentation = await prisma.presentation.findUniqueOrThrow({
-    where: {
-      id: presentation.id,
-    },
-    include: {
-      slides: true,
-    },
-  });
-
-  return newPresentation;
 }
 
 export async function createImage(
