@@ -98,16 +98,6 @@ function App() {
     setPresentation: (newPresentationdetails: any) => void;
   }
 
-  const props: propsInterface = {
-    createSlide,
-    createPresentation,
-    addTextToSlide,
-    selectedSlide,
-    setSelectedSlide,
-    presentation,
-    setPresentation,
-  };
-
   return (
     <ChakraProvider>
       <SlidesList
