@@ -107,6 +107,7 @@ function App() {
     presentation,
     setPresentation,
   };
+
   return (
     <ChakraProvider>
       <SlidesList
@@ -137,7 +138,7 @@ function App() {
         bg="#F4F7FF"
         centerContent
       >
-        <Page {...props} />
+        {presentation && <Page slide={presentation?.slides[selectedSlide]} />}
       </Container>
     </ChakraProvider>
   );
