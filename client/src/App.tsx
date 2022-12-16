@@ -44,7 +44,7 @@ function App() {
   async function addTextToSlide(e: any) {
     // const textFromOpenAi = await api.completeText(text, 40);
     // const updatedSlide = api.createText(presentation.id, slide.id, text);
-    const textInput = e.target.value;
+    //const textInput = e.target.value;
 
     // connects with OpenAI
     //const generatedText = await api.completeText(textInput, 40);
