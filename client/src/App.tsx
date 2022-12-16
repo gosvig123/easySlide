@@ -47,7 +47,7 @@ function App() {
     const textInput = e.target.value;
 
     // connects with OpenAI
-    const generatedText = await api.completeText(textInput, 40);
+    //const generatedText = await api.completeText(textInput, 40);
 
     const presentationUpdated = await api.getPresentation(presentation?.id);
     setPresentation(presentationUpdated);
