@@ -88,16 +88,6 @@ function App() {
     setPresentation(updatedPresentation);
   }
 
-  interface propsInterface {
-    createSlide: (e: any) => void;
-    createPresentation: (e: any) => void;
-    addTextToSlide: (e: any) => void;
-    selectedSlide: number;
-    setSelectedSlide: (selectedSlide: any) => void;
-    presentation: any;
-    setPresentation: (newPresentationdetails: any) => void;
-  }
-
   return (
     <ChakraProvider>
       <SlidesList
