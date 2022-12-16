@@ -5,21 +5,6 @@ import { Flex, Spacer } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 
-import {
-  //createPresentation,
-  getPresentation,
-  //createSlide,
-  generateImage,
-  completeText,
-  createImage,
-  createText,
-} from "../lib/api";
-
-interface HeaderProps {
-  onSubmitTextPrompt: (textPrompt: string) => Promise<void>;
-  onSubmitImagePrompt: (imagePrompt: string) => Promise<void>;
-}
-
 export default function Header(props: any) {
   const { onSubmitTextPrompt, onSubmitImagePrompt } = props;
 

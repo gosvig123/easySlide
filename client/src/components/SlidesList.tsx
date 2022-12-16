@@ -3,7 +3,6 @@ import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-import * as api from "../lib/api";
 
 interface SlidesListProps {
   presentation: any;
@@ -16,7 +15,7 @@ interface SlidesListProps {
 export default function SlidesList(props: SlidesListProps) {
   const {
     presentation,
-    selectedSlide,
+
     onSelectSlide,
     onCreatePresentation,
     onCreateSlide,
