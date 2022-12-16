@@ -1,5 +1,5 @@
 /** @format */
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import * as React from "react";
 import { Container } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -12,9 +12,10 @@ import Header from "./components/Header";
 import * as api from "./lib/api";
 
 type Slide = {
-  id: number;
+  id: string;
   image: string;
   text: string;
+  presentationid: number;
 };
 
 type Presentation = {
@@ -25,7 +26,24 @@ type Presentation = {
 
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [presentation, setPresentation] = useState<Presentation>();
+  const [presentation, setPresentation] = useState<Presentation>({
+    id: 261,
+    name: "vs",
+    slides: [
+      {
+        id: "3fca8ed5-5631-4543-ab6a-1c71601ac1ae",
+        text: "",
+        image: "",
+        presentationid: 261,
+      },
+      {
+        id: "39f1c908-b481-4287-8755-306767a34a1a",
+        text: "",
+        image: "",
+        presentationid: 261,
+      },
+    ],
+  });
 
   const [selectedSlide, setSelectedSlide] = useState(0);
 
@@ -41,8 +59,6 @@ function App() {
   }
 
   async function addTextToSlide(e: any) {
-    e.preventDefault();
-
     // const textFromOpenAi = await api.completeText(text, 40);
     // const updatedSlide = api.createText(presentation.id, slide.id, text);
     const textInput = e.target.value;

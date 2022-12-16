@@ -28,12 +28,8 @@ export default function SlidesList(props: any) {
   };
 
   const handleCreateSlide = async () => {
-    let result = await api.getPresentation(presentation.id);
-    await result.slides.push({
-      id: Math.max(slides.length, 0),
-      image: "",
-      text: "",
-    });
+    await api.createSlide(presentation.id);
+    const result = await api.getPresentation(presentation.id);
     setPresentation(result);
   };
   return (
