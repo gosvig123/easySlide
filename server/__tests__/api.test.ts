@@ -183,5 +183,78 @@ describe("API", () => {
       expect(data.presentationid).toEqual(id);
       expect(data.text).toEqual(text);
     });
+
+    test("update open image", async () => {
+      const presentation = await api.post("/presentations", {
+        name: "test presentation",
+      });
+      const id = presentation.data.id;
+      const slide = await api.post(`/presentations/${id}/slides`, {
+        title: "test slide",
+      });
+      const slideId = slide.data.slides[0].id;
+
+      const prompt = "A cute baby sea otter";
+      const n = 1;
+      const size = "1024x1024";
+      const openAIkey = process.env.API_KEY;
+      const image = "test image";
+
+      const mockOpenAI = jest
+        .spyOn(openAIfunctions, "getImageFromOpenAi")
+        .mockResolvedValue(image);
+
+      const res = await api.put(`/updateopenimage/${id}/slides/${slideId}`, {
+        prompt,
+        n,
+        size,
+      });
+      console.log(res);
+
+      const { data } = res;
+
+      expect(res.status).toBe(201);
+      expect(mockOpenAI).toHaveBeenCalledWith(prompt, n, size, openAIkey);
+      expect(data.id).toEqual(slideId);
+      expect(data.presentationid).toEqual(id);
+      expect(data.text).toEqual("");
+      expect(data.image).toEqual(image);
+    });
+
+    test("update open text", async () => {
+      const presentation = await api.post("/presentations", {
+        name: "test presentation",
+      });
+      const id = presentation.data.id;
+      const slide = await api.post(`/presentations/${id}/slides`, {
+        title: "test slide",
+      });
+      const slideId = slide.data.slides[0].id;
+
+      const searchQuery = "A cute baby sea otter";
+      const textLength = 7;
+      const openAIkey = process.env.API_KEY;
+      const text = "test text";
+
+      const mockOpenAI = jest
+        .spyOn(openAIfunctions, "openAiText")
+        .mockResolvedValue(text);
+
+      const res = await api.put(`/updateopentext/${id}/slides/${slideId}`, {
+        searchQuery,
+        textLength,
+      });
+
+      const { data } = res;
+      expect(res.status).toBe(201);
+      expect(mockOpenAI).toHaveBeenCalledWith(
+        searchQuery,
+        textLength,
+        openAIkey
+      );
+      expect(data.id).toEqual(slideId);
+      expect(data.presentationid).toEqual(id);
+      expect(data.text).toEqual(text);
+    });
   });
 });
