@@ -30,15 +30,11 @@ function App() {
 
   const [selectedSlide, setSelectedSlide] = useState(0);
 
-  async function createPresentation(e: any) {
-    const presentationName = e;
-
+  async function createPresentation(presentationName: string) {
     const newPresentation = await api.createPresentation(presentationName);
     await api.createSlide(newPresentation.id);
     const result = await api.getPresentation(newPresentation.id);
     setPresentation(result);
-
-    return;
   }
 
   async function addTextToSlide(e: any) {

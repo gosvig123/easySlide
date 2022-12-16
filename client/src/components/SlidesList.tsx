@@ -4,7 +4,6 @@ import { Box, Flex } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import * as api from "../lib/api";
-//import { createPresentation, getPresentation, createSlide } from "../lib/api";
 
 export default function SlidesList(props: any) {
   const {
@@ -12,6 +11,7 @@ export default function SlidesList(props: any) {
     createPresentation,
     presentation,
     setPresentation,
+    createSlide,
   } = props;
 
   type Slide = {
@@ -22,20 +22,23 @@ export default function SlidesList(props: any) {
 
   const [presentationName, setPresentationName] = React.useState("");
 
-  const handChange = (e: any) => {
+  const handlePresentationNameChange: React.ChangeEventHandler<
+    HTMLInputElement
+  > = (e) => {
     setPresentationName(e.target.value);
     return;
   };
-  const handleSubmit = async (e: any) => {
+  const handleCreatePresentation: React.ChangeEventHandler<
+    HTMLFormElement
+  > = async (e: any) => {
     e.preventDefault();
     await createPresentation(presentationName);
   };
 
-  const handleCreateSlide = async () => {
-    await api.createSlide(presentation.id);
-    const result = await api.getPresentation(presentation.id);
-    setPresentation(result);
+  const handleCreateSlide: React.MouseEventHandler<HTMLElement> = async () => {
+    await createSlide();
   };
+
   return (
     <Flex
       display="flex"
@@ -52,10 +55,10 @@ export default function SlidesList(props: any) {
         Smart Slides
       </Text>
       <Flex bg="grey" flexFlow="column">
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={handleCreatePresentation}>
           <input
             type="text"
-            onChange={handChange}
+            onChange={handlePresentationNameChange}
             value={presentationName}
             placeholder="Presentation Name"
           />
@@ -102,7 +105,7 @@ export default function SlidesList(props: any) {
           color="#2D3748"
           fontWeight="bold"
           fontSize="lg"
-          onClick={() => handleCreateSlide()}
+          onClick={handleCreateSlide}
         >
           +
         </Box>
