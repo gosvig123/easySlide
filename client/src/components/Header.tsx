@@ -4,12 +4,11 @@ import React, { useState } from "react";
 import { Flex, Spacer } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
-import { Center } from "@chakra-ui/react";
-import { Text } from "@chakra-ui/react";
+
 import {
-  createPresentation,
+  //createPresentation,
   getPresentation,
-  createSlide,
+  //createSlide,
   generateImage,
   completeText,
   createImage,

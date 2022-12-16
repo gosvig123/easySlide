@@ -4,7 +4,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import * as api from "../lib/api";
-import { createPresentation, getPresentation, createSlide } from "../lib/api";
+//import { createPresentation, getPresentation, createSlide } from "../lib/api";
 
 export default function SlidesList(props: any) {
   const {
