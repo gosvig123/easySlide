@@ -1,6 +1,6 @@
 /** @format */
 
-import { Center, Container, Text } from "@chakra-ui/react";
+import { Container, Text } from "@chakra-ui/react";
 import React from "react";
 
 interface Slide {
