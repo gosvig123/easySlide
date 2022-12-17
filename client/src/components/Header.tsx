@@ -49,8 +49,8 @@ export default function Header(props: any) {
       <form onSubmit={onTextSubmit}>
         <Input
           name="textPrompt"
-          htmlSize={4}
-          width="auto"
+          width="200px"
+          bg={"white"}
           placeholder="text prompt"
           value={textPrompt}
           onChange={handleTextPromptChange}
@@ -64,16 +64,18 @@ export default function Header(props: any) {
       <form onSubmit={onImageSubmit}>
         <Input
           name="imagePrompt"
-          htmlSize={4}
-          width="auto"
+          w={"200px"}
           placeholder="image prompt"
+          bg={"white"}
           value={imagePrompt}
           onChange={handleImagePromptChange}
         />
       </form>
       {/* This one is for generating an Image. */}
 
-      <Button colorScheme="blue">Present</Button>
+      <Button bg={" #319795;"} color="white">
+        Present
+      </Button>
       {/* Click this to enter presentation mode. */}
     </Flex>
   );

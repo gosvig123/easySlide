@@ -58,18 +58,44 @@ export default function SlidesList(props: SlidesListProps) {
       h="100vh"
       align={"center"}
     >
-      <Text fontSize="24" as="b">
+      <Text fontSize="24" as="b" mt="20px" mb="20px">
         Smart Slides
       </Text>
-      <Flex bg="grey" flexFlow="column">
-        <form onSubmit={handleCreatePresentation}>
+      <Flex bg="white" flexFlow="column">
+        <form
+          onSubmit={handleCreatePresentation}
+          style={{
+            width: "100%",
+            marginBottom: "30px",
+            backgroundColor: "transparent",
+          }}
+        >
           <input
             type="text"
             onChange={handlePresentationNameChange}
             value={presentationName}
+            style={{
+              borderWidth: "1px",
+              borderStyle: "dotted",
+              borderColor: "black",
+              borderRadius: "8px",
+            }}
             placeholder="Presentation Name"
           />
-          <button type="submit">Submit</button>
+          <br />
+          <button
+            style={{
+              marginTop: "2px",
+              backgroundColor: "#319795",
+              color: "white",
+              width: "100%",
+              borderRadius: "8px",
+              borderWidth: "0px",
+            }}
+            type="submit"
+          >
+            Submit
+          </button>
         </form>
       </Flex>
       {Array.isArray(presentation?.slides) &&
@@ -86,11 +112,12 @@ export default function SlidesList(props: SlidesListProps) {
               position: "relative",
               borderColor: "white",
               borderWidth: "1px",
-              width: 130,
-              height: 100,
+              width: 190,
+              height: 120,
               color: "white",
               overflow: "scroll",
               backgroundSize: "cover",
+              backgroundColor: "aliceblue",
             }}
             key={index}
             onClick={() => onSelectSlide(index)}
@@ -103,16 +130,17 @@ export default function SlidesList(props: SlidesListProps) {
         borderRadius="12px"
         mr="15px"
         ml="15px"
-        w="150px"
-        h="100"
-        bg="#F5F5F5"
+        w="190px"
+        h="50px"
+        bg="#319795"
         color="white"
+        mb="30px"
       >
         <Box
           as="span"
-          color="#2D3748"
+          color="white"
           fontWeight="bold"
-          fontSize="lg"
+          fontSize="xl"
           onClick={handleCreateSlide}
         >
           +

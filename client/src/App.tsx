@@ -98,27 +98,23 @@ function App() {
         onCreatePresentation={createPresentation}
         onCreateSlide={createSlide}
       />
+
       <Container
         display="flex"
         h="100vh"
         minW="100vw"
         w="100vw"
         bg="#F4F7FF"
+        border="1px"
         centerContent
+        pl={"200px"}
+        pb={"60px"}
       >
         <Header
           onSubmitTextPrompt={addTextToSlide}
           onSubmitImagePrompt={addImageToSlide}
         />
-      </Container>
-      <Container
-        display="flex"
-        h="100vh"
-        minW="100vw"
-        w="100vw"
-        bg="#F4F7FF"
-        centerContent
-      >
+
         {presentation && <Page slide={presentation?.slides[selectedSlide]} />}
       </Container>
     </ChakraProvider>

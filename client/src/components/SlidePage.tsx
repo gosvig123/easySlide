@@ -20,14 +20,13 @@ export default function SlidePage(props: SlidePageProps) {
   return (
     <Container
       flex={1}
-      ml={140}
+      mt="25px"
+      ml={"280px"}
       display="flex"
-      mt={2}
-      minW="80vw"
-      maxW="92vw"
-      minH="70vh"
-      maxH="91vh"
-      border="1px"
+      minW="78vw"
+      mr={"200px"}
+      borderWidth="1px"
+      borderColor={"black"}
       backgroundImage={image}
       backgroundSize="cover"
       bgRepeat="no-repeat"
