@@ -10,10 +10,9 @@ Object {
       >
         <form>
           <input
-            class="chakra-input css-68zbsl"
+            class="chakra-input css-f8f4qd"
             name="textPrompt"
             placeholder="text prompt"
-            size="4"
             value=""
           />
         </form>
@@ -28,15 +27,14 @@ Object {
         />
         <form>
           <input
-            class="chakra-input css-68zbsl"
+            class="chakra-input css-f8f4qd"
             name="imagePrompt"
             placeholder="image prompt"
-            size="4"
             value=""
           />
         </form>
         <button
-          class="chakra-button css-4xx2wk"
+          class="chakra-button css-5tuqb4"
           type="button"
         >
           Present
@@ -50,10 +48,9 @@ Object {
     >
       <form>
         <input
-          class="chakra-input css-68zbsl"
+          class="chakra-input css-f8f4qd"
           name="textPrompt"
           placeholder="text prompt"
-          size="4"
           value=""
         />
       </form>
@@ -68,15 +65,14 @@ Object {
       />
       <form>
         <input
-          class="chakra-input css-68zbsl"
+          class="chakra-input css-f8f4qd"
           name="imagePrompt"
           placeholder="image prompt"
-          size="4"
           value=""
         />
       </form>
       <button
-        class="chakra-button css-4xx2wk"
+        class="chakra-button css-5tuqb4"
         type="button"
       >
         Present
