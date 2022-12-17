@@ -27,6 +27,9 @@ type Presentation = {
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [presentation, setPresentation] = useState<Presentation>();
+  const [selectedSlide, setSelectedSlide] = useState(
+    presentation && presentation.slides ? presentation.slides.length - 1 : 0
+  );
 
   async function createPresentation(presentationName: string) {
     const newPresentation = await api.createPresentation(presentationName);
@@ -34,9 +37,6 @@ function App() {
     const result = await api.getPresentation(newPresentation.id);
     setPresentation(result);
   }
-  const [selectedSlide, setSelectedSlide] = useState(
-    presentation ? presentation.slides.length - 1 : 0
-  );
 
   async function addTextToSlide(textPrompt: string): Promise<void> {
     if (!presentation) {
