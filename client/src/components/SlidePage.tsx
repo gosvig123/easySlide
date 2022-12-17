@@ -19,38 +19,42 @@ export default function SlidePage(props: SlidePageProps) {
 
   return (
     <Container
-      flex={1}
-      mt="25px"
-      ml={"280px"}
+      className="slide"
+      mt="6"
       display="flex"
+      alignItems="stretch"
       minW="78vw"
-      mr={"200px"}
+      minH="80vh"
       borderWidth="1px"
+      borderRadius="lg"
       borderColor={"black"}
-      backgroundImage={image}
-      backgroundSize="cover"
-      bgRepeat="no-repeat"
-      backgroundPosition="center"
-      centerContent
+      mr={"80px"}
+      padding="0"
+      overflow="hidden"
     >
-      <Center w="400px" h="40px" bg="#F5F5F5" border="1px">
+      <Container
+        flex={1}
+        bg="blue.400"
+        padding="12"
+        className="text"
+        display="flex"
+        flexDir="column"
+        justifyContent="flex-end"
+        fontSize="5xl"
+        fontWeight="semibold"
+        color="white"
+        letterSpacing="tight"
+      >
         <Text>{text}</Text>
-      </Center>
-    </Container>
-  );
-}
-
-/* 
-<Container
-        w="1024px"
-        h="1024"
-        bg="#F5F5F5"
-        //backgroundImage={slide.image}
+      </Container>
+      <Container
+        className="image"
+        flex={1}
+        backgroundImage={image}
         backgroundSize="cover"
         bgRepeat="no-repeat"
         backgroundPosition="center"
-        centerContent
-      >
-        <Text> placeholder </Text>
-</Container>
-       */
+      />
+    </Container>
+  );
+}

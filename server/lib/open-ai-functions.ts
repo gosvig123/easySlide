@@ -19,7 +19,6 @@ export const openAiText = async (
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${apiKey}`,
-          organization: "Qf25exKC4RF5oBGT5JyaHIw2",
         },
         body: JSON.stringify({
           prompt: searchQuery,
