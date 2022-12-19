@@ -98,34 +98,38 @@ export default function SlidesList(props: SlidesListProps) {
           </button>
         </form>
       </Flex>
+
       {Array.isArray(presentation?.slides) &&
-        presentation?.slides.map((slide: Slide, index: number) => (
-          <Box
-            textAlign="center"
-            backgroundImage={slide.image}
-            style={{
-              flexShrink: "0",
-              marginBottom: "15px",
-              marginTop: "15px",
-              borderStyle: "solid",
-              borderRadius: "12px",
-              position: "relative",
-              borderColor: "white",
-              borderWidth: "1px",
-              width: 190,
-              height: 120,
-              color: "black",
-              fontSize: "smaller",
-              overflow: "scroll",
-              backgroundSize: "cover",
-              backgroundColor: "aliceblue",
-            }}
-            key={index}
-            onClick={() => onSelectSlide(index)}
-          >
-            {slide.text}
-          </Box>
-        ))}
+        presentation?.slides.map((slide: Slide, index: number) => {
+          let color = index === props.selectedSlide ? "black" : "white";
+          return (
+            <Box
+              textAlign="center"
+              backgroundImage={slide.image}
+              style={{
+                flexShrink: "0",
+                marginBottom: "15px",
+                marginTop: "15px",
+                borderStyle: "solid",
+                borderRadius: "12px",
+                position: "relative",
+                borderColor: color,
+                borderWidth: "1px",
+                width: 190,
+                height: 120,
+                color: "black",
+                fontSize: "smaller",
+                overflow: "scroll",
+                backgroundSize: "cover",
+                backgroundColor: "aliceblue",
+              }}
+              key={index}
+              onClick={() => onSelectSlide(index)}
+            >
+              {slide.text}
+            </Box>
+          );
+        })}
       <Center
         mt="20px"
         borderRadius="12px"
