@@ -16,6 +16,7 @@ type Slide = {
   image: string;
   text: string;
   presentationid: number;
+  createdAt: string;
 };
 
 type Presentation = {
@@ -86,7 +87,14 @@ function App() {
   async function createSlide() {
     const updatedPresentation = await api.createSlide(presentation?.id);
     setSelectedSlide(updatedPresentation.slides.length - 1);
-    setPresentation(updatedPresentation);
+    setPresentation({
+      ...updatedPresentation,
+      slides: updatedPresentation.slides.sort(function (a: Slide, b: Slide) {
+        var c: any = new Date(a.createdAt);
+        var d: any = new Date(b.createdAt);
+        return c - d;
+      }),
+    });
   }
 
   return (
