@@ -115,7 +115,6 @@ function App() {
         bg="#F4F7FF"
         border="1px"
         centerContent
-        pl={"200px"}
         pb={"60px"}
       >
         <Header

@@ -13,13 +13,8 @@ interface SlidesListProps {
 }
 
 export default function SlidesList(props: SlidesListProps) {
-  const {
-    presentation,
-
-    onSelectSlide,
-    onCreatePresentation,
-    onCreateSlide,
-  } = props;
+  const { presentation, onSelectSlide, onCreatePresentation, onCreateSlide } =
+    props;
 
   type Slide = {
     id: number;
@@ -57,6 +52,7 @@ export default function SlidesList(props: SlidesListProps) {
       w="280px"
       h="100vh"
       align={"center"}
+      borderRight="1px solid black"
     >
       <Text fontSize="24" as="b" mt="20px" mb="20px">
         Smart Slides
@@ -119,9 +115,13 @@ export default function SlidesList(props: SlidesListProps) {
                 height: 120,
                 color: "black",
                 fontSize: "smaller",
-                overflow: "scroll",
-                backgroundSize: "cover",
+                overflow: "hidden",
+                backgroundSize: "50% 100%",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right",
                 backgroundColor: "aliceblue",
+                paddingRight: "45%",
+                textAlign: "left",
               }}
               key={index}
               onClick={() => onSelectSlide(index)}
