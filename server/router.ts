@@ -21,4 +21,6 @@ router.post("/opentext/:id/slides/:slideId", SlideController.updateText);
 
 router.post("/newuser", UserController.createUser);
 
+router.post("/login", UserController.loginUser);
+
 export default router;
