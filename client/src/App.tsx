@@ -33,7 +33,11 @@ function App() {
   );
 
   async function createPresentation(presentationName: string) {
-    const newPresentation = await api.createPresentation(presentationName);
+    const userId = localStorage.getItem("token");
+    const newPresentation = await api.createPresentation(
+      presentationName,
+      userId
+    );
     await api.createSlide(newPresentation.id);
     const result = await api.getPresentation(newPresentation.id);
     setPresentation(result);

@@ -10,7 +10,10 @@ export const getPresentation: any = async (id: string) => {
   return updatedPresentation;
 };
 
-export const createPresentation: any = async (presentationName: string) => {
+export const createPresentation: any = async (
+  presentationName: string,
+  userId: string
+) => {
   const newPresentation = await fetch(`${BASE_URL}/presentations`, {
     method: "POST",
     headers: {
@@ -18,6 +21,7 @@ export const createPresentation: any = async (presentationName: string) => {
     },
     body: JSON.stringify({
       name: presentationName,
+      userId: userId,
     }),
   }).then((data) => data.json());
 

@@ -1,19 +1,41 @@
-import { Presentation } from "@prisma/client";
+/** @format */
+import { Presentation, User } from "@prisma/client";
 import { Request, Response } from "express";
+import prisma from "../lib/prisma";
+
+import jwt from "jsonwebtoken";
+import atob from "atob";
+
 import {
   createPresentation,
   getAllPresentations,
   getPresentationById,
 } from "../models/presentationModel";
 import { createImage, createSlide, createText } from "../models/slidesModel";
+import { type } from "os";
 
-const PresentationController = {
+const PresentationController: any = {
   async createPresentation(req: Request, res: Response) {
     try {
-      const body = req.body;
+      const token = req.body.userId;
+      const decodedEmail = atob(token.split(".")[1]);
+      const secret = process.env.JWT_SECRET;
+      if (secret !== undefined && jwt.verify(JSON.parse(token), secret)) {
+        const activeUser = await prisma.user.findUnique({
+          where: {
+            email: decodedEmail,
+          },
+        });
+        if (typeof activeUser?.id === "number" && activeUser!) {
+          const body = {
+            name: req.body.name,
+            userid: activeUser?.id,
+          };
 
-      const presentation = await createPresentation(body);
-      return res.status(201).json(presentation);
+          const presentation = await createPresentation(body);
+          return res.status(201).json(presentation);
+        }
+      }
     } catch (error) {
       console.log(error);
       return res.status(500).send("error");

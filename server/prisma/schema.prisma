@@ -11,9 +11,11 @@ datasource db {
 }
 
 model Presentation {
-  id     Int     @id @default(autoincrement())
-  name   String
-  slides Slide[]
+  id                Int     @id @default(autoincrement())
+  name              String
+  slides            Slide[]
+  userid            Int
+  presentationOwner User    @relation(fields: [userid], references: [id])
 }
 
 model Slide {
@@ -23,4 +25,11 @@ model Slide {
   createdAt      DateTime     @default(now())
   presentationid Int
   presentation   Presentation @relation(fields: [presentationid], references: [id])
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  password      String
+  presentations Presentation[]
 }

@@ -1,6 +1,9 @@
+/** @format */
+
 import express from "express";
 import PresentationController from "./controllers/presentationController";
 import SlideController from "./controllers/slideControler";
+import UserController from "./controllers/userController";
 
 const router = express.Router();
 
@@ -15,5 +18,7 @@ router.post("/presentations/:id/slides", SlideController.createSlide);
 router.post("/openimage/:id/slides/:slideId", SlideController.updateImage);
 
 router.post("/opentext/:id/slides/:slideId", SlideController.updateText);
+
+router.post("/newuser", UserController.createUser);
 
 export default router;
