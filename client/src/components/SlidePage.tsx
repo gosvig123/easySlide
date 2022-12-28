@@ -5,8 +5,8 @@ import React from "react";
 
 interface Slide {
   id: string;
-  text: string;
-  image: string;
+  text?: string;
+  image?: string;
 }
 
 interface SlidePageProps {
@@ -15,7 +15,8 @@ interface SlidePageProps {
 
 export default function SlidePage(props: SlidePageProps) {
   const { slide } = props;
-  const { text, image } = slide;
+  const { text } = slide || "";
+  const { image } = slide || "";
 
   return (
     <Container
