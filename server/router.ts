@@ -23,4 +23,6 @@ router.post("/newuser", UserController.createUser);
 
 router.post("/login", UserController.loginUser);
 
+router.post("/authenticateUser", UserController.authenticateUser);
+
 export default router;

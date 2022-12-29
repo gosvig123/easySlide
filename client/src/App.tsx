@@ -6,10 +6,31 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Page from "./components/SlidePage";
 import SlidesList from "./components/SlidesList";
 import Header from "./components/Header";
+import { useEffect } from "react";
 // Simple login page that directs to this one, redirects to itself if not logged in
 // Clicking on a Slidepage takes you to Presantation Mode of that page, SlidePage but with keyboard arrow navigation
 
 import * as api from "./lib/api";
+
+const auth = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/";
+  }
+  const authUser = await fetch("http://localhost:8080/authenticateUser", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: token,
+    }),
+  }).then((res) => res.json());
+
+  if (!authUser) {
+    window.location.href = "/";
+  }
+};
 
 type Slide = {
   id: string;
@@ -24,9 +45,11 @@ type Presentation = {
   name: string;
   slides: Array<Slide>;
 };
-
 function App() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  useEffect(() => {
+    auth();
+  }, []);
+
   const [presentation, setPresentation] = useState<Presentation>();
   const [selectedSlide, setSelectedSlide] = useState(
     presentation && presentation.slides ? presentation.slides.length - 1 : 0
