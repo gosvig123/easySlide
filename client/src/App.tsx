@@ -35,7 +35,6 @@ function App() {
   );
 
   const changePresentation = (presentation: Presentation) => {
-    // TODO: update response to contain the full presentation
     setPresentation(presentation);
   };
 
@@ -96,6 +95,10 @@ function App() {
     });
   }
 
+  const startPresentation = () => {
+    return document.querySelector(".slide")?.requestFullscreen();
+  };
+
   async function createSlide() {
     const updatedPresentation = await api.createSlide(presentation?.id);
     setSelectedSlide(updatedPresentation.slides.length - 1);
@@ -133,6 +136,7 @@ function App() {
         <Header
           onSubmitTextPrompt={addTextToSlide}
           onSubmitImagePrompt={addImageToSlide}
+          onSelectSlide={setSelectedSlide}
         />
 
         {presentation && <Page slide={presentation?.slides[selectedSlide]} />}

@@ -1,16 +1,26 @@
 /** @format */
 
 import React, { useState } from "react";
-import { Flex, Spacer } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
-import * as api from "../lib/api";
 
 export default function Header(props: any) {
-  const { onSubmitTextPrompt, onSubmitImagePrompt } = props;
+  const { onSubmitTextPrompt, onSubmitImagePrompt, onSelectSlide } = props;
 
   const [textPrompt, setTextPrompt] = useState("");
   const [imagePrompt, setImagePrompt] = useState("");
+
+  const startPresentation = () => {
+    document.querySelector(".slide")?.requestFullscreen();
+    onkeydown = (e) => {
+      if (e.key === "ArrowRight") {
+        onSelectSlide((prev: number) => prev + 1);
+      } else if (e.key === "ArrowLeft") {
+        onSelectSlide((prev: number) => prev - 1);
+      }
+    };
+  };
 
   const handleTextPromptChange: React.ChangeEventHandler<HTMLInputElement> = (
     e
@@ -22,12 +32,7 @@ export default function Header(props: any) {
   ) => {
     setImagePrompt(e.target.value);
   };
-
   const onTextSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
-    // 1. Read from the form
-    // 2. Tell the app we want to add that text
-    // 3. Wait for re-render
-    // 4. Clear the input
     e.preventDefault();
 
     try {
@@ -70,7 +75,7 @@ export default function Header(props: any) {
       </form>
       {/* This one is for generating an Image. */}
 
-      <Button bg={" #319795;"} color="white">
+      <Button bg={" #319795;"} color="white" onClick={startPresentation}>
         Present
       </Button>
       {/* Click this to enter presentation mode. */}

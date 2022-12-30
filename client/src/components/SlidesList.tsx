@@ -41,7 +41,6 @@ export default function SlidesList(props: SlidesListProps) {
     const getAllPresentations: presentations = api
       .getAllPresentations()
       .then((res: any) => {
-        console.log("res", res);
         setAllPresentations(res);
       });
   }, []);
@@ -140,7 +139,8 @@ export default function SlidesList(props: SlidesListProps) {
                       backgroundPosition: "right",
                       backgroundColor: "aliceblue",
                       paddingRight: "45%",
-                      textAlign: "left",
+                      textAlign: "center",
+                      paddingLeft: "5px",
                     }}
                     key={index}
                     onClick={() => onSelectSlide(index)}

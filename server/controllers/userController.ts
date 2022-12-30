@@ -67,7 +67,6 @@ const userController = {
       if (secret === undefined) {
         throw new Error("JWT_SECRET is undefined");
       }
-      console.log("token:", token);
       const email = token.split(".")[1];
       const decodedEmail = atob(email);
 
