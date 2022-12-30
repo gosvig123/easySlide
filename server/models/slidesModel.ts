@@ -10,8 +10,8 @@ export async function createSlide(
 
   await prisma.slide.create({
     data: {
-      image,
-      text,
+      image: image,
+      text: text,
       presentation: {
         connect: {
           id,
@@ -20,7 +20,7 @@ export async function createSlide(
     },
   });
 
-  return await prisma.presentation.findUniqueOrThrow({
+  const updatedSlides = await prisma.presentation.findMany({
     where: {
       id,
     },
@@ -28,6 +28,8 @@ export async function createSlide(
       slides: true,
     },
   });
+
+  return updatedSlides[0];
 }
 
 export async function createImage(

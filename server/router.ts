@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/presentations", PresentationController.createPresentation);
 
-router.get("/presentations", PresentationController.getAllPresentations);
+router.get("/allpresentations", PresentationController.getAllPresentations);
 
 router.get("/presentations/:id", PresentationController.getPresentationById);
 

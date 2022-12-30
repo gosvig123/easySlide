@@ -11,13 +11,12 @@ import {
   getAllPresentations,
   getPresentationById,
 } from "../models/presentationModel";
-import { createImage, createSlide, createText } from "../models/slidesModel";
-import { type } from "os";
 
 const PresentationController: any = {
   async createPresentation(req: Request, res: Response) {
     try {
       const token = req.body.userId;
+
       const decodedEmail = atob(token.split(".")[1]);
       const secret = process.env.JWT_SECRET;
       if (secret !== undefined && jwt.verify(JSON.parse(token), secret)) {
@@ -33,6 +32,8 @@ const PresentationController: any = {
           };
 
           const presentation = await createPresentation(body);
+
+          console.log(presentation);
           return res.status(201).json(presentation);
         }
       }
@@ -44,7 +45,24 @@ const PresentationController: any = {
 
   async getAllPresentations(req: Request, res: Response) {
     try {
-      const presentations = await getAllPresentations();
+      const token = req.headers.authorization?.split(" ")[1];
+      if (token === undefined) {
+        throw new Error("Token is undefined");
+      }
+      JSON.parse(token);
+      const email = atob(token?.split(".")[1]);
+
+      // const emailToken = token.split(".")[1];
+      const decodedEmail = atob(token);
+      const user = await prisma.user.findUnique({
+        where: {
+          email: email,
+        },
+      });
+      if (user === null) {
+        throw new Error("User is undefined");
+      }
+      const presentations = await getAllPresentations(user?.id);
       return res.status(200).json(presentations);
     } catch (error) {
       console.log(error);
@@ -55,7 +73,6 @@ const PresentationController: any = {
   async getPresentationById(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
-
       const presentation: Presentation | null = await getPresentationById(id);
       return res.status(200).json(presentation);
     } catch (error) {

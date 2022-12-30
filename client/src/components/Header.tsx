@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Flex, Spacer } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
+import * as api from "../lib/api";
 
 export default function Header(props: any) {
   const { onSubmitTextPrompt, onSubmitImagePrompt } = props;
@@ -56,10 +57,6 @@ export default function Header(props: any) {
           onChange={handleTextPromptChange}
         />
       </form>
-      {/* This one is for generating Text. */}
-      <Spacer />
-      <Spacer />
-      <Spacer />
 
       <form onSubmit={onImageSubmit}>
         <Input
