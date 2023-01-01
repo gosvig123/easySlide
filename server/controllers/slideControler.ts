@@ -54,7 +54,6 @@ const SlideController = {
 
   async updateExistingText(req: Request, res: Response) {
     try {
-      console.log(req.params.slideId);
       const slideId = req.params.slideId;
       const { text } = req.body;
 

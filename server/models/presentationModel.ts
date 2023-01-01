@@ -37,7 +37,6 @@ export async function getAllPresentations(
     },
   });
 
-  console.log(presentation[0]);
   return presentation;
 }
 

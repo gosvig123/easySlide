@@ -33,7 +33,6 @@ const PresentationController: any = {
 
           const presentation = await createPresentation(body);
 
-          console.log(presentation);
           return res.status(201).json(presentation);
         }
       }

@@ -58,7 +58,6 @@ export const createPresentation: any = async (
   presentationName: string,
   userId: string
 ) => {
-  console.log(typeof userId);
   const newPresentation = await fetch(`${BASE_URL}/presentations`, {
     method: "POST",
     headers: {
@@ -172,8 +171,6 @@ export const completeText: any = async (
 };
 
 export const updateText = async (slideId: string, text: string) => {
-  const url = `${BASE_URL}/updateText/${slideId}`;
-  console.log(url);
   const slideWithUpdatedText = await fetch(
     `${BASE_URL}/updateText/${slideId}`,
     {
@@ -186,6 +183,5 @@ export const updateText = async (slideId: string, text: string) => {
       }),
     }
   ).then((res) => res.json());
-  console.log(slideWithUpdatedText);
   return slideWithUpdatedText;
 };
