@@ -65,3 +65,19 @@ export async function createText(
 
   return slide;
 }
+
+export async function updateText(
+  slideId: string,
+  text: string
+): Promise<Slide> {
+  const slide = await prisma.slide.update({
+    where: {
+      id: slideId,
+    },
+    data: {
+      text,
+    },
+  });
+
+  return slide;
+}

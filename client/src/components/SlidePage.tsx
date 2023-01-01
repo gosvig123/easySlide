@@ -2,6 +2,7 @@
 
 import { Container, Text, Textarea } from "@chakra-ui/react";
 import React from "react";
+import * as api from "../lib/api";
 
 interface Slide {
   id: string;
@@ -11,14 +12,34 @@ interface Slide {
 
 interface SlidePageProps {
   slide: Slide;
+  textValue: string;
+  setTextValue: React.Dispatch<React.SetStateAction<string>>;
+  setPresentation: React.Dispatch<React.SetStateAction<any>>;
+  presentation: any;
 }
 
 export default function SlidePage(props: SlidePageProps) {
-  const { slide } = props;
+  const { slide, textValue, setTextValue, setPresentation, presentation } =
+    props;
   const { text } = slide || "";
   const { image } = slide || "";
-  const [textValue, setTextValue] = React.useState(text || "");
+  const { id } = slide || "";
 
+  const changeTextOnSlide = async (slideId: string, eTargetValue: string) => {
+    setTextValue(eTargetValue);
+    const newSlide = await api.updateText(id, textValue);
+    const updatedPresentation = {
+      ...presentation,
+      slides: presentation.slides.map((slide: Slide) => {
+        if (slide.id === newSlide.id) {
+          return newSlide;
+        }
+        return slide;
+      }),
+    };
+
+    setPresentation(updatedPresentation);
+  };
   // TODO 1: manage text state for new text and existing text
 
   // TODO 2: store data on server onSlideChange
@@ -61,7 +82,7 @@ export default function SlidePage(props: SlidePageProps) {
           fontSize={"2xl"}
           h={"100%"}
           w={"100%"}
-          onChange={(e) => setTextValue(e.target.value)}
+          onChange={(e) => changeTextOnSlide(id, e.target.value)}
           value={textValue}
           border={0}
         ></Textarea>

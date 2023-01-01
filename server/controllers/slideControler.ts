@@ -51,6 +51,19 @@ const SlideController = {
       res.status(500).send("error");
     }
   },
+
+  async updateExistingText(req: Request, res: Response) {
+    try {
+      console.log(req.params.slideId);
+      const slideId = req.params.slideId;
+      const { text } = req.body;
+
+      const updatedSlide = await SlideModel.updateText(slideId, text);
+      res.status(200).json(updatedSlide);
+    } catch {
+      res.status(500).send("error");
+    }
+  },
 };
 
 export default SlideController;

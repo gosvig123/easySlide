@@ -33,6 +33,9 @@ function App() {
   const [selectedSlide, setSelectedSlide] = useState(
     presentation && presentation.slides ? presentation.slides.length - 1 : 0
   );
+  const [textValue, setTextValue] = React.useState(
+    presentation?.slides[selectedSlide]["text"] || ""
+  );
 
   const changePresentation = (presentation: Presentation) => {
     setPresentation(presentation);
@@ -66,7 +69,6 @@ function App() {
       ...presentation,
       slides: presentation.slides.map((slide, index) => {
         if (index !== selectedSlide) return slide;
-
         return updatedSlide;
       }),
     });
@@ -95,10 +97,6 @@ function App() {
     });
   }
 
-  const startPresentation = () => {
-    return document.querySelector(".slide")?.requestFullscreen();
-  };
-
   async function createSlide() {
     const updatedPresentation = await api.createSlide(presentation?.id);
     setSelectedSlide(updatedPresentation.slides.length - 1);
@@ -121,6 +119,7 @@ function App() {
         onCreatePresentation={createPresentation}
         onCreateSlide={createSlide}
         onChangePresentation={changePresentation}
+        setTextValue={setTextValue}
       />
 
       <Container
@@ -137,9 +136,19 @@ function App() {
           onSubmitTextPrompt={addTextToSlide}
           onSubmitImagePrompt={addImageToSlide}
           onSelectSlide={setSelectedSlide}
+          slide={presentation?.slides[selectedSlide]}
+          setTextValue={setTextValue}
         />
 
-        {presentation && <Page slide={presentation?.slides[selectedSlide]} />}
+        {presentation && (
+          <Page
+            slide={presentation?.slides[selectedSlide]}
+            setTextValue={setTextValue}
+            textValue={textValue}
+            setPresentation={setPresentation}
+            presentation={presentation}
+          />
+        )}
       </Container>
     </ChakraProvider>
   );

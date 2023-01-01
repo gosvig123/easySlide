@@ -25,4 +25,6 @@ router.post("/login", UserController.loginUser);
 
 router.post("/authenticateUser", UserController.authenticateUser);
 
+router.post("/updateText/:slideId", SlideController.updateExistingText);
+
 export default router;

@@ -170,3 +170,22 @@ export const completeText: any = async (
 
   return newText;
 };
+
+export const updateText = async (slideId: string, text: string) => {
+  const url = `${BASE_URL}/updateText/${slideId}`;
+  console.log(url);
+  const slideWithUpdatedText = await fetch(
+    `${BASE_URL}/updateText/${slideId}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        text: text,
+      }),
+    }
+  ).then((res) => res.json());
+  console.log(slideWithUpdatedText);
+  return slideWithUpdatedText;
+};

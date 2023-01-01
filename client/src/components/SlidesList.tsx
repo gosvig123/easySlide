@@ -14,6 +14,7 @@ interface SlidesListProps {
   onCreatePresentation: (presentationName: string) => void;
   onCreateSlide: () => void;
   onChangePresentation: (presentation: object) => void;
+  setTextValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function SlidesList(props: SlidesListProps) {
@@ -23,6 +24,7 @@ export default function SlidesList(props: SlidesListProps) {
     onCreatePresentation,
     onCreateSlide,
     onChangePresentation,
+    setTextValue,
   } = props;
 
   type Slide = {
@@ -62,6 +64,11 @@ export default function SlidesList(props: SlidesListProps) {
 
   const handleCreateSlide: React.MouseEventHandler<HTMLElement> = async () => {
     onCreateSlide();
+  };
+
+  const changeSlide = (index: number) => {
+    onSelectSlide(index);
+    setTextValue(presentation.slides[index].text);
   };
 
   return (
@@ -143,7 +150,10 @@ export default function SlidesList(props: SlidesListProps) {
                       paddingLeft: "5px",
                     }}
                     key={index}
-                    onClick={() => onSelectSlide(index)}
+                    onClick={() => changeSlide(index)}
+                    onCompositionUpdate={() => {
+                      changeSlide(index);
+                    }}
                   >
                     {slide.text}
                   </Box>
