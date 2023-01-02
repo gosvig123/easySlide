@@ -137,7 +137,7 @@ function App() {
           onSubmitTextPrompt={addTextToSlide}
           onSubmitImagePrompt={addImageToSlide}
           onSelectSlide={setSelectedSlide}
-          slide={presentation?.slides[selectedSlide]}
+          setTextValue={setTextValue}
           presentation={presentation}
         />
 

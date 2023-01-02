@@ -6,18 +6,29 @@ import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 
 export default function Header(props: any) {
-  const { onSubmitTextPrompt, onSubmitImagePrompt, onSelectSlide } = props;
-
+  const {
+    onSubmitTextPrompt,
+    onSubmitImagePrompt,
+    onSelectSlide,
+    setTextValue,
+    presentation,
+  } = props;
   const [textPrompt, setTextPrompt] = useState("");
   const [imagePrompt, setImagePrompt] = useState("");
 
   const startPresentation = () => {
     document.querySelector(".slide")?.requestFullscreen();
+    let slideNumber = 0;
     onkeydown = (e) => {
       if (e.key === "ArrowRight") {
-        onSelectSlide((prev: number) => prev + 1);
+        slideNumber = slideNumber + 1;
+        onSelectSlide(slideNumber);
+        setTextValue(presentation.slides[slideNumber].text);
       } else if (e.key === "ArrowLeft") {
-        onSelectSlide((prev: number) => prev - 1);
+        slideNumber = slideNumber - 1;
+        onSelectSlide(slideNumber);
+
+        setTextValue(presentation.slides[slideNumber].text);
       }
     };
   };
@@ -75,7 +86,12 @@ export default function Header(props: any) {
       </form>
       {/* This one is for generating an Image. */}
 
-      <Button bg={" #319795;"} color="white" onClick={startPresentation}>
+      <Button
+        bg={" #319795;"}
+        color="white"
+        onClick={startPresentation}
+        onPointerDown={startPresentation}
+      >
         Present
       </Button>
       {/* Click this to enter presentation mode. */}
