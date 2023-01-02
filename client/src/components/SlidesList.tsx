@@ -40,11 +40,9 @@ export default function SlidesList(props: SlidesListProps) {
   const [allPresentations, setAllPresentations] = React.useState<any>([]);
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const getAllPresentations: presentations = api
-      .getAllPresentations()
-      .then((res: any) => {
-        setAllPresentations(res);
-      });
+    api.getAllPresentations().then((res: presentations) => {
+      setAllPresentations(res);
+    });
   }, []);
 
   const [presentationName, setPresentationName] = React.useState("");
