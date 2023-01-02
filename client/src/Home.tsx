@@ -1,7 +1,7 @@
 /** @format */
 
-import { Flex } from "@chakra-ui/react";
 import React from "react";
+import { Flex } from "@chakra-ui/react";
 import { useState } from "react";
 
 function Home() {
@@ -71,52 +71,168 @@ function Home() {
     window.location.href = "/app";
   };
 
+  // https://player.vimeo.com/video/337026530?title=0&portrait=0&byline=0&autoplay=1&muted=true
   return (
-    <Flex className="mainFlexHome" flexDir={"row"}>
-      <h1>Home</h1>
-      <form onSubmit={handleSubmitCreateUser}>
-        <label htmlFor="email">Email</label>
-        <input
-          onChange={handleChangeCreateUser}
-          name="email"
-          type="email"
-          value={createUserEmail}
-        />
-        <br />
-        <label htmlFor="password">
-          Password
+    <Flex
+      className="home"
+      h={"100vh"}
+      w={"100vw"}
+      zIndex={1}
+      p={0}
+      m={0}
+      border={0}
+      bg={"white"}
+      position={"absolute"}
+    >
+      <h1
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          fontSize: "50px",
+          color: "black",
+          zIndex: 1,
+        }}
+      >
+        Create Beautiful Presentations In Minutes
+      </h1>
+      <br />
+      <iframe
+        title="video"
+        src="https://player.vimeo.com/video/337026530?title=0&portrait=0&byline=0&autoplay=1&muted=true&loop=1&background=1&controls=0&quality=1080p&allow=autoplay;fullscreen"
+        allowTransparency={true}
+        style={{
+          position: "absolute",
+          opacity: 0.5,
+          width: "100%",
+          height: "105%",
+          zIndex: -1,
+          border: "none",
+          maskRepeat: "repeat",
+          padding: 0,
+          margin: 0,
+          right: 0,
+          bottom: 0,
+          pointerEvents: "none",
+        }}
+      ></iframe>
+      <Flex
+        flexDir={"row"}
+        style={{
+          justifyContent: "center",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <form
+          style={{
+            marginRight: "50px",
+          }}
+          onSubmit={handleSubmitCreateUser}
+        >
+          <h3>Create a new Account</h3>
+          <label htmlFor="email">Email</label>
           <input
+            style={{
+              width: "200px",
+              marginBottom: "10px",
+              marginLeft: "20px",
+              borderRadius: "5px",
+              border: "none",
+            }}
             onChange={handleChangeCreateUser}
-            name="password"
-            value={createUsePassword}
-            type="password"
+            name="email"
+            type="email"
+            value={createUserEmail}
           />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
 
-      <form onSubmit={handleSubmitLogin}>
-        <label htmlFor="email">Email</label>
-        <input
-          onChange={handleChangeLogin}
-          name="email"
-          type="email"
-          value={email}
-        />
-        <br />
-        <label htmlFor="password">
-          Password
+          <br />
+          <label htmlFor="password">
+            Password
+            <input
+              onChange={handleChangeCreateUser}
+              name="password"
+              value={createUsePassword}
+              type="password"
+              style={{
+                marginLeft: "20px",
+                borderRadius: "5px",
+                border: "none",
+              }}
+            />
+          </label>
+          <br />
+          <button
+            style={{
+              backgroundColor: "black",
+              borderRadius: "5px",
+              color: "white",
+              border: "1px solid black",
+              width: "100px",
+              height: "30px",
+              marginTop: "10px",
+            }}
+            type="submit"
+          >
+            Create
+          </button>
+        </form>
+
+        <form
+          style={{
+            marginLeft: "50px",
+          }}
+          onSubmit={handleSubmitLogin}
+        >
+          <h3>Login to your account</h3>
+
+          <label htmlFor="email">Email</label>
           <input
+            style={{
+              width: "200px",
+              marginBottom: "10px",
+              marginLeft: "20px",
+              borderRadius: "5px",
+              border: "none",
+            }}
             onChange={handleChangeLogin}
-            name="password"
-            value={password}
-            type="password"
+            name="email"
+            type="email"
+            value={email}
           />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
+          <br />
+          <label htmlFor="password">
+            Password
+            <input
+              style={{
+                marginLeft: "20px",
+                borderRadius: "5px",
+                border: "none",
+              }}
+              onChange={handleChangeLogin}
+              name="password"
+              value={password}
+              type="password"
+            />
+          </label>
+          <br />
+          <button
+            style={{
+              backgroundColor: "black",
+              borderRadius: "5px",
+              color: "white",
+              border: "1px solid black",
+              width: "100px",
+              height: "30px",
+              marginTop: "10px",
+            }}
+            type="submit"
+          >
+            Login
+          </button>
+        </form>
+      </Flex>
     </Flex>
   );
 }
