@@ -26,8 +26,8 @@ export default function SlidePage(props: SlidePageProps) {
   const { id } = slide || "";
 
   const changeTextOnSlide = async (slideId: string, eTargetValue: string) => {
-    setTextValue(eTargetValue);
-    const newSlide = await api.updateText(id, textValue);
+    const newSlide = await api.updateText(id, eTargetValue);
+    setTextValue(newSlide.text);
     const updatedPresentation = {
       ...presentation,
       slides: presentation.slides.map((slide: Slide) => {
@@ -37,12 +37,8 @@ export default function SlidePage(props: SlidePageProps) {
         return slide;
       }),
     };
-
     setPresentation(updatedPresentation);
   };
-  // TODO 1: manage text state for new text and existing text
-
-  // TODO 2: store data on server onSlideChange
 
   return (
     <Container
@@ -86,7 +82,6 @@ export default function SlidePage(props: SlidePageProps) {
           value={textValue}
           border={0}
         ></Textarea>
-        <Text>{text}</Text>
       </Container>
     </Container>
   );

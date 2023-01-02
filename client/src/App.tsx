@@ -34,7 +34,7 @@ function App() {
     presentation && presentation.slides ? presentation.slides.length - 1 : 0
   );
   const [textValue, setTextValue] = React.useState(
-    presentation?.slides[selectedSlide]["text"] || ""
+    presentation?.slides[selectedSlide].text || ""
   );
 
   const changePresentation = (presentation: Presentation) => {
@@ -65,6 +65,7 @@ function App() {
       presentation.slides[selectedSlide].id
     );
 
+    setTextValue(textValue + updatedSlide.text);
     setPresentation({
       ...presentation,
       slides: presentation.slides.map((slide, index) => {
@@ -137,7 +138,7 @@ function App() {
           onSubmitImagePrompt={addImageToSlide}
           onSelectSlide={setSelectedSlide}
           slide={presentation?.slides[selectedSlide]}
-          setTextValue={setTextValue}
+          presentation={presentation}
         />
 
         {presentation && (

@@ -101,7 +101,6 @@ export const createImage: any = async (
       body: JSON.stringify({ image }),
     }
   ).then((res) => res.json());
-
   return newImage;
 };
 
@@ -122,7 +121,6 @@ export const createText: any = async (
       }),
     }
   ).then((res) => res.json());
-
   return newText;
 };
 
@@ -166,7 +164,6 @@ export const completeText: any = async (
       }),
     }
   ).then((res) => res.json());
-
   return newText;
 };
 
