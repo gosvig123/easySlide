@@ -5,7 +5,6 @@ import { Center } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import * as api from "../lib/api";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import { type } from "os";
 
 interface SlidesListProps {
   presentation: any;

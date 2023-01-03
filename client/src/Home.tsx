@@ -71,7 +71,6 @@ function Home() {
     window.location.href = "/app";
   };
 
-  // https://player.vimeo.com/video/337026530?title=0&portrait=0&byline=0&autoplay=1&muted=true
   return (
     <Flex
       className="home"

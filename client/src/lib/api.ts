@@ -20,9 +20,6 @@ export const getPresentation: any = async (id: string) => {
 export const getAllPresentations: any = async () => {
   const rawToken = localStorage.getItem("token");
   const url = `${BASE_URL}/allpresentations`;
-  if (rawToken === null) {
-    throw new Error("No token found");
-  }
 
   const allPresentations: any = await fetch(`${url}`, {
     method: "GET",

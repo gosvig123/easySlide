@@ -1,6 +1,6 @@
 /** @format */
 
-import { Container, Text, Textarea } from "@chakra-ui/react";
+import { Container, Textarea } from "@chakra-ui/react";
 import React from "react";
 import * as api from "../lib/api";
 
@@ -21,11 +21,10 @@ interface SlidePageProps {
 export default function SlidePage(props: SlidePageProps) {
   const { slide, textValue, setTextValue, setPresentation, presentation } =
     props;
-  const { text } = slide || "";
   const { image } = slide || "";
   const { id } = slide || "";
 
-  const changeTextOnSlide = async (slideId: string, eTargetValue: string) => {
+  const changeTextOnSlide = async (eTargetValue: string) => {
     const newSlide = await api.updateText(id, eTargetValue);
     setTextValue(newSlide.text);
     const updatedPresentation = {
@@ -78,7 +77,7 @@ export default function SlidePage(props: SlidePageProps) {
           fontSize={"2xl"}
           h={"100%"}
           w={"100%"}
-          onChange={(e) => changeTextOnSlide(id, e.target.value)}
+          onChange={(e) => changeTextOnSlide(e.target.value)}
           value={textValue}
           border={0}
         ></Textarea>
