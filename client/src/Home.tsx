@@ -86,36 +86,18 @@ function Home() {
       <h1
         style={{
           position: "absolute",
-          top: "50%",
+          top: "20%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          fontSize: "50px",
+          fontSize: "30px",
           color: "black",
           zIndex: 1,
         }}
       >
-        Create Beautiful Presentations In Minutes
+        SmartSlides - Create Beautiful Presentations In Minutes
       </h1>
       <br />
-      <iframe
-        title="video"
-        src="https://player.vimeo.com/video/337026530?title=0&portrait=0&byline=0&autoplay=1&muted=true&loop=1&background=1&controls=0&quality=1080p&allow=autoplay;fullscreen"
-        allowTransparency={true}
-        style={{
-          position: "absolute",
-          opacity: 0.5,
-          width: "100%",
-          height: "105%",
-          zIndex: -1,
-          border: "none",
-          maskRepeat: "repeat",
-          padding: 0,
-          margin: 0,
-          right: 0,
-          bottom: 0,
-          pointerEvents: "none",
-        }}
-      ></iframe>
+
       <Flex
         flexDir={"row"}
         style={{
@@ -124,13 +106,13 @@ function Home() {
           height: "100%",
         }}
       >
-        <form
+        {/* <form
           style={{
             marginRight: "50px",
           }}
-          onSubmit={handleSubmitCreateUser}
-        >
-          <h3>Create a new Account</h3>
+          onSubmit={handleSubmitCreateUser} */}
+        {/* > */}
+        {/* <h3>Create a new Account</h3>
           <label htmlFor="email">Email</label>
           <input
             style={{
@@ -176,9 +158,21 @@ function Home() {
           >
             Create
           </button>
-        </form>
-
-        <form
+        </form> */}
+        <iframe
+          width="760"
+          style={{
+            position: "absolute",
+            top: "30%",
+          }}
+          height="415"
+          src="https://www.youtube.com/embed/m8j7wlW-NPI?start=0"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
+        {/* <form
           style={{
             marginLeft: "50px",
           }}
@@ -230,7 +224,7 @@ function Home() {
           >
             Login
           </button>
-        </form>
+        </form> */}
       </Flex>
     </Flex>
   );

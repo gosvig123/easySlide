@@ -45,13 +45,14 @@ export default function SlidePage(props: SlidePageProps) {
       mt="7vh"
       display="flex"
       alignItems="stretch"
-      minW="78vw"
+      minW="75vw"
       minH="80vh"
-      ml="17vw"
+      ml="24vw"
+      mr={"2vw"}
       borderWidth="1px"
       borderRadius="lg"
+      padding={"0"}
       borderColor={"black"}
-      padding="0"
       overflow="hidden"
     >
       <Container
@@ -77,6 +78,7 @@ export default function SlidePage(props: SlidePageProps) {
           fontSize={"2xl"}
           h={"100%"}
           w={"100%"}
+          bg={"transparent"}
           onChange={(e) => changeTextOnSlide(e.target.value)}
           value={textValue}
           border={0}
